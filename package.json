@@ -24,7 +24,8 @@
   "scripts": {
     "dev": "tsc && vite build --watch",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "docs:dev": "pnpm --filter sast-ui-docs dev"
   },
   "dependencies": {
     "@lit/react": "^1.0.3",
