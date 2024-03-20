@@ -1,0 +1,49 @@
+@use "./reset.scss" as *;
+
+* {
+  // color variables
+  --primary-color: #0078d4;
+  --primary-color-rgb: 0, 120, 212;
+  --primary-color-background-rgb: 219, 236, 249;
+  --secondary-color: #71afe5;
+  --danger-color: #d33232;
+  --danger-color-rgb: 255, 0, 0;
+  --danger-color-background-rgb: 255, 245, 245;
+  --warning-color: #ffb900;
+  --warning-color-rgb: 255, 185, 0;
+  --warning-color-background-rgb: 255, 252, 245;
+  --success-color: #00c853;
+  --success-color-rgb: 0, 200, 83;
+  --success-color-background-rgb: 245, 253, 248;
+  --white-color: #ffffff;
+  --black-color: #121212;
+  --black-color-rgb: 18, 18, 18;
+  --title-shadow: #f3f3f3;
+  --shadow-color: rgb(128, 128, 128);
+  --shadow-color-rgb: 128, 128, 128;
+  --dark-color: rgb(30, 30, 30);
+  --small-font-size: 12px;
+  --medium-font-size: 16px;
+  --large-font-size: 20px;
+  font-family: sans-serif;
+  --background-blue: #ecf2ff;
+  --border-white: #f1f1f1;
+  --pale-white: #fcfcfc;
+}
+
+::-webkit-scrollbar {
+  all: unset;
+  width: 4px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--shadow-color);
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-track {
+  margin: 5px;
+}
+
+.stopMove {
+  overflow: hidden;
+}

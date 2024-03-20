@@ -1,0 +1,38 @@
+import Wraper from '../tools/wraper/index'
+import {Button} from '@sast/ui-universal'
+
+
+# Button Component
+
+<Wraper>
+    <Button color="primary" size="small" shadow="regular" disabled={false} disabledShadow={true}>
+        Button Example
+    </Button>
+</Wraper>
+
+Simple button component
+
+## Properties
+
+| Property         | Description                                                               | Type                                     | Default   |
+|------------------|---------------------------------------------------------------------------|------------------------------------------|-----------|
+| `color`          | The color of the button.                                                  | `"primary"`, `"secondary"`, `"ghost"`, `"danger"`, `"border"` | `"primary"` |
+| `size`           | The size of the button.                                                   | `"small"`, `"medium"`, `"large"`         | `"medium"` |
+| `shadow`         | The shadow of the button.                                                  | `"regular"`, `"small"`, `"medium"`, `"large"`, `"extraLarge"`, `"inner"`, `"none"` | `"none"`   |
+| `disabled`       | If `true`, the button will be disabled.                                   | `boolean`                                | `false`   |
+| `disabledShadow` | When the button is disabled, specifies whether the shadow should be applied or not. | `boolean`                                | `true`    |
+
+## Try it out
+
+```jsx
+import React from 'react';
+import {Button} from '@sast/ui-universal'
+
+export default function App (){
+    return (
+        <Button color="primary" size="medium" shadow="regular" disabled={false} disabledShadow={true}>
+            Click me
+        </Button>
+    )
+}
+```
