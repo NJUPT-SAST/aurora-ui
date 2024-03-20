@@ -1,16 +1,12 @@
 [
   {
-    "text": "Guide",
-    "link": "/guide/",
-    "activeMatch": "/guide/"
+    "text": "React Components",
+    "link": "/components/react/",
+    "activeMatch": "/components/react/"
   },
   {
-    "text": "Hello World",
-    "link": "/hello/",
-    "activeMatch": "/hello/"
-  },
-  {
-    "text": "API",
-    "link": "https://rspress.dev/api/index.html"
+    "text": "Universal Components (developing)",
+    "link": "/components/universal/index.html",
+    "activeMatch": "/components/universal"
   }
 ]

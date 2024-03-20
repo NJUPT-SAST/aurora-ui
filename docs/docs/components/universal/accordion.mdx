@@ -1,0 +1,45 @@
+import { Accordion } from '@sast/ui-universal';
+import Wraper from '../tools/wraper/index'
+
+
+# Accordion Component
+
+Accordion component allows you to expand and collapse content.
+
+<Wraper>
+    <Accordion width={300} disabled={false}>
+        <div slot="title">Accordion Title</div>
+        <div slot="content">Accordion Content</div>
+    </Accordion>
+</Wraper>
+
+## Properties
+
+| Property   | Description                                   | Type      | Default |
+|------------|-----------------------------------------------|-----------|---------|
+| `width`    | The width of the Accordion.                   | `number`  | `280`   |
+| `disabled` | If `true`, the Accordion will be disabled.    | `boolean` | `false` |
+
+## Use in HTML
+```html
+<s-accordion width="300" disabled="false">
+    <div slot="title">Accordion Title</div>
+    <div slot="content">Accordion Content</div>
+</s-accordion>
+```
+
+## Try it out
+
+```jsx
+import React from 'react';
+import { Accordion } from '@sast/ui-universal';
+
+export default function App (){
+    return (
+        <Accordion width={300} disabled={false}>
+            <div slot="title">Accordion Title</div>
+            <div slot="content">Accordion Content</div>
+        </Accordion>
+    );
+}
+```

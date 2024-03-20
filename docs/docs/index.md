@@ -2,19 +2,19 @@
 pageType: home
 
 hero:
-  name: SAST-UI-DOCS
-  text: Rspack-based Static Site Generator
-  tagline: SAST-UI-DOCS tagline
+  name: SAST UI DOCS
+  text: 🌏 UI component library for the future
+  tagline: now available for React
   actions:
     - theme: brand
-      text: Quick Start
-      link: /guide/
+      text: Components
+      link: /components/
     - theme: alt
       text: Github
-      link: https://github.com/web-infra-dev/rspress
+      link: https://github.com/NJUPT-SAST/SAST-UI
   image:
     src: /rspress-icon.png
-    alt: SAST-UI-DOCS Logo
+    alt: SAST UI DOCS Logo
 features:
   - title: Blazing fast build speed
     details: The core compilation module is based on the Rust front-end toolchain, providing a more ultimate development experience.
