@@ -1,0 +1,30 @@
+@mixin color-badge($color-name) {
+  background-color: rgba(var(--#{$color-name}-color-background-rgb), 1);
+  color: var(--#{$color-name}-color);
+}
+
+.base {
+  padding: 3px 10px;
+  border-radius: 5px;
+  &.info {
+    @include color-badge(primary);
+  }
+  &.success {
+    @include color-badge(success);
+  }
+  &.warning {
+    @include color-badge(warning);
+  }
+  &.error {
+    @include color-badge(danger);
+  }
+  &.medium {
+    font-size: 14px;
+  }
+  &.large {
+    font-size: 18px;
+  }
+  &.small {
+    font-size: 10px;
+  }
+}

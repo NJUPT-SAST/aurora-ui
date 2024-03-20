@@ -1,0 +1,72 @@
+@use '../variables' as *;
+@mixin animation($name) {
+  animation-name: $name;
+  animation-duration: 400ms;
+  animation-timing-function: $cubic-bezier;
+  animation-fill-mode: forwards;
+}
+
+.background {
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  box-sizing: border-box;
+  background-color: $background-shadow-color;
+  &.background-in {
+    @include animation(in);
+  }
+  &.background-hide {
+    @include animation(hide);
+  }
+  .base {
+    @include absolute-center;
+    &.in {
+      @include animation(dialog-in);
+    }
+    &.hide {
+      @include animation(dialog-hide);
+    }
+  }
+}
+
+@keyframes dialog-in {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes dialog-hide {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+}
+
+@keyframes in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes hide {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}

@@ -1,0 +1,43 @@
+@use '../variables' as *;
+$padding: 10px;
+.base {
+  .header-container {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    background-color: var(--border-white);
+    padding: $padding;
+    padding-bottom: 7px;
+    color: var(--black-color);
+    overflow: hidden;
+    border-radius: $radius-5 $radius-5 0 0;
+    font-weight: 700;
+    box-sizing: border-box;
+    svg {
+      fill: var(--primary-color);
+    }
+  }
+  .select-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: $padding;
+    .refresh-button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 34px;
+      border-radius: $radius-half;
+      svg {
+        fill: var(--primary-color);
+      }
+    }
+  }
+  .divider {
+    flex-basis: 1px;
+    background-color: var(--border-white);
+  }
+  .editor-container {
+    flex-grow: 1;
+  }
+}

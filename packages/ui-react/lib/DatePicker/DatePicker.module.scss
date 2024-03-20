@@ -1,0 +1,72 @@
+@use '../variables' as *;
+$animation-duration: $duration-300;
+$border: $border-1;
+@mixin animation($type) {
+  animation-name: #{$type};
+  animation-duration: $animation-duration;
+  animation-timing-function: $cubic-bezier;
+  animation-fill-mode: forwards;
+}
+.date-picker-button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--shadow-color) !important;
+  transition: all $animation-duration $cubic-bezier;
+  padding: 10px 15px !important;
+  width: 250px;
+  height: 42px;
+  border-radius: $radius-10;
+  border: $border solid var(--shadow-color) !important;
+  font-size: $font-size-14 !important;
+  padding: 11px !important;
+  .select-date {
+    color: var(--black-color) !important;
+  }
+  &.is-select-date {
+    border: $border solid var(--primary-color) !important;
+    color: var(--primary-color) !important;
+    svg {
+      fill: var(--primary-color) !important;
+    }
+  }
+  svg {
+    fill: var(--shadow-color);
+    transition: all $animation-duration $cubic-bezier;
+  }
+  &:hover {
+    color: var(--primary-color) !important;
+    border: $border solid var(--primary-color) !important;
+    svg {
+      fill: var(--primary-color);
+    }
+  }
+}
+.calendar-container {
+  position: absolute;
+  margin-top: 5px;
+  &.in {
+    @include animation(in);
+  }
+  &.hide {
+    @include animation(hide);
+  }
+}
+
+@keyframes in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes hide {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
