@@ -1,45 +1,23 @@
 {
   "name": "sast-ui",
-  "private": false,
-  "version": "0.0.1",
-  "type": "module",
-  "main": "./dist/index.cjs.js",
-  "module": "./dist/index.es.js",
-  "types": "./dist/index.d.ts",
-  "files": [
-    "dist"
-  ],
-  "exports": {
-    ".": {
-      "import": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.es.js"
-      },
-      "require": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.cjs.js"
-      }
-    }
-  },
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "dev": "tsc && vite build --watch",
-    "build": "tsc && vite build",
-    "preview": "vite preview",
-    "docs:dev": "pnpm --filter sast-ui-docs dev"
+    "ui-uni:dev": "pnpm --filter @sast/ui-universal dev",
+    "ui-react:start": "pnpm --filter @sast/ui-react dev:lib",
+    "ui-react:dev": "pnpm --filter @sast/ui-react dev",
+    "docs:dev": "pnpm --filter @sast/ui-docs dev"
   },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "dependencies": {
-    "@lit/react": "^1.0.3",
-    "lit": "^3.1.2",
     "react": "^18.2.0",
-    "vite-plugin-dts": "^3.6.4"
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@types/react": "^18.2.43",
-    "rollup-plugin-copy": "^3.5.0",
-    "rollup-plugin-postcss": "^4.0.2",
-    "rollup-plugin-postcss-lit": "^2.1.0",
     "sass": "^1.69.5",
-    "typescript": "^5.3.3",
-    "vite": "^5.1.6"
+    "typescript": "^5.3.3"
   }
 }

@@ -1,0 +1,145 @@
+@use '../variables' as *;
+$animation-duration: $duration-400;
+$border-radius: $radius-5;
+@mixin animation($name) {
+  animation-name: $name;
+  animation-duration: $animation-duration;
+  animation-timing-function: $cubic-bezier;
+}
+@mixin type($type-name) {
+  color: var(--#{$type-name}-color);
+  .closeButton {
+    .icon {
+      fill: var(--#{$type-name}-color);
+    }
+  }
+}
+.base {
+  border-radius: $border-radius;
+  gap: 10px;
+  box-sizing: border-box;
+  opacity: 0;
+  transform: translateY(100px);
+  overflow: hidden;
+  transition: all $animation-duration $cubic-bezier;
+  padding: 12px 10px 16px 20px;
+  display: flex !important;
+  @include shadow;
+  background-color: var(--white-color);
+  &.visible {
+    opacity: 1;
+    scale: 1;
+    transform: translateY(0);
+  }
+  .sider {
+    position: absolute;
+    width: 5px;
+    height: -webkit-fill-available;
+    left: 0;
+    top: 0;
+    &.infoSider {
+      background-color: var(--primary-color);
+    }
+    &.errorSider {
+      background-color: var(--danger-color);
+    }
+    &.warningSider {
+      background-color: var(--warning-color);
+    }
+    &.successSider {
+      background-color: var(--success-color);
+    }
+  }
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  .header {
+    font-weight: bold;
+    font-size: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    .closeButton {
+      cursor: pointer;
+      height: 30px;
+      width: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: all $animation-duration $cubic-bezier;
+      &:hover {
+        scale: 1.05;
+      }
+      &:active {
+        scale: 0.95;
+      }
+    }
+  }
+  .content {
+    display: flex;
+    margin-top: 10px;
+  }
+
+  .footer {
+    margin-top: 10px;
+  }
+  &.info {
+    @include type(primary);
+  }
+  &.success {
+    @include type(success);
+  }
+  &.warning {
+    @include type(warning);
+  }
+  &.error {
+    @include type(danger);
+  }
+  &.small {
+    width: 300px;
+    .inner {
+      padding: 10px;
+    }
+  }
+  &.medium {
+    width: 400px;
+    .inner {
+      padding: 15px;
+    }
+  }
+  &.large {
+    width: 500px;
+    .inner {
+      padding: 20px;
+    }
+  }
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  .toastShow {
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+    @include animation(slideIn);
+    transition: all $animation-duration $cubic-bezier;
+  }
+  .toastHide {
+    bottom: -100px;
+    opacity: 0;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0.2;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -1,5 +1,5 @@
 {
-  "name": "sast-ui-docs",
+  "name": "@sast/ui-docs",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -8,6 +8,8 @@
     "preview": "rspress preview"
   },
   "dependencies": {
+    "@sast/ui-react": "workspace:^",
+    "@sast/ui-universal": "workspace:^",
     "rspress": "^1.0.0"
   },
   "devDependencies": {

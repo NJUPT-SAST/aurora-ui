@@ -1,0 +1,25 @@
+import { Meta } from '@storybook/blocks';
+import { useState } from 'react';
+
+import * as DialogStories from './Dialog.stories';
+import { Dialog } from './Dialog';
+import { Button } from '../Button';
+
+<Meta of={DialogStories} />
+
+# Dialog
+
+export const ShowDialog = () => {
+  const [visible, setVisible] = useState(false);
+  return (
+    <>
+      <Button onClick={() => setVisible(true)}>Show Dialog</Button>
+      <Dialog
+        visible={visible}
+        onCancel={() => setVisible(false)}
+      />
+    </>
+  );
+};
+
+<ShowDialog />
