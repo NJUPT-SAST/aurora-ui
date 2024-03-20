@@ -1,0 +1,13 @@
+$gap: 5px;
+.base {
+  &.vertical {
+    display: flex;
+    flex-direction: column;
+    gap: $gap;
+  }
+  &.horizontal {
+    display: flex;
+    flex-direction: row;
+    gap: $gap;
+  }
+}

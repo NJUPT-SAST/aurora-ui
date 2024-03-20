@@ -1,0 +1,23 @@
+.base {
+  display: flex;
+  flex-direction: row;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  background-color: #f2f2f2;
+  padding: 30px;
+  justify-content: space-between;
+  width: 1000px;
+  .title {
+    font-size: 23px;
+    font-weight: 800;
+  }
+  .navbar {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+  }
+}

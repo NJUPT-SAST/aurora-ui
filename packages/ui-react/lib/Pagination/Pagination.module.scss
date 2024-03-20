@@ -1,0 +1,17 @@
+@use '../variables' as *;
+.base {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  &.disabled {
+    @include disabled;
+  }
+  .pagination-item {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px !important;
+  }
+}

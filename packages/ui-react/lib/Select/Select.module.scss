@@ -1,0 +1,65 @@
+@use '../variables' as *;
+$animation-duration: $duration-300;
+.options {
+  position: absolute;
+  width: 280px;
+  box-sizing: border-box;
+  z-index: 1;
+  margin-top: 3px;
+  flex-direction: column;
+  gap: 4px;
+  padding: 7px 8px;
+  font-size: 14px;
+  max-height: 250px;
+  overflow-y: scroll;
+  box-shadow: $shadow;
+  border-radius: 8px;
+  transform-origin: top;
+  opacity: 0;
+  transform: scaleY(0);
+  background-color: var(--white-color);
+  transition: all $animation-duration $cubic-bezier;
+  display: flex;
+  .nothing-img-container {
+    margin: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    img {
+      width: 160px;
+    }
+  }
+  &.show {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+  .option-item {
+    flex-shrink: 0;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    transition: all $animation-duration $cubic-bezier;
+    &:hover {
+      background-color: rgba(var(--shadow-color-rgb), 0.1);
+      padding: 0 0 0 4px;
+      border-radius: 5px;
+      cursor: pointer;
+      color: var(--primary-color);
+    }
+    .option-item-span {
+      padding: 0 7px;
+    }
+  }
+}
+
+@keyframes scaleFromBottom {
+  0% {
+    transform: scaleY(0);
+    transform-origin: bottom;
+  }
+  100% {
+    transform: scaleY(1);
+    transform-origin: bottom;
+  }
+}

@@ -1,0 +1,18 @@
+@use '../variables' as *;
+.base {
+  width: 400px;
+  height: 200px;
+  overflow: hidden;
+  .carouselAll {
+    display: grid;
+    grid-auto-flow: column;
+    transition: all 0.4s $cubic-bezier;
+    .item {
+      width: 400px;
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}

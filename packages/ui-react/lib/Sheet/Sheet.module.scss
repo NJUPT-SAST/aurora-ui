@@ -1,0 +1,147 @@
+@use '../variables' as *;
+$animation-duration: $duration-400;
+$padding-left-right-distance: 20px;
+
+@mixin animation($name) {
+  animation-name: $name;
+  animation-duration: $animation-duration;
+  animation-timing-function: $cubic-bezier;
+  animation-fill-mode: forwards;
+}
+
+.base {
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 2;
+  box-sizing: border-box;
+  background-color: $background-shadow-color;
+  &.showAnimation {
+    @include animation(showShadow);
+  }
+  &.hideAnimation {
+    @include animation(hideShadow);
+  }
+  .sheetContent {
+    top: 0;
+    height: 100vh;
+    background-color: var(--white-color);
+    position: absolute;
+    z-index: 3;
+    box-sizing: border-box;
+    opacity: 1;
+    right: 0;
+    padding: $padding-left-right-distance;
+    opacity: 1;
+    &.showAnimation {
+      @include animation(showSlideSheet);
+    }
+    &.hideAnimation {
+      @include animation(hideSlideSheet);
+    }
+    .sheetMainContent {
+      padding: 10px 0;
+      overflow-y: scroll;
+      display: flex;
+      position: relative;
+      height: calc(100vh - 32px - 60px);
+      top: 30px;
+    }
+    .sheetFooter {
+      height: 50px;
+      position: absolute;
+      bottom: 20px;
+      width: -webkit-fill-available;
+      padding-right: $padding-left-right-distance;
+      text-align: end;
+      background-color: var(--white-color);
+    }
+    .sheet-header {
+      height: 32px;
+      background-color: var(--white-color);
+      position: absolute;
+      display: flex;
+      width: -webkit-fill-available;
+      padding-right: 20px;
+      flex-direction: column;
+      .sheet-header-content {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: space-between;
+        span {
+          font-size: 16px;
+          font-weight: 700;
+          white-space: nowrap;
+        }
+        .svg-container {
+          height: 30px;
+          width: 30px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          svg {
+            transition: all $animation-duration $cubic-bezier;
+          }
+          &:hover {
+            svg {
+              fill: var(--black-color);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.wrapper {
+  transition: all $animation-duration $cubic-bezier;
+  border-radius: 15px;
+  & > div {
+    transition: all $animation-duration $cubic-bezier;
+  }
+  &.show {
+    padding: 12px;
+    & > div {
+      border-radius: 15px;
+    }
+  }
+}
+
+@keyframes showShadow {
+  from {
+    background-color: rgb(var(--black-color-rgb), 0);
+  }
+  to {
+    background-color: $background-shadow-color;
+  }
+}
+
+@keyframes hideShadow {
+  from {
+    background-color: $background-shadow-color;
+  }
+  to {
+    background-color: rgb(var(--black-color-rgb), 0);
+  }
+}
+
+@keyframes showSlideSheet {
+  from {
+    right: -30%;
+  }
+  to {
+    right: 0;
+  }
+}
+
+@keyframes hideSlideSheet {
+  from {
+    right: 0;
+  }
+  to {
+    right: -30%;
+  }
+}
