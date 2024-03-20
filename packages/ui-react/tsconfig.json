@@ -65,10 +65,10 @@
     "noPropertyAccessFromIndexSignature": true,
     "noUncheckedIndexedAccess": true,
     "noUnusedLocals": false,
-    "noUnusedParameters": true
-  },
-  "paths": {
-    "@/*": ["./lib/*"]
+    "noUnusedParameters": true,
+    "paths": {
+      "@/*": ["./lib/*"]
+    }
   },
   "include": ["./lib/**/*.ts", "./lib/**/*.tsx", "lib/Toast/showToast.js"],
   "exclude": ["./lib/**/*.stories.*"]
