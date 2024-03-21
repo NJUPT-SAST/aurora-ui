@@ -10,7 +10,7 @@ hero:
       text: Components
       link: /components/universal/
     - theme: alt
-      text: Github
+      text: GitHub
       link: https://github.com/NJUPT-SAST/SAST-UI
   image:
     src: /sast-ui-logo-icon.svg
