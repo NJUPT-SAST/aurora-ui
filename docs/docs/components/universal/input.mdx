@@ -1,0 +1,93 @@
+import Wraper from '../../tools/wraper/index'
+import {Input} from '@sast/ui-universal'
+
+
+# Input Component
+
+Input component allows users to input text or passwords.
+
+<Wraper>
+    <s-input
+        label="Username"
+    ></s-input>
+</Wraper>
+
+## Properties
+
+| Property         | Description                                   | Type                                                    | Default |
+|------------------|-----------------------------------------------|---------------------------------------------------------|---------|
+| `width`          | The width of the Input.                      | `number`                                                | `250`   |
+| `disabled`       | If `true`, the input will be disabled.       | `boolean`                                               | `false` |
+| `label`          | The label of the input.                      | `string`                                                | `"输入框"` |
+| `mode`           | The type of the input (text or password).    | `"text"`, `"password"`                                  | `"text"` |
+| `placeholder`    | The placeholder of the input.                | `string`                                                |  |
+| `fontsize`       | The font size of the input.                  | `number`                                                | `16`    |
+| `isFillFather`   | If `true`, the input will fill its container.| `boolean`                                               | `false` |
+| `value`          | The value of the input.                      | `string`                                                |     |
+| `defaultValue`   | The default value of the input.              | `string`                                                |  |
+| `isBorder`       | If `true`, the input will have a border.     | `boolean`                                               | `true`  |
+
+## Example in HTML
+```html
+<s-input
+    width="300"
+    disabled="false"
+    label="Username"
+></s-input>
+```
+
+## How to fire events
+
+```jsx
+import React, {useRef} from 'react';
+import { Input, Button } from '@sast/ui-universal';
+
+export default function App () {
+    const handleChange = (e) => {
+        console.log(e.target.value);
+    }
+    const handleBlur = (e) => {
+        console.log(e.target.value);
+    }
+    const handleClick = () => {
+        inputRef.current.value = '';
+    }
+    const inputRef = useRef(null);
+
+    return (
+        <>
+            <Input
+                ref={inputRef}
+                width={300}
+                label="Username"
+                onInput={handleChange}
+                onBlur={handleBlur}
+            />
+            <Button onClick={handleClick}>Clear</Button>
+        </>
+    );
+}
+
+```
+
+
+## Try yourself
+
+```jsx
+import React from 'react';
+import { Input } from '@sast/ui-universal';
+
+export default function App (){
+    return (
+        <Input
+            width={300}
+            disabled={false}
+            label="Username"
+            mode="text"
+            fontsize={18}
+            isFillFather={false}
+            isBorder={true}
+        />
+    );
+}
+```
