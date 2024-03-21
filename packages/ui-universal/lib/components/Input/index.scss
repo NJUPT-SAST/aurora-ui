@@ -1,4 +1,6 @@
-@use '../../variables' as *;
+@use "../../variables" as *;
+@use "../../_variables/color.scss" as *;
+
 $border-radius: $radius-8;
 $border-width: $border-1;
 $font-size-select: $font-size-14;

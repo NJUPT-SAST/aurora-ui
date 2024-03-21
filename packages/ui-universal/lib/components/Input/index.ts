@@ -1,7 +1,10 @@
 import { LitElement, html } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
-import styles from "./index.scss";
+import styles from "./index.scss?inline";
 import { ifDefined } from "lit/directives/if-defined.js";
+import { createComponent } from "@lit/react";
+import React from "react";
+import { classMap } from "lit/directives/class-map.js";
 
 export interface InputProps {
   /**
@@ -58,7 +61,7 @@ export class SInput extends LitElement {
   @property({ type: Boolean }) isFillFather: InputProps["isFillFather"] = false;
   @property({ type: String }) value: InputProps["value"] = "";
   @property({ type: String }) defaultValue: InputProps["defaultValue"];
-  @property({ type: Boolean }) isBorder: InputProps["isBorder"] = false;
+  @property({ type: Boolean }) isBorder: InputProps["isBorder"] = true;
 
   @state() isFocus = false;
 
@@ -78,13 +81,18 @@ export class SInput extends LitElement {
   protected render() {
     return html`
       <div
-        class="input-container"
+        class="base ${classMap({
+      disabled: this.disabled,
+      fill: this.isFillFather,
+      border: this.isBorder,
+    })}"
         style="width:${this.width}px;--input-font-size:${this.fontsize}px;"
       >
         ${this.label
-          ? html`<label class="input-label">${this.label}</label>`
-          : ""}
+        ? html`<label htmlFor="input" class="inputLabel ${classMap({ isUpInputLabel: !!(this.value || this.placeholder || this.isFocus) })}">${this.label}</label>`
+        : ""}
         <input
+          id="input"
           class="input"
           type="${ifDefined(this.mode)}"
           placeholder=${ifDefined(this.placeholder)}
@@ -98,3 +106,21 @@ export class SInput extends LitElement {
     `;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    "s-input": SInput;
+  }
+}
+
+export const Input = createComponent({
+  tagName: "s-input",
+  elementClass: SInput,
+  react: React,
+  events: {
+    onchange: "onChange",
+    focus: "onFocus",
+    blur: "onBlur",
+  }
+});
+
