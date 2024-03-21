@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "ui-uni:dev": "pnpm --filter @sast/ui-universal dev",
+    "ui-uni:build": "pnpm --filter @sast/ui-universal build",
     "ui-react:start": "pnpm --filter @sast/ui-react dev:lib",
     "ui-react:dev": "pnpm --filter @sast/ui-react dev",
     "docs:dev": "pnpm --filter @sast/ui-docs dev"
