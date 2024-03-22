@@ -67,7 +67,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
     },
     ref,
   ) => {
-    //设置isUpLabel来调节Label上浮状态
+    //Set isUpLabel to adjust the state of Label floating.
     const [isUpInputLabel, setIsUpInputLabel] = useState<boolean>(false);
     const [inputValue, setInputValue] = useState<string>(defaultValue);
     const InputClass = classnames(
@@ -77,16 +77,16 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
       styles[isBorder ? 'border' : ''],
     );
     useEffect(() => {
-      if (placeholder) {
-        setIsUpInputLabel(true);
-      }
+      placeholder && setIsUpInputLabel(true);
     }, [placeholder]);
-    //设置，当input框里面没有内容时，placeHolder也没有内容时，将label框拉下
+
+    //Set to pull down the label box when there is no content inside the input box and no content in the placeHolder.
     const blurInput = () => {
       if (!inputValue && !placeholder && isUpInputLabel) {
         setIsUpInputLabel(false);
       }
     };
+
     const changeValue = (e: ChangeEvent<HTMLInputElement>) => {
       setInputValue(e.target.value);
       onchange && onchange(e.target.value, e);
@@ -97,36 +97,32 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
     }, [value]);
 
     return (
-      <>
-        <div
-          className={InputClass}
-          style={{ width: `${width}px`, fontSize: `${fontsize}px` }}
-          onClick={() => !disabled && setIsUpInputLabel(true)}
+      <div
+        className={InputClass}
+        style={{ width: `${width}px`, fontSize: `${fontsize}px` }}
+        onClick={() => !disabled && setIsUpInputLabel(true)}
+      >
+        <input
+          id="input"
+          className={styles['input']}
+          ref={ref}
+          placeholder={placeholder}
+          type={mode}
+          disabled={disabled}
+          onChange={changeValue}
+          onBlur={blurInput}
+          value={inputValue}
+          {...rest}
+        />
+        <label
+          htmlFor="input"
+          className={`${styles['inputLabel']} ${
+            inputValue || placeholder ? styles['isUpInputLabel'] : ''
+          }`}
         >
-          <input
-            id="input"
-            className={styles['input']}
-            ref={ref}
-            placeholder={placeholder}
-            type={mode}
-            disabled={disabled}
-            onChange={changeValue}
-            onBlur={blurInput}
-            autoComplete="off"
-            autoSave="off"
-            value={inputValue}
-            {...rest}
-          />
-          <label
-            htmlFor="input"
-            className={`${styles['inputLabel']} ${
-              inputValue || placeholder ? styles['isUpInputLabel'] : ''
-            }`}
-          >
-            {label}
-          </label>
-        </div>
-      </>
+          {label}
+        </label>
+      </div>
     );
   },
 );

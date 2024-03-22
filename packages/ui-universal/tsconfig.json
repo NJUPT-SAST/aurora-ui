@@ -23,10 +23,10 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
-  },
-  "paths": {
-    "@/*": ["./lib/*"]
+    "noFallthroughCasesInSwitch": true,
+    "paths": {
+      "@/*": ["./lib/*"]
+    }
   },
   "include": ["lib", "lib/typings/index.d.ts"]
 }
