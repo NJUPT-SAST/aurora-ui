@@ -9,6 +9,7 @@
     "ui-react:start": "pnpm --filter @sast/ui-react dev:lib",
     "ui-react:dev": "pnpm --filter @sast/ui-react dev",
     "ui-react:build": "pnpm --filter @sast/ui-react build:lib",
+    "ui-react:build-story": "pnpm --filter @sast/ui-react build",
     "docs:dev": "pnpm --filter @sast/ui-docs dev"
   },
   "keywords": [],
