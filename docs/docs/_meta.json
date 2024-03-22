@@ -1,8 +1,8 @@
 [
   {
     "text": "React Components",
-    "link": "/react-story",
-    "activeMatch": "/react-story/"
+    "link": "https://sast-ui-react.vercel.app/",
+    "activeMatch": "https://sast-ui-react.vercel.app/"
   },
   {
     "text": "Universal Components (developing)",
