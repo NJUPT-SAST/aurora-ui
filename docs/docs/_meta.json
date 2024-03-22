@@ -1,8 +1,8 @@
 [
   {
     "text": "React Components",
-    "link": "/components/react/",
-    "activeMatch": "/components/react/"
+    "link": "/react-story",
+    "activeMatch": "/react-story"
   },
   {
     "text": "Universal Components (developing)",
