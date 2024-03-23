@@ -2,7 +2,9 @@
 
 ![Logo](/public/README.jpg)
 
-> [!WARNING] Unstable 🚧
+> [!WARNING]
+> 🚧 Unstable 🚧
+> 
 > Aurora UI is published in order to get feedback on the design and not ready for production. Breaking changes are likely to happen frequently. 
 
 Aurora [ɔ:'rɔ:rə], an extensive UI library for web applications, which is designed for both mobile and desktop.
