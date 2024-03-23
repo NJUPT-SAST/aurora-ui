@@ -11,7 +11,8 @@
     "ui-react:build": "pnpm --filter @sast/ui-react build:lib",
     "ui-react:build-story": "pnpm --filter @sast/ui-react build",
     "docs:dev": "pnpm --filter @sast/ui-docs dev",
-    "commit": "cz"
+    "commit": "cz",
+    "prepare": "husky"
   },
   "keywords": [],
   "author": "",
@@ -23,6 +24,7 @@
   "devDependencies": {
     "commitizen": "^4.3.0",
     "cz-conventional-changelog": "^3.3.0",
+    "husky": "^9.0.11",
     "sass": "^1.69.5",
     "typescript": "^5.3.3"
   },
