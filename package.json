@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "ui-uni:dev": "pnpm --filter @sast/ui-universal dev",
     "ui-uni:build": "pnpm --filter @sast/ui-universal build",
@@ -11,7 +12,7 @@
     "ui-react:build": "pnpm --filter @sast/ui-react build:lib",
     "ui-react:build-story": "pnpm --filter @sast/ui-react build",
     "docs:dev": "pnpm --filter @sast/ui-docs dev",
-    "commit": "cz",
+    "commit": "git add . && pnpm lint-staged -p false && pnpm cz",
     "prepare": "husky"
   },
   "keywords": [],
@@ -21,10 +22,15 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
+  "engines": {
+    "node": ">=18",
+    "pnpm": ">=8"
+  },
   "devDependencies": {
     "commitizen": "^4.3.0",
     "cz-conventional-changelog": "^3.3.0",
     "husky": "^9.0.11",
+    "lint-staged": "^15.2.2",
     "sass": "^1.69.5",
     "typescript": "^5.3.3"
   },

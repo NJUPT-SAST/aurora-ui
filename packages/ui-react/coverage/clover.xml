@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1705751223057" clover="3.2.0">
-  <project timestamp="1705751223057" name="All files">
-    <metrics statements="46" coveredstatements="46" conditionals="3" coveredconditionals="1" methods="0" coveredmethods="0" elements="49" coveredelements="47" complexity="0" loc="46" ncloc="46" packages="1" files="1" classes="1"/>
-    <file name="Button.tsx" path="D:\Projects\SAST\sastoj-frontend\packages\ui\lib\Button\Button.tsx">
-      <metrics statements="46" coveredstatements="46" conditionals="3" coveredconditionals="1" methods="0" coveredmethods="0"/>
+<coverage generated="1711164762114" clover="3.2.0">
+  <project timestamp="1711164762114" name="All files">
+    <metrics statements="64" coveredstatements="64" conditionals="3" coveredconditionals="1" methods="0" coveredmethods="0" elements="67" coveredelements="65" complexity="0" loc="64" ncloc="64" packages="1" files="1" classes="1"/>
+    <file name="Button.tsx" path="D:\Projects\SAST\SAST-UI\packages\ui-react\lib\Button\Button.tsx">
+      <metrics statements="64" coveredstatements="64" conditionals="3" coveredconditionals="1" methods="0" coveredmethods="0"/>
       <line num="1" count="1" type="stmt"/>
       <line num="2" count="1" type="stmt"/>
       <line num="3" count="1" type="stmt"/>
@@ -30,13 +30,13 @@
       <line num="24" count="1" type="stmt"/>
       <line num="25" count="1" type="stmt"/>
       <line num="26" count="1" type="stmt"/>
-      <line num="27" count="1" type="cond" truecount="1" falsecount="0"/>
-      <line num="28" count="2" type="stmt"/>
-      <line num="29" count="2" type="stmt"/>
-      <line num="30" count="2" type="stmt"/>
-      <line num="31" count="2" type="stmt"/>
-      <line num="32" count="2" type="cond" truecount="0" falsecount="1"/>
-      <line num="33" count="2" type="cond" truecount="0" falsecount="1"/>
+      <line num="27" count="1" type="stmt"/>
+      <line num="28" count="1" type="stmt"/>
+      <line num="29" count="1" type="stmt"/>
+      <line num="30" count="1" type="stmt"/>
+      <line num="31" count="1" type="stmt"/>
+      <line num="32" count="1" type="stmt"/>
+      <line num="33" count="1" type="cond" truecount="1" falsecount="0"/>
       <line num="34" count="2" type="stmt"/>
       <line num="35" count="2" type="stmt"/>
       <line num="36" count="2" type="stmt"/>
@@ -47,9 +47,27 @@
       <line num="41" count="2" type="stmt"/>
       <line num="42" count="2" type="stmt"/>
       <line num="43" count="2" type="stmt"/>
-      <line num="44" count="1" type="stmt"/>
-      <line num="45" count="1" type="stmt"/>
-      <line num="46" count="1" type="stmt"/>
+      <line num="44" count="2" type="stmt"/>
+      <line num="45" count="2" type="stmt"/>
+      <line num="46" count="2" type="stmt"/>
+      <line num="47" count="2" type="stmt"/>
+      <line num="48" count="2" type="stmt"/>
+      <line num="49" count="2" type="cond" truecount="0" falsecount="1"/>
+      <line num="50" count="2" type="cond" truecount="0" falsecount="1"/>
+      <line num="51" count="2" type="stmt"/>
+      <line num="52" count="2" type="stmt"/>
+      <line num="53" count="2" type="stmt"/>
+      <line num="54" count="2" type="stmt"/>
+      <line num="55" count="2" type="stmt"/>
+      <line num="56" count="2" type="stmt"/>
+      <line num="57" count="2" type="stmt"/>
+      <line num="58" count="2" type="stmt"/>
+      <line num="59" count="2" type="stmt"/>
+      <line num="60" count="2" type="stmt"/>
+      <line num="61" count="2" type="stmt"/>
+      <line num="62" count="1" type="stmt"/>
+      <line num="63" count="1" type="stmt"/>
+      <line num="64" count="1" type="stmt"/>
     </file>
   </project>
 </coverage>
