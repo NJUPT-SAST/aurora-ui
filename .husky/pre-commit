@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+if [ -z "$GIT_EDITOR" ]; then
+    echo "\033[0;31m⛔️ 杂鱼，这里是进不来的哦\033[0m \n \033[0;32m用 'pnpm commit' 提交\033[0m"
+    exit 1
+fi
