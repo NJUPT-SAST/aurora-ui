@@ -1,5 +1,9 @@
 # Aurora UI Library
 
+<img src="https://img.shields.io/badge/State-developing-blue" alt="State" />
+
+The code is currently immature and under rapid development...
+
 Accessible and customizable components that you can copy and paste into your apps. Free. Open Source. Use this to build your own component library.
 
 ![Logo](/public/README.jpg)
