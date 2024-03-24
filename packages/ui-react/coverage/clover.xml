@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1711250454918" clover="3.2.0">
-  <project timestamp="1711250454918" name="All files">
+<coverage generated="1711255753198" clover="3.2.0">
+  <project timestamp="1711255753198" name="All files">
     <metrics statements="64" coveredstatements="64" conditionals="3" coveredconditionals="1" methods="0" coveredmethods="0" elements="67" coveredelements="65" complexity="0" loc="64" ncloc="64" packages="1" files="1" classes="1"/>
     <file name="Button.tsx" path="D:\Projects\SAST\SAST-UI\packages\ui-react\lib\Button\Button.tsx">
       <metrics statements="64" coveredstatements="64" conditionals="3" coveredconditionals="1" methods="0" coveredmethods="0"/>
