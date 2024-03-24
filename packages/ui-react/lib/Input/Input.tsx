@@ -24,10 +24,6 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> 
    */
   placeholder?: string;
   /**
-   * placeholder,the placeholder of the input
-   */
-  fontsize?: number;
-  /**
    * isFillFather, is ture the input fill the father
    */
   isFillFather?: boolean;
@@ -47,6 +43,10 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> 
    * isBorder? have the border of the input
    */
   isBorder?: boolean;
+  /**
+   * className, the className of the input
+   */
+  className?: string;
 }
 
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(
@@ -57,12 +57,12 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
       label = '昵称',
       mode = 'text',
       placeholder = '',
-      fontsize = 16,
       onchange,
       isFillFather = false,
       value,
       isBorder = true,
       defaultValue = '',
+      className,
       ...rest
     },
     ref,
@@ -75,7 +75,9 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
       styles[disabled ? 'disabled' : ''],
       styles[isFillFather ? 'fill' : ''],
       styles[isBorder ? 'border' : ''],
+      className,
     );
+    //If there is a placeholder move the label up.
     useEffect(() => {
       placeholder && setIsUpInputLabel(true);
     }, [placeholder]);
@@ -99,8 +101,9 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
     return (
       <div
         className={InputClass}
-        style={{ width: `${width}px`, fontSize: `${fontsize}px` }}
+        style={{ width: `${width}px` }}
         onClick={() => !disabled && setIsUpInputLabel(true)}
+        {...rest}
       >
         <input
           id="input"
@@ -112,7 +115,6 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
           onChange={changeValue}
           onBlur={blurInput}
           value={inputValue}
-          {...rest}
         />
         <label
           htmlFor="input"
