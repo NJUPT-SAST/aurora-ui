@@ -1,5 +1,22 @@
 @use '../variables' as *;
+@use '../_variables/color.scss' as *;
+@mixin select-option {
+  border-radius: 5px;
+  cursor: pointer;
+  color: var(--primary-color);
+}
 $animation-duration: $duration-300;
+.input {
+  input::placeholder {
+    transition: all $animation-duration $cubic-bezier;
+    color: $black-color;
+  }
+  &.hide-placeholder {
+    input::placeholder {
+      color: $gray-color;
+    }
+  }
+}
 .options {
   position: absolute;
   width: 280px;
@@ -41,11 +58,14 @@ $animation-duration: $duration-300;
     align-items: center;
     transition: all $animation-duration $cubic-bezier;
     &:hover {
-      background-color: rgba(var(--shadow-color-rgb), 0.1);
+      background-color: rgba(var(--shadow-color-rgb), 0.08);
+      padding: 0 0 0 2px;
+      @include select-option();
+    }
+    &.option-item-selected {
+      background-color: rgba(var(--shadow-color-rgb), 0.15);
       padding: 0 0 0 4px;
-      border-radius: 5px;
-      cursor: pointer;
-      color: var(--primary-color);
+      @include select-option();
     }
     .option-item-span {
       padding: 0 7px;
