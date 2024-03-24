@@ -76,6 +76,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
       styles[isFillFather ? 'fill' : ''],
       styles[isBorder ? 'border' : ''],
     );
+    //If there is a placeholder move the label up.
     useEffect(() => {
       placeholder && setIsUpInputLabel(true);
     }, [placeholder]);
