@@ -1,4 +1,4 @@
-import React, { useState, type MouseEventHandler, useEffect } from 'react';
+import React, { useState, type MouseEventHandler, useEffect, useRef } from 'react';
 import styles from './Select.module.scss';
 import { Input } from '..';
 
@@ -73,6 +73,8 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
     const [options, setOptions] = useState<OptionProps[]>(optionsList);
     const [inputValue, setInputValue] = useState<string>('');
     const [selectPlaceHolder, setSelectPlaceHolder] = useState<string>('');
+    const inputRef = useRef<HTMLInputElement>(null);
+    const labelGroupRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
       setSelectPlaceHolder(placeHolder);
@@ -93,6 +95,64 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
         setInputValue('');
       }, 300);
     }
+
+    let selectItemIndex = -1;
+    const onKeyDown = (event: any) => {
+      const optionsList = options;
+      const listLength = optionsList.length;
+      if (listLength === 0) return;
+      const lastItems = labelGroupRef.current!.getElementsByClassName(`${styles['option-item']}_${optionsList[selectItemIndex]?.key}`);
+      const KEY_ARROW_DOWN = 'arrowdown';
+      const KEY_ARROW_UP = 'arrowup';
+      const KEY_ENTER = 'enter';
+
+      function handleArrowDown() {
+        if (selectItemIndex === -1 || selectItemIndex === optionsList.length - 1) {
+          selectItemIndex = 0;
+        } else {
+          selectItemIndex++;
+        }
+        highlightSelectedItem();
+      }
+
+      function handleArrowUp() {
+        if (selectItemIndex === -1 || selectItemIndex === 0) {
+          selectItemIndex = optionsList.length - 1;
+        } else {
+          selectItemIndex--;
+        }
+        highlightSelectedItem();
+      }
+
+      function handleEnter() {
+        if (selectItemIndex !== -1) {
+          handleClick(optionsList[selectItemIndex]!);
+          inputRef.current?.blur();
+        }
+      }
+
+      function highlightSelectedItem() {
+        const items = labelGroupRef.current!.getElementsByClassName(`${styles['option-item']}_${optionsList[selectItemIndex]!.key}`);
+        for (let el of items) {
+          listLength > 1 && lastItems && lastItems[0] && lastItems[0].classList.remove(styles['option-item-selected']!);
+          el.classList.add(styles['option-item-selected']!);
+        }
+      }
+
+      if (event.key.toLocaleLowerCase() === KEY_ARROW_DOWN) {
+        handleArrowDown();
+      } else if (event.key.toLocaleLowerCase() === KEY_ARROW_UP) {
+        handleArrowUp();
+      } else if (event.key.toLocaleLowerCase() === KEY_ENTER) {
+        handleEnter();
+      }
+
+    };
+
+    const removeHighlight = () => {
+      const highlightItems = labelGroupRef.current!.getElementsByClassName(`${styles['option-item-selected']}`);
+      highlightItems?.[0]?.classList.remove(styles['option-item-selected']!);
+    };
 
     useEffect(() => {
       onchange && selectItem && onchange(selectItem);
@@ -116,6 +176,7 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
     const closeOptions = () => {
       setTimeout(() => {
         setVisble(false);
+        removeHighlight();
       }, 100);
     };
 
@@ -141,8 +202,10 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
             isBorder={isBorder}
             placeholder={selectPlaceHolder}
             disabled={disabled}
+            onKeyDown={onKeyDown.bind(this)}
+            ref={inputRef}
           ></Input>
-          <div className={`${styles['options']} ${visible ? styles['show'] : ''}`}>
+          <div className={`${styles['options']} ${visible ? styles['show'] : ''}`} ref={labelGroupRef}>
             {!options.length ? (
               <div className={styles['nothing-img-container']}>
                 <img src="../../public/sast_test_image/404.png" />
@@ -153,7 +216,7 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
                 return (
                   <div
                     key={obj.key}
-                    className={styles['option-item']}
+                    className={`${styles['option-item']} ${styles['option-item']}_${obj.key}`}
                     onClick={() => handleClick(obj)}
                   >
                     <span className={styles['option-item-span']}>{obj.label}</span>

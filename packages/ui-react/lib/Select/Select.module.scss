@@ -51,6 +51,13 @@ $animation-duration: $duration-300;
       padding: 0 7px;
     }
   }
+
+  .option-item-selected {
+    background-color: rgba(var(--shadow-color-rgb), 0.1);
+    padding: 0 0 0 4px;
+    border-radius: 5px;
+    color: var(--primary-color);
+  }
 }
 
 @keyframes scaleFromBottom {
