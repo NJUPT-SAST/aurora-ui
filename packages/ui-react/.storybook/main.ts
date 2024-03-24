@@ -13,7 +13,10 @@ const config: StorybookConfig = {
     options: {},
   },
   docs: {
-    autodocs: 'tag',
+    autodocs: true,
+  },
+  typescript: {
+    reactDocgen: 'react-docgen-typescript',
   },
   viteFinal: async (config) => ({
     ...config,
