@@ -40,7 +40,7 @@ $animation-duration: $duration-300;
     display: flex;
     align-items: center;
     transition: all $animation-duration $cubic-bezier;
-    &:hover {
+    &:hover, &.option-item-selected {
       background-color: rgba(var(--shadow-color-rgb), 0.1);
       padding: 0 0 0 4px;
       border-radius: 5px;
@@ -50,13 +50,6 @@ $animation-duration: $duration-300;
     .option-item-span {
       padding: 0 7px;
     }
-  }
-
-  .option-item-selected {
-    background-color: rgba(var(--shadow-color-rgb), 0.1);
-    padding: 0 0 0 4px;
-    border-radius: 5px;
-    color: var(--primary-color);
   }
 }
 
