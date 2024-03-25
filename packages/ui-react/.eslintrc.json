@@ -15,12 +15,10 @@
     "plugin:storybook/recommended",
     "prettier" // disable all rules conflict with Prettier
   ],
-  "plugins": ["jest-dom", "@stylexjs"],
+  "plugins": ["jest-dom"],
   "parser": "@typescript-eslint/parser",
   "ignorePatterns": ["dist"],
-  "rules": {
-    "@stylexjs/valid-styles": ["error"]
-  },
+  "rules": {},
   "settings": {
     "react": {
       "version": "detect"
