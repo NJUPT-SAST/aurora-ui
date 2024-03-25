@@ -6,7 +6,7 @@ export interface BadgeProps {
   /**
    * the type of the Badge
    */
-  type?: 'info' | 'success' | 'warning' | 'error';
+  type?: 'info' | 'success' | 'warning' | 'error' | 'ghost';
   /**
    * the size of the Badge
    */
@@ -19,11 +19,30 @@ export interface BadgeProps {
    * is clickCopy work?
    */
   clickCopy?: boolean;
+  /**
+   * The shadow of the button.
+   */
+  shadow?: 'regular' | 'small' | 'medium' | 'large' | 'extraLarge' | 'inner' | 'none';
 }
 
 export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
-  ({ type = 'info', size = 'medium', content = 'hello', clickCopy = false, ...rest }, ref) => {
-    const badgeClass = classNames(styles['base'], styles[type], styles[size]);
+  (
+    {
+      type = 'info',
+      size = 'medium',
+      content = 'hello',
+      clickCopy = false,
+      shadow = 'none',
+      ...rest
+    },
+    ref,
+  ) => {
+    const badgeClass = classNames(
+      styles['base'],
+      styles[type],
+      styles[size],
+      styles[`shadow-${shadow}`],
+    );
 
     const handleBadge = () => {
       navigator.clipboard.writeText(content);
