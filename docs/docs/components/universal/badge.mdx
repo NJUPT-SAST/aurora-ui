@@ -1,0 +1,56 @@
+import { Badge } from "@sast/ui-universal";
+import Wraper from '../../tools/wraper/index'
+
+
+# Badge Component
+
+The Badge component displays a small status descriptor for an element.
+
+<Wraper>
+    <Badge content="New" type="info" size="medium" />
+</Wraper>
+
+## Usage
+
+```jsx
+import { Badge } from "@sast/ui-universal";
+
+export default function App() {
+  return <Badge content="New" type="info" size="medium" />;
+}
+```
+
+## Props
+
+| Property    | Description                                             | Type                      | Default |
+|-------------|---------------------------------------------------------|---------------------------|---------|
+| `type`      | The type of the badge (info, success, warning, error). | `"info" \| "success" \| "warning" \| "error"` | `"info"` |
+| `size`      | The size of the badge (small, medium, large).          | `"small" \| "medium" \| "large"` | `"medium"` |
+| `content`   | The content of the badge.                               | `string`                  | `"hello"` |
+| `clickCopy` | Determines whether clicking on the badge copies its content to the clipboard. | `boolean` | `false` |
+
+### Events
+
+- `clickCopy`: Fired when the `clickCopy` prop is `true` and the badge is clicked. Copies the badge content to the clipboard.
+
+### Example
+
+```jsx playground direction=vertical
+import { Badge } from "@sast/ui-universal";
+
+export default function Example() {
+  const handleCopy = () => {
+    console.log("Badge content copied!");
+  };
+
+  return (
+    <Badge
+      content="New"
+      type="info"
+      size="small"
+      clickCopy={true}
+      onClickCopy={handleCopy}
+    />
+  );
+}
+```

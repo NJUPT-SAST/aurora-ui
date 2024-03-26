@@ -11,10 +11,11 @@
     "@sast/ui-react": "workspace:^",
     "@sast/ui-universal": "workspace:^",
     "@theguild/remark-mermaid": "^0.0.6",
-    "rspress": "^1.0.0"
+    "rspress": "^1.16.0"
   },
   "devDependencies": {
-    "@rspress/plugin-playground": "^1.15.1",
+    "@rspress/plugin-playground": "^1.16.0",
+    "@rspress/plugin-preview": "^1.16.0",
     "@types/node": "^16"
   }
 }

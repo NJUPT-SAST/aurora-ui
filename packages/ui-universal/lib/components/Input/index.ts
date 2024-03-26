@@ -49,8 +49,8 @@ export interface InputProps {
   isBorder: boolean;
 }
 
-@customElement("s-input")
-export class SInput extends LitElement {
+@customElement("a-input")
+export class AInput extends LitElement {
   static styles = styles;
   @property({ type: Number }) width: InputProps["width"] = 250;
   @property({ type: Boolean }) disabled: InputProps["disabled"] = false;
@@ -109,13 +109,13 @@ export class SInput extends LitElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    "s-input": SInput;
+    "a-input": AInput;
   }
 }
 
 export const Input = createComponent({
-  tagName: "s-input",
-  elementClass: SInput,
+  tagName: "a-input",
+  elementClass: AInput,
   react: React,
   events: {
     onchange: "onChange",

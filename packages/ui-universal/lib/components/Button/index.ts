@@ -38,8 +38,8 @@ export interface ButtonProps {
 /**
  * @element s-button
  */
-@customElement("s-button")
-export class Sbutton extends LitElement {
+@customElement("a-button")
+export class Abutton extends LitElement {
   static styles = styles;
   @property({ type: String }) color: ButtonProps["color"] = "primary";
   @property({ type: String }) size: ButtonProps["size"] = "medium";
@@ -65,12 +65,12 @@ export class Sbutton extends LitElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    "s-button": Sbutton;
+    "a-button": Abutton;
   }
 }
 
 export const Button = createComponent({
-  tagName: "s-button",
-  elementClass: Sbutton,
+  tagName: "a-button",
+  elementClass: Abutton,
   react: React,
 });

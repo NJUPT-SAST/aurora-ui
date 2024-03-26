@@ -7,9 +7,7 @@ import {Input} from '@sast/ui-universal'
 Input component allows users to input text or passwords.
 
 <Wraper>
-    <s-input
-        label="Username"
-    ></s-input>
+    <Input label='input test' />
 </Wraper>
 
 ## Properties
@@ -29,16 +27,16 @@ Input component allows users to input text or passwords.
 
 ## Example in HTML
 ```html
-<s-input
+<a-input
     width="300"
     disabled="false"
     label="Username"
-></s-input>
+></a-input>
 ```
 
 ## How to fire events
 
-```jsx
+```jsx playground direction=vertical
 import React, {useRef} from 'react';
 import { Input, Button } from '@sast/ui-universal';
 
@@ -49,45 +47,32 @@ export default function App () {
     const handleBlur = (e) => {
         console.log(e.target.value);
     }
-    const handleClick = () => {
+    const handleReset = () => {
         inputRef.current.value = '';
+        setDisable(false);
+    }
+    const handleConfirm = () => {
+        setDisable(true);
     }
     const inputRef = useRef(null);
+    const [disable, setDisable] = React.useState(false);
 
     return (
-        <>
+        <div style={{display: 'flex', gap: 10, flexDirection: 'column'}}>
             <Input
                 ref={inputRef}
                 width={300}
                 label="Username"
                 onInput={handleChange}
                 onBlur={handleBlur}
+                disabled={disable}
             />
-            <Button onClick={handleClick}>Clear</Button>
-        </>
+            <div style={{display: 'flex', gap: 10}}>
+                <Button color="secondary" onClick={handleReset}>Reset</Button>
+                <Button onClick={handleConfirm}>Confirm</Button>
+            </div>
+        </div>
     );
 }
 
-```
-
-
-## Try yourself
-
-```jsx
-import React from 'react';
-import { Input } from '@sast/ui-universal';
-
-export default function App (){
-    return (
-        <Input
-            width={300}
-            disabled={false}
-            label="Username"
-            mode="text"
-            fontsize={18}
-            isFillFather={false}
-            isBorder={true}
-        />
-    );
-}
 ```
