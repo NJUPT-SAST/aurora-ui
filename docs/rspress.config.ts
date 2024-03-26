@@ -6,12 +6,12 @@ import { remarkMermaid } from "@theguild/remark-mermaid";
 export default defineConfig({
   plugins: [pluginPlayground({ include: ["@sast/ui-universal"] })],
   root: path.join(__dirname, "docs"),
-  title: "SAST UI DOCS",
+  title: "Aurora UI",
   description: "🌏 UI component library for the future",
   icon: "/sast-ui-logo-icon.svg",
   logo: {
-    light: "/sast-ui-logo-color.svg",
-    dark: "/sast-ui-logo-dark.svg",
+    light: "/aurora-ui-logo-light.svg",
+    dark: "/aurora-ui-logo-dark.svg",
   },
   themeConfig: {
     socialLinks: [

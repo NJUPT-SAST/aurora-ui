@@ -1,11 +1,11 @@
-# SAST UI
+# Aurora UI
 
 ## Quick start
 
 ```shell
-git clone https://github.com/NJUPT-SAST/SAST-UI.git
+git clone https://github.com/NJUPT-SAST/SAST-Aurora-UI.git
 
-cd SAST-UI
+cd Aurora-UI
 
 pnpm i  #安装依赖
 

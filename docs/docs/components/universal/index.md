@@ -13,7 +13,7 @@ We use sass as the CSS preprocessor, and the styles are written in a modular way
 ```mermaid
 graph LR
     A[Lit Element] --> B[Web Components]
-    C[SASS]-->D[SAST UI]
+    C[SASS]-->D[Aurora UI]
     B --> D
     D --> E[React]
     D --> F[Vue]
