@@ -23,6 +23,10 @@ export interface BadgeProps {
    * The shadow of the button.
    */
   shadow?: 'regular' | 'small' | 'medium' | 'large' | 'extraLarge' | 'inner' | 'none';
+  /**
+   * classname , the classname of the badge
+   */
+  className?: string;
 }
 
 export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
@@ -33,6 +37,7 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
       content = 'hello',
       clickCopy = false,
       shadow = 'none',
+      className,
       ...rest
     },
     ref,
@@ -42,6 +47,7 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
       styles[type],
       styles[size],
       styles[`shadow-${shadow}`],
+      className,
     );
 
     const handleBadge = () => {
