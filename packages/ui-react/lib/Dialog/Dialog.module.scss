@@ -1,72 +1,100 @@
-@use '../variables' as *;
+@use '../_variables/shadow.scss' as *;
+@use '../_variables/animation.scss' as *;
+@use '../_variables/color.scss' as *;
+
+@property --blur {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0px;
+}
+
+@property --opacity-background {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 0%;
+}
+
+@property --opacity-card {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 0%;
+}
+
+@property --scale {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 80%;
+}
+
 @mixin animation($name) {
   animation-name: $name;
-  animation-duration: 400ms;
+  animation-duration: 500ms;
   animation-timing-function: $cubic-bezier;
   animation-fill-mode: forwards;
 }
 
-.background {
-  top: 0;
-  left: 0;
+@mixin dialog-animation() {
+  &.dialog-in {
+    @include animation(dialog-in);
+  }
+  &.dialog-hide {
+    @include animation(dialog-hide);
+  }
+}
+
+.dialog-container {
   height: 100%;
   width: 100%;
+  left: 0;
+  top: 0;
   position: absolute;
-  box-sizing: border-box;
-  background-color: $background-shadow-color;
-  &.background-in {
-    @include animation(in);
+  &.mask {
+    background-color: rgb($black-color, var(--opacity-background));
+    backdrop-filter: blur(var(--blur));
   }
-  &.background-hide {
-    @include animation(hide);
+  &.no-mask {
+    all: unset;
   }
-  .base {
-    @include absolute-center;
-    &.in {
-      @include animation(dialog-in);
-    }
-    &.hide {
-      @include animation(dialog-hide);
-    }
+  @include dialog-animation();
+  .dialog {
+    z-index: 1;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 0;
+    border: none;
+    border-radius: 8px;
+    scale: var(--scale);
+    opacity: var(--opacity-card);
+    @include dialog-animation();
   }
 }
 
 @keyframes dialog-in {
   0% {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(0.8);
+    --blur: 0px;
+    --opacity-background: 0%;
+    --opacity-card: 0%;
+    --scale: 70%;
   }
   100% {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
+    --blur: 4px;
+    --opacity-background: 40%;
+    --opacity-card: 100%;
+    --scale: 100%;
   }
 }
-
 @keyframes dialog-hide {
   0% {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
+    --blur: 4px;
+    --opacity-background: 40%;
+    --opacity-card: 100%;
+    --scale: 100%;
   }
   100% {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(0.8);
-  }
-}
-
-@keyframes in {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-@keyframes hide {
-  0% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
+    --blur: 0px;
+    --opacity-background: 0%;
+    --opacity-card: 0%;
+    --scale: 80%;
   }
 }

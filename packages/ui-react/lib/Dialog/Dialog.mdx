@@ -11,12 +11,19 @@ import { Button } from '../Button';
 
 export const ShowDialog = () => {
   const [visible, setVisible] = useState(false);
+  const [sonVisible, setSonVisible] = useState(false);
   return (
     <>
       <Button onClick={() => setVisible(true)}>Show Dialog</Button>
       <Dialog
         visible={visible}
         onCancel={() => setVisible(false)}
+        onOk={() => setSonVisible(true)}
+        maskClosable={false}
+      />
+      <Dialog
+        visible={sonVisible}
+        onCancel={() => setSonVisible(false)}
       />
     </>
   );
