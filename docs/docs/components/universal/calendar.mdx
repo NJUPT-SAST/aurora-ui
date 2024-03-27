@@ -1,0 +1,39 @@
+import Wraper from '../../tools/wraper/index'
+import { Calendar } from '@sast/ui-universal'
+
+# Calendar Component
+
+The Calendar component allows users to select dates and navigate through months.
+
+<Wraper>
+    <div style={{margin: 10}}>
+        <Calendar onSelect={(date) => console.log(date)} />
+    </div>
+</Wraper>
+
+
+## Props
+
+| Property          | Description                                   | Type                      | Default |
+|-------------------|-----------------------------------------------|---------------------------|---------|
+| `onSelect`        | Callback function triggered when a date is selected. | `(value: Date) => void` |         |
+| `selected`        | The currently selected date.                  | `Date \| undefined`      |         |
+
+## Events
+
+- `onSelect`: Fired when a date is selected. Provides the selected date as an argument to the callback function.
+
+## Example
+
+```jsx
+import {Calendar} from '@sast/ui-universal'
+
+export default function Example() {
+  const handleSelect = (date) => {
+    console.log("Selected date:", date);
+  };
+
+  return <div style={{margin: 10}}><Calendar onSelect={handleSelect} selected={new Date()} /></div>;
+}
+```
+

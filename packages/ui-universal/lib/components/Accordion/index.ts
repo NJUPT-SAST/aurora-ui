@@ -15,8 +15,8 @@ export interface AccordionProps {
     disabled?: boolean;
 }
 
-@customElement("s-accordion")
-export class SAccordion extends LitElement {
+@customElement("a-accordion")
+export class AAccordion extends LitElement {
     static styles = styles;
     @property({ type: Number }) width: AccordionProps["width"] = 280;
     @property({ type: Boolean }) disabled: AccordionProps["disabled"] = false;
@@ -60,12 +60,12 @@ export class SAccordion extends LitElement {
 
 declare global {
     interface HTMLElementTagNameMap {
-        "s-accordion": SAccordion;
+        "a-accordion": AAccordion;
     }
 }
 
 export const Accordion = createComponent({
-    tagName: "s-accordion",
-    elementClass: SAccordion,
+    tagName: "a-accordion",
+    elementClass: AAccordion,
     react: React,
 });

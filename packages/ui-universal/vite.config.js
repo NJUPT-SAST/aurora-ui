@@ -22,7 +22,6 @@ export default {
   css: {
     preprocessorOptions: {
       scss: {
-        additionalData: `@use "./lib/variables" as *;`, // Import global scss variables
         includePaths: [path.resolve(__dirname, "lib")], // Include paths for scss
       },
     },

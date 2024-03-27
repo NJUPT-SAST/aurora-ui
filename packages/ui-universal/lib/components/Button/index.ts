@@ -18,13 +18,13 @@ export interface ButtonProps {
    * The shadow of the button.
    */
   shadow?:
-  | "regular"
-  | "small"
-  | "medium"
-  | "large"
-  | "extraLarge"
-  | "inner"
-  | "none";
+    | "regular"
+    | "small"
+    | "medium"
+    | "large"
+    | "extraLarge"
+    | "inner"
+    | "none";
   /**
    * If `true`, the button will be disabled.
    */
@@ -38,24 +38,27 @@ export interface ButtonProps {
 /**
  * @element s-button
  */
-@customElement("s-button")
-export class Sbutton extends LitElement {
+@customElement("a-button")
+export class Abutton extends LitElement {
   static styles = styles;
   @property({ type: String }) color: ButtonProps["color"] = "primary";
   @property({ type: String }) size: ButtonProps["size"] = "medium";
   @property({ type: String }) shadow: ButtonProps["shadow"] = "none";
   @property({ type: Boolean }) disabled: ButtonProps["disabled"] = false;
   @property({ type: Boolean }) disabledShadow: ButtonProps["disabledShadow"] =
-    true;
+    false;
 
   protected render() {
     return html`
       <button
         part="button"
-        class=${`base ${this.color} ${this.size} ${this.shadow} ${classMap({
-      disabled: this.disabled as boolean,
-      disabledShadow: this.disabledShadow as boolean,
-    })}`}
+        class="base ${classMap({
+          [this.color as string]: true,
+          [this.size as string]: true,
+          [`shadow-${this.shadow}` as string]: true,
+          disabled: this.disabled as boolean,
+          disabledShadow: this.disabledShadow as boolean,
+        })}"
       >
         <slot></slot>
       </button>
@@ -65,12 +68,12 @@ export class Sbutton extends LitElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    "s-button": Sbutton;
+    "a-button": Abutton;
   }
 }
 
 export const Button = createComponent({
-  tagName: "s-button",
-  elementClass: Sbutton,
+  tagName: "a-button",
+  elementClass: Abutton,
   react: React,
 });
