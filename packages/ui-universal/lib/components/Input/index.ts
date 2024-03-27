@@ -12,6 +12,10 @@ export interface InputProps {
    */
   width: number;
   /**
+   * If `true`, the input will fill the width of parent.
+   */
+  fill: boolean;
+  /**
    * If `true`, the input will be disabled.
    */
   disabled: boolean;
@@ -53,6 +57,7 @@ export interface InputProps {
 export class AInput extends LitElement {
   static styles = styles;
   @property({ type: Number }) width: InputProps["width"] = 250;
+  @property({ type: Boolean }) fill: InputProps["fill"] = false;
   @property({ type: Boolean }) disabled: InputProps["disabled"] = false;
   @property({ type: String }) label: InputProps["label"] = "输入框";
   @property({ type: String }) mode: InputProps["mode"] = "text";
@@ -82,15 +87,27 @@ export class AInput extends LitElement {
     return html`
       <div
         class="base ${classMap({
-      disabled: this.disabled,
-      fill: this.isFillFather,
-      border: this.isBorder,
-    })}"
-        style="width:${this.width}px;--input-font-size:${this.fontsize}px;"
+          disabled: this.disabled,
+          fill: this.isFillFather,
+          border: this.isBorder,
+        })}"
+        style="width:${this.fill
+          ? "100%"
+          : `${this.width}px`};--input-font-size:${this.fontsize}px;"
       >
         ${this.label
-        ? html`<label htmlFor="input" class="inputLabel ${classMap({ isUpInputLabel: !!(this.value || this.placeholder || this.isFocus) })}">${this.label}</label>`
-        : ""}
+          ? html`<label
+              htmlFor="input"
+              class="inputLabel ${classMap({
+                isUpInputLabel: !!(
+                  this.value ||
+                  this.placeholder ||
+                  this.isFocus
+                ),
+              })}"
+              >${this.label}</label
+            >`
+          : ""}
         <input
           id="input"
           class="input"
@@ -121,6 +138,5 @@ export const Input = createComponent({
     onchange: "onChange",
     focus: "onFocus",
     blur: "onBlur",
-  }
+  },
 });
-
