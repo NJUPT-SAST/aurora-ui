@@ -1,3 +1,5 @@
+@use "../../variables" as *;
+
 @mixin color-badge($color-name) {
   background-color: rgba(var(--#{$color-name}-color-background-rgb), 1);
   color: var(--#{$color-name}-color);
@@ -6,7 +8,7 @@
 .base {
   padding: 3px 10px;
   border-radius: 5px;
-  width: fit-content;
+  display: inline-flex;
 
   &.info {
     @include color-badge(primary);

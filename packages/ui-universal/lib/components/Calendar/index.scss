@@ -1,4 +1,11 @@
-@use '../variables' as *;
+@use "../../variables" as *;
+@use "../../_variables/color.scss" as *;
+@use "../../_variables/radius.scss" as *;
+@use "../../_variables/border.scss" as *;
+@use "../../_variables/fontSize.scss" as *;
+@use "../../_variables/duration.scss" as *;
+@use "../../_variables/animation.scss" as *;
+@use "../../_variables/disabled.scss" as *;
 $animation-duration: $duration-300;
 .base {
   height: fit-content;
@@ -21,21 +28,14 @@ $animation-duration: $duration-300;
     .buttonContainer {
       display: flex;
       gap: 3px;
-      .button {
-        height: 24px;
-        width: 24px;
-        position: relative;
-        svg {
-          @include absolute-center;
-        }
-      }
     }
   }
   .calendarItems {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: 1.5fr auto;
     column-gap: 5px;
-    row-gap: 3px;
+    row-gap: 5px;
     padding: 5px 10px;
     box-sizing: border-box;
     justify-items: center;
@@ -55,22 +55,22 @@ $animation-duration: $duration-300;
         border-radius: $radius-5;
         transition: all $animation-duration $cubic-bezier;
       }
-      &.today {
-        background-color: var(--background-blue);
-        color: var(--primary-color);
-        border-radius: $radius-5;
-      }
       &.select {
         background-color: var(--primary-color);
         border-radius: 5px;
         color: var(--white-color);
         transition: all $animation-duration $cubic-bezier;
       }
+      &.today {
+        background-color: var(--background-blue);
+        color: var(--primary-color);
+        border-radius: $radius-5;
+      }
     }
   }
   .weekdays {
-    grid-column: 1 / 8;
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
     background-color: var(--title-shadow);
     box-sizing: border-box;
     gap: 5px;
@@ -79,7 +79,7 @@ $animation-duration: $duration-300;
     font-weight: 600;
     color: var(--shadow-color);
     .weekday {
-      font-size: 14px;
+      font-size: $font-size-14;
       width: 35px;
       text-align: center;
     }

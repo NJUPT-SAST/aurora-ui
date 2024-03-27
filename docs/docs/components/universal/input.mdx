@@ -34,9 +34,9 @@ Input component allows users to input text or passwords.
 ></a-input>
 ```
 
-## How to fire events
+## Example in React
 
-```jsx playground direction=vertical
+```jsx
 import React, {useRef} from 'react';
 import { Input, Button } from '@sast/ui-universal';
 
@@ -68,11 +68,10 @@ export default function App () {
                 disabled={disable}
             />
             <div style={{display: 'flex', gap: 10}}>
-                <Button color="secondary" onClick={handleReset}>Reset</Button>
-                <Button onClick={handleConfirm}>Confirm</Button>
+                <Button color="secondary" onClick={handleReset}>Clear</Button>
+                <Button onClick={handleConfirm}>confirm</Button>
             </div>
         </div>
     );
 }
-
 ```

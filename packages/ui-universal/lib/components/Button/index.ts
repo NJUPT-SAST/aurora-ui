@@ -18,13 +18,13 @@ export interface ButtonProps {
    * The shadow of the button.
    */
   shadow?:
-  | "regular"
-  | "small"
-  | "medium"
-  | "large"
-  | "extraLarge"
-  | "inner"
-  | "none";
+    | "regular"
+    | "small"
+    | "medium"
+    | "large"
+    | "extraLarge"
+    | "inner"
+    | "none";
   /**
    * If `true`, the button will be disabled.
    */
@@ -46,16 +46,19 @@ export class Abutton extends LitElement {
   @property({ type: String }) shadow: ButtonProps["shadow"] = "none";
   @property({ type: Boolean }) disabled: ButtonProps["disabled"] = false;
   @property({ type: Boolean }) disabledShadow: ButtonProps["disabledShadow"] =
-    true;
+    false;
 
   protected render() {
     return html`
       <button
         part="button"
-        class=${`base ${this.color} ${this.size} ${this.shadow} ${classMap({
-      disabled: this.disabled as boolean,
-      disabledShadow: this.disabledShadow as boolean,
-    })}`}
+        class="base ${classMap({
+          [this.color as string]: true,
+          [this.size as string]: true,
+          [`shadow-${this.shadow}` as string]: true,
+          disabled: this.disabled as boolean,
+          disabledShadow: this.disabledShadow as boolean,
+        })}"
       >
         <slot></slot>
       </button>

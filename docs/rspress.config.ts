@@ -1,14 +1,16 @@
 import * as path from "path";
 import { defineConfig } from "rspress/config";
 import { pluginPlayground } from "@rspress/plugin-playground";
+import { pluginPreview } from "@rspress/plugin-preview";
 import { remarkMermaid } from "@theguild/remark-mermaid";
 
 export default defineConfig({
   plugins: [
-    pluginPlayground({
-      include: ["@sast/ui-universal"],
-      defaultRenderMode: "pure",
-    }),
+    // pluginPlayground({
+    //   include: ["@sast/ui-universal"],
+    //   defaultRenderMode: "pure",
+    // }),
+    pluginPreview( ),
   ],
   globalUIComponents: [
     path.join(__dirname, "docs", "tools", "wraper", "index.tsx"),

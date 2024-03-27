@@ -36,7 +36,6 @@ class ABadge extends LitElement {
     return html`
       <div
         class="base ${classMap({
-          base: true,
           [this.type as string]: true,
           [this.size as string]: true,
         })}"

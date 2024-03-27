@@ -1,12 +1,12 @@
 import Wraper from '../../tools/wraper/index'
-import {Button} from '@sast/ui-universal'
+import { Button } from '@sast/ui-universal'
 
 
 # Button Component
 Simple button component
 
 <Wraper>
-    <Button color="primary" size="small" shadow="regular" disabled={false} disabledShadow={true}>
+    <Button color="primary" size="small" shadow="large">
         Button Example
     </Button>
 </Wraper>
@@ -23,15 +23,15 @@ Simple button component
 | `disabled`       | If `true`, the button will be disabled.                                   | `boolean`                                | `false`   |
 | `disabledShadow` | When the button is disabled, specifies whether the shadow should be applied or not. | `boolean`                                | `true`    |
 
-## Try it out
+## Example
 
-```jsx playground direction=vertical
+```jsx
 import React from 'react';
 import {Button} from '@sast/ui-universal'
 
 export default function App (){
     return (
-        <Button color="primary" size="medium" shadow="regular" disabled={false} disabledShadow={true}>
+        <Button color="primary" size="medium" shadow="regular" disabled={false}>
             Click me
         </Button>
     )

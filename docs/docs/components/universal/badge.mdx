@@ -35,22 +35,33 @@ export default function App() {
 
 ### Example
 
-```jsx playground direction=vertical
+```jsx
 import { Badge } from "@sast/ui-universal";
 
 export default function Example() {
-  const handleCopy = () => {
-    console.log("Badge content copied!");
-  };
-
   return (
+    <>
     <Badge
-      content="New"
-      type="info"
-      size="small"
-      clickCopy={true}
-      onClickCopy={handleCopy}
+      content="Badge"
+      type="error"
+      size="large"
     />
+    <Badge
+        content="Badge"
+        type="warning"
+        size="large"
+    />
+    <Badge
+        content="Badge"
+        type="info"
+        size="medium"
+    />
+    <Badge
+        content="Badge"
+        type="success"
+        size="small"
+    />
+    </>
   );
 }
 ```
