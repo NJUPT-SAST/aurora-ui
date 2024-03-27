@@ -50,8 +50,7 @@ export const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>(
       const newCalendarVisible = !calendarVisible;
       if (newCalendarVisible) {
         openCalendar();
-      }
-      if (!newCalendarVisible) {
+      } else {
         closeCalendar();
       }
     };
@@ -74,7 +73,7 @@ export const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>(
       }, 200);
     };
 
-    console.log('selectDateString', selectDateString);
+    // console.log('selectDateString', selectDateString);
 
     return (
       <>

@@ -11,6 +11,7 @@
 
 .base {
   border-radius: $radius-5;
+  display: inline-flex;
   @include shadow;
   transition: all $duration-100 $cubic-bezier;
   &:hover {
