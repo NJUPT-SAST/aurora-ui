@@ -1,5 +1,4 @@
 @use '../variables' as *;
-@use '../_variables/color.scss' as *;
 @mixin select-option {
   border-radius: 5px;
   cursor: pointer;
