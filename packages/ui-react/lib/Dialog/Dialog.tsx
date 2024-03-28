@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState, type CSSProperties } from 'react';
 import styles from './Dialog.module.scss';
 import { Button, Card } from '..';
+import { createPortal } from 'react-dom';
 
 export interface DialogProps extends React.HtmlHTMLAttributes<HTMLDivElement> {
   /**
@@ -99,16 +100,11 @@ export const Dialog = React.forwardRef<HTMLDivElement, DialogProps>(
     const dialogRef = useRef<HTMLDialogElement>(null);
 
     useEffect(() => {
-      if (visible) {
-        openDialog();
-      } else {
-        closeDialog();
-      }
+      visible ? openDialog() : closeDialog();
     }, [visible]);
 
     useEffect(() => {
-      dialogVisible && dialogRef.current?.show();
-      !dialogVisible && dialogRef.current?.close();
+      dialogVisible ? dialogRef.current?.show() : dialogRef.current?.close();
     }, [dialogVisible]);
 
     const openDialog = () => {
@@ -129,32 +125,37 @@ export const Dialog = React.forwardRef<HTMLDivElement, DialogProps>(
 
     return (
       <>
-        {dialogVisible && (
-          <div
-            className={`${styles['dialog-container']} ${styles[mask ? 'mask' : 'no-mask']} ${styles[dialogIn ? 'dialog-in' : '']}  
+        {createPortal(
+          <div>
+            {dialogVisible && (
+              <div
+                className={`${styles['dialog-container']} ${styles[mask ? 'mask' : 'no-mask']} ${styles[dialogIn ? 'dialog-in' : '']}  
             ${styles[dialogHide ? 'dialog-hide' : '']}`}
-            onClick={() => maskClosable && onCancel && onCancel()}
-            style={maskStyle}
-          >
-            <dialog
-              ref={dialogRef}
-              className={`${styles['dialog']}  ${styles[dialogIn ? 'dialog-in' : '']}  
+                onClick={() => maskClosable && onCancel && onCancel()}
+                style={maskStyle}
+              >
+                <dialog
+                  ref={dialogRef}
+                  className={`${styles['dialog']}  ${styles[dialogIn ? 'dialog-in' : '']}  
           ${styles[dialogHide ? 'dialog-hide' : '']}  ${className} `}
-              onClick={(e) => e.stopPropagation()}
-            >
-              <Card
-                ref={ref}
-                className={`${styles['base']} `}
-                header={header}
-                mainContent={mainContent}
-                footer={footer}
-                theme={theme}
-                size={size}
-                shadow={shadow}
-                {...rest}
-              ></Card>
-            </dialog>
-          </div>
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <Card
+                    ref={ref}
+                    className={`${styles['base']} `}
+                    header={header}
+                    mainContent={mainContent}
+                    footer={footer}
+                    theme={theme}
+                    size={size}
+                    shadow={shadow}
+                    {...rest}
+                  ></Card>
+                </dialog>
+              </div>
+            )}
+          </div>,
+          document.body,
         )}
       </>
     );
