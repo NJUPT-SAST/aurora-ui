@@ -1,0 +1,71 @@
+import Wraper from '../../tools/wraper/index'
+import { Select } from '@sast/ui-universal'
+
+# Select Component
+
+The Select component provides a dropdown menu with selectable options.
+
+<Wraper>
+    <div style={{margin: 10}}>
+        <Select
+            title="Select an option"
+            optionsList={[
+                { value: "1", label: "Next.js" },
+                { value: "2", label: "Lit Element" },
+                { value: "3", label: "Nuxt.js" }
+            ]}
+            onchange={(value) => console.log("Selected option:", value)}
+            selectKey={0}
+            width={400}
+            placeHolder="Please select"
+        />
+    </div>
+</Wraper>
+
+## Props
+
+| Property           | Description                                      | Type                                          | Default  |
+|--------------------|--------------------------------------------------|-----------------------------------------------|----------|
+| `onchange`         | Callback function triggered when an option is selected. | `(value: OptionProps) => void`             |          |
+| `optionsList`      | List of options for the select menu.             | `Array<OptionProps>`                         |          |
+| `title`            | Title of the select.                             | `string`                                      |          |
+| `disabled`         | If `true`, the select will be disabled.          | `boolean`                                     | `false`  |
+| `defaultSelectKey` | The default selected option key.                 | `number`                                      | `0`      |
+| `selectKey`        | The currently selected option key.               | `number`                                      | `0`      |
+| `isBorder`         | If `true`, the select will have a border.        | `boolean`                                     | `true`   |
+| `width`            | The width of the select.                         | `number`                                      | `200`    |
+| `placeHolder`      | Placeholder text displayed when no option is selected. | `string`                                 | `"Please select"` |
+
+## Events
+
+- `onchange`: Fired when an option is selected. Provides the selected option as an argument to the callback function.
+
+## Example
+
+```jsx
+import { Select } from '@sast/ui-universal'
+
+
+export default function Example() {
+  const handleSelect = (value) => {
+    console.log("Selected option:", value);
+  };
+
+  return (
+    <div style={{ margin: 10 }}>
+      <Select
+            title="Select an option"
+            optionsList={[
+                { value: "1", label: "Next.js" },
+                { value: "2", label: "Lit Element" },
+                { value: "3", label: "Nuxt.js" }
+            ]}
+            onchange={(value) => console.log("Selected option:", value)}
+            selectKey={0}
+            width={400}
+            placeHolder="Please select"
+        />
+    </div>
+  );
+}
+```
