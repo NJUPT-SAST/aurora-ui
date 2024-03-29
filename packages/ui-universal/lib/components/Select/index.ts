@@ -1,5 +1,5 @@
 import { LitElement, html } from "lit";
-import { customElement, property, query, state } from "lit/decorators.js";
+import { customElement, property, state } from "lit/decorators.js";
 import styles from "./index.scss?inline";
 import React from "react";
 import { createComponent } from "@lit/react";
