@@ -1,6 +1,7 @@
 import React from 'react';
 import { useWrapperVisibleStore } from './useWrapperVisibleStore';
 import styles from './Sheet.module.scss';
+import { createPortal } from 'react-dom';
 
 export interface SheetWrapperProps {
   /**
@@ -19,14 +20,17 @@ export const SheetWrapper = React.forwardRef<HTMLDivElement, SheetWrapperProps>(
 
     return (
       <>
-        <div style={{ backgroundColor: backgroundColor }}>
-          <div
-            ref={ref}
-            className={`${styles['wrapper']} ${styles[wrapperVisible ? 'show' : '']}`}
-          >
-            {children}
-          </div>
-        </div>
+        {createPortal(
+          <div style={{ backgroundColor: backgroundColor }}>
+            <div
+              ref={ref}
+              className={`${styles['wrapper']} ${styles[wrapperVisible ? 'show' : '']}`}
+            >
+              {children}
+            </div>
+          </div>,
+          document.body,
+        )}
       </>
     );
   },

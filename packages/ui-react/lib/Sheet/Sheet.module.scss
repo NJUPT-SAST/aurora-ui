@@ -9,71 +9,96 @@ $padding-left-right-distance: 20px;
   animation-fill-mode: forwards;
 }
 
-.base {
+@property --blur {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0px;
+}
+
+@property --opacity-background {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 0%;
+}
+
+@property --opacity-sheet {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 0%;
+}
+
+@property --slide {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 0%;
+}
+
+@mixin sheet-animation() {
+  &.sheet-in {
+    @include animation(sheet-in);
+  }
+  &.sheet-hide {
+    @include animation(sheet-hide);
+  }
+}
+
+.sheet-container {
   height: 100vh;
   width: 100vw;
   position: fixed;
   left: 0;
   top: 0;
-  z-index: 2;
+  z-index: 1;
   box-sizing: border-box;
-  background-color: $background-shadow-color;
-  &.showAnimation {
-    @include animation(showShadow);
+  &.mask {
+    backdrop-filter: blur(var(--blur));
+    background-color: rgb($black-color, var(--opacity-background));
   }
-  &.hideAnimation {
-    @include animation(hideShadow);
-  }
-  .sheetContent {
+  @include sheet-animation();
+  .sheet {
     top: 0;
     height: 100vh;
-    background-color: var(--white-color);
+    background-color: $white-color;
     position: absolute;
-    z-index: 3;
+    z-index: 2;
     box-sizing: border-box;
-    opacity: 1;
     right: 0;
     padding: $padding-left-right-distance;
-    opacity: 1;
-    &.showAnimation {
-      @include animation(showSlideSheet);
-    }
-    &.hideAnimation {
-      @include animation(hideSlideSheet);
+    transform: translateX(var(--slide));
+    opacity: var(--opacity-sheet);
+    @include sheet-animation();
+    display: flex;
+    flex-direction: column;
+    &.left {
+      left: 0;
+      transform: translateX(calc(-1 * var(--slide)));
     }
     .sheetMainContent {
-      padding: 10px 0;
       overflow-y: scroll;
       display: flex;
-      position: relative;
-      height: calc(100vh - 32px - 60px);
       top: 30px;
+      flex-grow: 1;
+      margin-top: 10px;
     }
     .sheetFooter {
       height: 50px;
-      position: absolute;
-      bottom: 20px;
-      width: -webkit-fill-available;
-      padding-right: $padding-left-right-distance;
       text-align: end;
-      background-color: var(--white-color);
+      background-color: $white-color;
+      z-index: 1;
     }
     .sheet-header {
       height: 32px;
-      background-color: var(--white-color);
-      position: absolute;
-      display: flex;
-      width: -webkit-fill-available;
-      padding-right: 20px;
-      flex-direction: column;
+      background-color: $white-color;
+      width: 100%;
       .sheet-header-content {
         display: flex;
         width: 100%;
         align-items: center;
         justify-content: space-between;
+        flex-direction: row;
         span {
           font-size: 16px;
-          font-weight: 700;
+          font-weight: bolder;
           white-space: nowrap;
         }
         .svg-container {
@@ -109,39 +134,32 @@ $padding-left-right-distance: 20px;
     }
   }
 }
-
-@keyframes showShadow {
-  from {
-    background-color: rgb(var(--black-color-rgb), 0);
+@keyframes sheet-in {
+  0% {
+    --blur: 0px;
+    --opacity-background: 0%;
+    --slide: 100%;
+    --opacity-sheet: 0%;
   }
-  to {
-    background-color: $background-shadow-color;
-  }
-}
-
-@keyframes hideShadow {
-  from {
-    background-color: $background-shadow-color;
-  }
-  to {
-    background-color: rgb(var(--black-color-rgb), 0);
+  100% {
+    --blur: 4px;
+    --opacity-background: 40%;
+    --slide: 0%;
+    --opacity-sheet: 100%;
   }
 }
 
-@keyframes showSlideSheet {
-  from {
-    right: -30%;
+@keyframes sheet-hide {
+  0% {
+    --blur: 4px;
+    --opacity-background: 40%;
+    --slide: 0%;
+    --opacity-sheet: 100%;
   }
-  to {
-    right: 0;
-  }
-}
-
-@keyframes hideSlideSheet {
-  from {
-    right: 0;
-  }
-  to {
-    right: -30%;
+  100% {
+    --blur: 0px;
+    --opacity-background: 0%;
+    --slide: 100%;
+    --opacity-sheet: 0%;
   }
 }
