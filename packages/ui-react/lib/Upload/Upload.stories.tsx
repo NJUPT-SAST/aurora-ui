@@ -17,16 +17,19 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-const defaultProps: UploadProps = {};
+const defaultProps: UploadProps = {
+  action: 'http://localhost:3333/upload',
+};
 
-export const DefaultToast: Story = {
+export const DefaultUpload: Story = {
   args: {
     ...defaultProps,
   },
 };
 
-export const ExampleToast: Story = {
+export const MultipleUpload: Story = {
   args: {
     ...defaultProps,
+    multiple: true,
   },
 };

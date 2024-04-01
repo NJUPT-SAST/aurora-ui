@@ -62,6 +62,7 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
       className = '',
       padding = 20,
       gap = 8,
+      width,
       ...rest
     },
     ref,
@@ -78,6 +79,7 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
         ref={ref}
         className={`${cardClass} ${className}`}
         {...rest}
+        style={{ width: `${width}px` }}
       >
         {titleImage && <div className={styles['titleImage']}>{<>{titleImage}</>}</div>}
         <div
@@ -91,7 +93,7 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
             {header && <div className={styles['header']}>{header}</div>}
             {mainContent && <div className={styles['content']}>{mainContent}</div>}
           </div>
-          {footer && <div className={styles['footer']}>{footer}</div>}{' '}
+          {footer && <div className={styles['footer']}>{footer}</div>}
         </div>
       </div>
     );

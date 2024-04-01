@@ -1,8 +1,62 @@
-.upload-container {
+@use '../variables' as *;
+.upload-button {
   .file-input {
     display: none;
   }
   .upload-label {
     cursor: pointer;
+    &.disabled-label {
+      cursor: not-allowed;
+    }
+  }
+}
+
+.upload-items-container {
+  margin-top: 5px;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 3px;
+  row-gap: 5px;
+  display: grid;
+  .upload-item {
+    display: flex;
+    gap: 10px;
+    flex-direction: row;
+    align-items: center;
+    .file-svg {
+      width: 40px;
+      height: 40px;
+      flex-basis: 40px;
+      path {
+        fill: rgb($black-color, 0.4);
+      }
+    }
+    .file-information {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      flex-grow: 1;
+      min-width: 40px;
+      .name {
+        font-weight: bolder;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .size {
+        font-size: bold;
+        color: rgb($black-color, 0.4);
+        font-size: 14px;
+      }
+    }
+    .delete-svg-container {
+      height: 30px;
+      width: 30px;
+      flex-basis: 30px;
+      min-width: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
   }
 }
