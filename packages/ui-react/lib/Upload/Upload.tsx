@@ -58,6 +58,10 @@ export interface UploadProps extends React.HtmlHTMLAttributes<HTMLInputElement> 
    * formdate
    */
   formData?: FormData;
+  /**
+   * Parameter name of the file sent to the backend default is name
+   */
+  name?: string;
 }
 
 const customEase = [0.215, 0.61, 0.355, 1];
@@ -78,6 +82,7 @@ export const Upload = React.forwardRef<HTMLInputElement, UploadProps>(
       customRequest,
       multiple = false,
       formData = new FormData(),
+      name = 'file',
       ...rest
     },
     ref,
@@ -103,12 +108,11 @@ export const Upload = React.forwardRef<HTMLInputElement, UploadProps>(
     }, [uploadFiles, onchange, addUploadFiles]);
 
     const handleUpload = (files: File[]) => {
-      files[0] && formData.append('file', files[0]);
+      files[0] && formData.append(name, files[0]);
       fetch(action, {
         method: method,
         body: formData,
         headers: headers,
-        mode: 'no-cors',
       })
         .then((res: object) => {
           console.log(res);
