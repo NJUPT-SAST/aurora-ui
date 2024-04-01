@@ -1,11 +1,11 @@
 [
   {
-    "text": "React Components",
+    "text": "反应组件",
     "link": "https://sast-ui-react.vercel.app/",
     "activeMatch": "https://sast-ui-react.vercel.app/"
   },
   {
-    "text": "Universal Components (developing)",
+    "text": "全局组件（开发中）",
     "link": "/components/universal/index.html",
     "activeMatch": "/components/universal"
   }

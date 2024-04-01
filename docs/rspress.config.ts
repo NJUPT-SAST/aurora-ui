@@ -15,6 +15,7 @@ export default defineConfig({
   globalUIComponents: [
     path.join(__dirname, "docs", "tools", "wraper", "index.tsx"),
   ],
+  globalStyles: path.join(__dirname, 'styles/global.css'),
   root: path.join(__dirname, "docs"),
   title: "Aurora UI",
   description: "🌏 UI component library for the future",
