@@ -82,7 +82,7 @@ export const Navbar = React.forwardRef<HTMLDivElement, NavbarProps>(
       const offsetLeft = currentEle?.offsetLeft;
       const footerEle = footerRef.current as HTMLDivElement;
       footerEle.style.width = `${width}px`;
-      footerEle.style.transform = `translateX(${offsetLeft + 2}px)`;
+      footerEle.style.transform = `translateX(${offsetLeft + 1}px)`;
       onchange && onchange(selectItem);
     }, [selectItem, onchange]);
 
