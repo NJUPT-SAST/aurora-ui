@@ -76,6 +76,9 @@ importers:
       framer-motion:
         specifier: ^11.0.24
         version: 11.0.24(react-dom@18.2.0)(react@18.2.0)
+      lucide-react:
+        specifier: ^0.364.0
+        version: 0.364.0(react@18.2.0)
       zustand:
         specifier: ^4.4.7
         version: 4.5.2(@types/react@18.2.67)(react@18.2.0)
@@ -9129,6 +9132,14 @@ packages:
     engines: {node: '>=10'}
     dependencies:
       yallist: 4.0.0
+
+  /lucide-react@0.364.0(react@18.2.0):
+    resolution: {integrity: sha512-eHfdbJExWtTaZ0tBMGtI7PA/MbqV5wt+o4/yitDce17tadH/75Gq3Tq8jSteb3LhLr0eay/j5YUuN4yXjnI3aw==}
+    peerDependencies:
+      react: ^16.5.1 || ^17.0.0 || ^18.0.0
+    dependencies:
+      react: 18.2.0
+    dev: false
 
   /lz-string@1.5.0:
     resolution: {integrity: sha512-h5bgJWpxJNswbU7qCrV0tIKQCaS3blPDrqKWx+QxzuzL1zGUzij9XCWLrSLsJPu5t+eWA/ycetzYAO5IOMcWAQ==}

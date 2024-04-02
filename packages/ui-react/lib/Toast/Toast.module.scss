@@ -10,7 +10,9 @@ $border-radius: $radius-5;
   color: var(--#{$type-name}-color);
   .closeButton {
     .icon {
-      fill: var(--#{$type-name}-color);
+      path {
+        stroke: var(--#{$type-name}-color);
+      }
     }
   }
 }

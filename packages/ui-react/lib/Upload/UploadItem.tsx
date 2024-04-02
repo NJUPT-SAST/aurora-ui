@@ -2,6 +2,7 @@ import type React from 'react';
 import styles from './Upload.module.scss';
 import { Button } from '..';
 import { useEffect, useState } from 'react';
+import { File } from 'lucide-react';
 
 export interface UploadItemProps {
   /**
@@ -43,14 +44,18 @@ export const UploadItem: React.FC<UploadItemProps> = ({ name, size, file, delete
 
   return (
     <div className={styles['upload-item']}>
-      <svg
+      {/* <svg
         className={styles['file-svg']}
         viewBox="0 0 1024 1024"
         version="1.1"
         xmlns="http://www.w3.org/2000/svg"
       >
         <path d="M128 128C128 57.4 185.4 0 256 0h320v256c0 35.4 28.6 64 64 64h256v576c0 70.6-57.4 128-128 128H256c-70.6 0-128-57.4-128-128V128z m768 128H640V0l256 256z"></path>
-      </svg>
+      </svg> */}
+      <File
+        className={styles['file-svg']}
+        color="#808080"
+      />
       <div className={styles['file-information']}>
         <span className={styles['name']}>{name}</span>
         <span className={styles['size']}>{fileSize}</span>

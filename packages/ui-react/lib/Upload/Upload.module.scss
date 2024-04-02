@@ -26,9 +26,10 @@
       width: 40px;
       height: 40px;
       flex-basis: 40px;
-      path {
-        fill: rgb($black-color, 0.4);
-      }
+      // path {
+      // fill: $gray-color;
+      // stroke: $pale-white-color;
+      // }
     }
     .file-information {
       display: flex;

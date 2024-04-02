@@ -87,6 +87,7 @@
     "@types/react-transition-group": "^4.4.10",
     "classnames": "^2.5.1",
     "framer-motion": "^11.0.24",
+    "lucide-react": "^0.364.0",
     "zustand": "^4.4.7"
   }
 }
