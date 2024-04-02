@@ -20,7 +20,6 @@
       position: absolute;
       left: 0;
       bottom: -3px;
-      width: 52px;
       background-color: $primary-color;
       height: 1.5px;
       border-radius: 1px;
@@ -36,6 +35,7 @@
       font-size: 12px;
       font-weight: 500;
       cursor: pointer;
+      font-weight: 600;
       svg {
         fill: rgb($black-color, 0.7);
         transition: all 0.3s $cubic-bezier;
