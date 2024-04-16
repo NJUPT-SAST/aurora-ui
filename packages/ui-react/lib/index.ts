@@ -20,3 +20,4 @@ export * from './Switch';
 export * from './DatePicker';
 export * from './CodeEditor';
 export * from './Upload';
+export * from './Table';
