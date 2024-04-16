@@ -36,15 +36,15 @@ importers:
 
   docs:
     dependencies:
-      '@sast/ui-react':
-        specifier: workspace:^
-        version: link:../packages/ui-react
       '@sast/ui-universal':
         specifier: workspace:^
         version: link:../packages/ui-universal
       '@theguild/remark-mermaid':
         specifier: ^0.0.6
         version: 0.0.6(react@18.2.0)
+      '@ui-aurora/react':
+        specifier: workspace:^
+        version: link:../packages/ui-react
       rspress:
         specifier: ^1.16.0
         version: 1.16.0(webpack@5.91.0)
@@ -77,8 +77,8 @@ importers:
         specifier: ^11.0.24
         version: 11.0.24(react-dom@18.2.0)(react@18.2.0)
       lucide-react:
-        specifier: ^0.364.0
-        version: 0.364.0(react@18.2.0)
+        specifier: ^0.368.0
+        version: 0.368.0(react@18.2.0)
       zustand:
         specifier: ^4.4.7
         version: 4.5.2(@types/react@18.2.67)(react@18.2.0)
@@ -9133,8 +9133,9 @@ packages:
     dependencies:
       yallist: 4.0.0
 
-  /lucide-react@0.364.0(react@18.2.0):
-    resolution: {integrity: sha512-eHfdbJExWtTaZ0tBMGtI7PA/MbqV5wt+o4/yitDce17tadH/75Gq3Tq8jSteb3LhLr0eay/j5YUuN4yXjnI3aw==}
+  /lucide-react@0.368.0(react@18.2.0):
+    resolution: {integrity: sha512-soryVrCjheZs8rbXKdINw9B8iPi5OajBJZMJ1HORig89ljcOcEokKKAgGbg3QWxSXel7JwHOfDFUdDHAKyUAMw==}
+
     peerDependencies:
       react: ^16.5.1 || ^17.0.0 || ^18.0.0
     dependencies:
