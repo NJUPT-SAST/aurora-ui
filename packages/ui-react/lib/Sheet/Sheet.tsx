@@ -1,10 +1,10 @@
-import classnames from 'classnames';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, type CSSProperties } from 'react';
 import styles from './Sheet.module.scss';
 // import SheetTrigger from './SheetTrigger';
 import { SheetHeader } from './SheetHeader';
 import { SheetFooter } from './SheetFooter';
 import { useWrapperVisibleStore } from './useWrapperVisibleStore';
+import { createPortal } from 'react-dom';
 
 export interface SheetProps extends React.HtmlHTMLAttributes<HTMLDivElement> {
   /**
@@ -31,70 +31,105 @@ export interface SheetProps extends React.HtmlHTMLAttributes<HTMLDivElement> {
    * width, the width of the sheet
    */
   width?: number;
+  /**
+   * classname , the classname of the sidesheet
+   */
+  className?: string;
+  /**
+   * mask, Whether to display the mask
+   */
+  mask?: boolean;
+  /**
+   * Whether or not to allow closing the dialog by clicking on the mask
+   */
+  maskClosable?: boolean;
+  /**
+   * the style of the mask
+   */
+  maskStyle?: CSSProperties;
+  /**
+   * placement : left|right
+   */
+  placement?: 'left' | 'right';
 }
 
 export const Sheet = React.forwardRef<HTMLDivElement, SheetProps>(
-  ({ visible, onCancel, sheetTitle, sheetFooter, mainContent, width = 500, ...rest }, ref) => {
-    const [innerVisible, setInnerVisible] = useState<boolean>(false);
-    const [isShowAnimation, setIsShowAnimation] = useState<boolean>(false);
-    const [isHideAnimation, setIsHideAnimation] = useState<boolean>(false);
+  (
+    {
+      visible,
+      onCancel,
+      sheetTitle,
+      sheetFooter,
+      mainContent,
+      width = 500,
+      className,
+      maskClosable = true,
+      mask = true,
+      maskStyle,
+      placement = 'right',
+      ...rest
+    },
+    ref,
+  ) => {
+    const [sheetVisible, setSheetVisible] = useState<boolean>(false);
+    const [sheetIn, setSheetIn] = useState<boolean>(false);
+    const [sheetHide, setSheetHide] = useState<boolean>(false);
     const [open, close] = useWrapperVisibleStore((state) => [state.open, state.close]);
 
-    const stopPropagation = (e: React.MouseEvent<HTMLDivElement>) => {
-      e.stopPropagation();
+    useEffect(() => {
+      visible ? openSheet() : closeSheet();
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [visible]);
+
+    const closeSheet = () => {
+      setSheetIn(false);
+      setSheetHide(true);
+      close();
+      setTimeout(() => {
+        setSheetHide(false);
+        setSheetVisible(false);
+        document.body.style.overflow = '';
+      }, 400);
     };
 
-    useEffect(() => {
-      if (visible) {
-        setInnerVisible(true);
-        setIsShowAnimation(true);
-        open();
-        document.body.style.overflow = 'hidden';
-        setTimeout(() => {
-          setIsShowAnimation(false);
-        }, 400);
-      }
-      if (!visible) {
-        setIsHideAnimation(true);
-        close();
-        setTimeout(() => {
-          setIsHideAnimation(false);
-          setInnerVisible(false);
-          document.body.style.overflow = '';
-        }, 400);
-      }
-    }, [visible, open, close]);
-
-    const sheetClass = classnames(
-      `${styles['base']} 
-    ${styles[isShowAnimation ? 'showAnimation' : '']} 
-    ${styles[isHideAnimation ? 'hideAnimation' : '']}`,
-    );
+    const openSheet = () => {
+      setSheetVisible(true);
+      setSheetIn(true);
+      open();
+      document.body.style.overflow = 'hidden';
+    };
 
     return (
       <>
-        {innerVisible && (
-          <div
-            className={sheetClass}
-            onMouseDown={onCancel}
-            ref={ref}
-            {...rest}
-          >
-            <div
-              style={{ width: `${width}px` }}
-              className={`${styles['sheetContent']} 
-            ${styles[isShowAnimation ? 'showAnimation' : '']} 
-            ${styles[isHideAnimation ? 'hideAnimation' : '']}`}
-              onMouseDown={stopPropagation}
-            >
-              <SheetHeader
-                onCancel={onCancel}
-                content={sheetTitle}
-              ></SheetHeader>
-              <div className={styles['sheetMainContent']}>{mainContent}</div>
-              <SheetFooter>{sheetFooter}</SheetFooter>
-            </div>
-          </div>
+        {createPortal(
+          <div>
+            {sheetVisible && (
+              <div
+                className={`${styles['sheet-container']}   ${styles[sheetIn ? 'sheet-in' : '']} 
+            ${styles[sheetHide ? 'sheet-hide' : '']} ${styles[mask ? 'mask' : 'no-mask']}`}
+                style={maskStyle}
+                onMouseDown={() => maskClosable && onCancel && onCancel()}
+                ref={ref}
+                {...rest}
+              >
+                <div
+                  style={{ width: `${width}px` }}
+                  className={`${styles['sheet']} 
+            ${styles[sheetIn ? 'sheet-in' : '']} 
+            ${styles[sheetHide ? 'sheet-hide' : '']} ${className} ${styles[placement === 'left' ? 'left' : '']}`}
+                  onMouseDown={(e) => e.stopPropagation()}
+                >
+                  <SheetHeader
+                    onCancel={onCancel}
+                    content={sheetTitle}
+                  ></SheetHeader>
+                  <div className={styles['sheetMainContent']}>{mainContent}</div>
+                  <SheetFooter onCancel={onCancel}>{sheetFooter}</SheetFooter>
+                </div>
+              </div>
+            )}
+          </div>,
+          document.body,
         )}
       </>
     );

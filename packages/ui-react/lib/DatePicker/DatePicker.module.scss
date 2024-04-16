@@ -26,20 +26,10 @@ $border: $border-1;
   &.is-select-date {
     border: $border solid var(--primary-color) !important;
     color: var(--primary-color) !important;
-    svg {
-      fill: var(--primary-color) !important;
-    }
-  }
-  svg {
-    fill: var(--shadow-color);
-    transition: all $animation-duration $cubic-bezier;
   }
   &:hover {
     color: var(--primary-color) !important;
     border: $border solid var(--primary-color) !important;
-    svg {
-      fill: var(--primary-color);
-    }
   }
 }
 .calendar-container {

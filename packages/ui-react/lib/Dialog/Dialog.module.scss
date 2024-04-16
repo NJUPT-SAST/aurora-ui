@@ -1,6 +1,4 @@
-@use '../_variables/shadow.scss' as *;
-@use '../_variables/animation.scss' as *;
-@use '../_variables/color.scss' as *;
+@use '../variables' as *;
 
 @property --blur {
   syntax: '<length>';

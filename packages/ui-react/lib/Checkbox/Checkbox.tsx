@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from './Checkbox.module.scss';
 import classNames from 'classnames';
+import { Check } from 'lucide-react';
 export interface CheckboxProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   /**
    * value of the checkbox
@@ -55,20 +56,10 @@ export const Checkbox = React.forwardRef<HTMLButtonElement, CheckboxProps>(
           {...rest}
         >
           {isChecked && (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-            >
-              <path
-                className={`${styles['checkPath']} ${styles[isChecked ? 'checked' : '']}`}
-                fill="none"
-                stroke="white"
-                strokeWidth="4.5"
-                d="M4 12 L9 17 L20 6"
-              />
-            </svg>
+            <Check
+              size={16}
+              className={styles['check-icon']}
+            />
           )}
         </button>
         <label className={styles['labelSpan']}>{label}</label>

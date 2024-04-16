@@ -3,6 +3,7 @@ import styles from './Pagination.module.scss';
 import classNames from 'classnames';
 import { PaginationItem } from './PaginationItem';
 import { useCurrentPageStore } from './useCurrentPageStore';
+import { ChevronsLeft, ChevronsRight } from 'lucide-react';
 
 export interface PaginationProps {
   /**
@@ -207,30 +208,14 @@ export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
             type="delete"
             disabled={currentPage === 1 || disabled}
           >
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 16 16"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path d="M11.7267 12L12.6667 11.06L9.61341 8L12.6667 4.94L11.7267 4L7.72675 8L11.7267 12Z" />
-              <path d="M7.33344 12L8.27344 11.06L5.2201 8L8.27344 4.94L7.33344 4L3.33344 8L7.33344 12Z" />
-            </svg>
+            <ChevronsLeft size={16} />
           </PaginationItem>
           {itemList}
           <PaginationItem
             type="add"
             disabled={currentPage === pageNumber || disabled}
           >
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 16 16"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path d="M4.27325 4L3.33325 4.94L6.38659 8L3.33325 11.06L4.27325 12L8.27325 8L4.27325 4Z" />
-              <path d="M8.66656 4L7.72656 4.94L10.7799 8L7.72656 11.06L8.66656 12L12.6666 8L8.66656 4Z" />
-            </svg>
+            <ChevronsRight size={16} />
           </PaginationItem>
         </div>
       </>

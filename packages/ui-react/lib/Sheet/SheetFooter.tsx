@@ -7,10 +7,14 @@ export interface SheetFooterProps {
    * content of the sheetheader
    */
   children?: React.ReactNode;
+  /**
+   * onCancel, the exit of the sheet
+   */
+  onCancel?: () => void;
 }
 
 export const SheetFooter = React.forwardRef<HTMLDivElement, SheetFooterProps>(
-  ({ children, ...rest }, ref) => {
+  ({ children, onCancel, ...rest }, ref) => {
     return (
       <>
         <div
@@ -19,6 +23,7 @@ export const SheetFooter = React.forwardRef<HTMLDivElement, SheetFooterProps>(
           className={styles['sheetFooter']}
         >
           <div
+            id="divider"
             style={{
               width: '100%',
               backgroundColor: '#f0f0f0',
@@ -26,7 +31,14 @@ export const SheetFooter = React.forwardRef<HTMLDivElement, SheetFooterProps>(
               marginBottom: '8px',
             }}
           ></div>
-          {children || <Button color="ghost">取消</Button>}
+          {children || (
+            <Button
+              color="ghost"
+              onClick={onCancel}
+            >
+              取消
+            </Button>
+          )}
         </div>
       </>
     );

@@ -19,3 +19,4 @@ export * from './Carousel';
 export * from './Switch';
 export * from './DatePicker';
 export * from './CodeEditor';
+export * from './Upload';

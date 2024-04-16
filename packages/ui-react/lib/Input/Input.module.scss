@@ -1,10 +1,4 @@
-@use '../_variables/color.scss' as *;
-@use '../_variables/radius.scss' as *;
-@use '../_variables//border.scss' as *;
-@use '../_variables/fontSize.scss' as *;
-@use '../_variables/duration.scss' as *;
-@use '../_variables/animation.scss' as *;
-@use '../_variables/disabled.scss' as *;
+@use '../variables' as *;
 
 $border-radius: $radius-8;
 $border-width: $border-1;
