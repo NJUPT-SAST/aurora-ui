@@ -2,7 +2,7 @@ name: Publish react_ui to npmjs
 on:
   push:
     branches:
-      - test-ci
+      - main
 jobs:
   build:
     runs-on: ubuntu-latest
