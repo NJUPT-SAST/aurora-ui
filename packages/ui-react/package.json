@@ -1,14 +1,16 @@
 {
-  "name": "@sast/ui-react",
-  "private": true,
-  "version": "0.0.0",
+  "name": "@ui-aurora/react",
+  "version": "0.0.2",
   "description": "A React UI library built for SASTOJ",
   "author": "sast",
-  "license": "",
+  "license": "./LICENSE",
   "type": "module",
   "files": [
     "dist"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "sideEffects": [
     "**/*.css"
   ],

@@ -77,14 +77,18 @@ export const Navbar = React.forwardRef<HTMLDivElement, NavbarProps>(
     }, []);
 
     useEffect(() => {
+      itemMoveAnimation();
+      onchange && onchange(selectItem);
+    }, [selectItem, onchange]);
+
+    const itemMoveAnimation = () => {
       const currentEle = selectedItemRef.current as HTMLDivElement;
       const width = currentEle?.offsetWidth;
       const offsetLeft = currentEle?.offsetLeft;
       const footerEle = footerRef.current as HTMLDivElement;
       footerEle.style.width = `${width}px`;
       footerEle.style.transform = `translateX(${offsetLeft + 1}px)`;
-      onchange && onchange(selectItem);
-    }, [selectItem, onchange]);
+    };
 
     useEffect(() => {
       selectedKey && setSelectItem(selectedKey);

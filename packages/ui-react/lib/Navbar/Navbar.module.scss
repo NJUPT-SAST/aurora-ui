@@ -37,19 +37,25 @@
       cursor: pointer;
       font-weight: 600;
       svg {
-        fill: rgb($black-color, 0.7);
-        transition: all 0.3s $cubic-bezier;
+        path {
+          inset: rgb($black-color, 0.7);
+          transition: all 0.3s $cubic-bezier;
+        }
       }
       &.select {
         color: $primary-color;
         svg {
-          fill: $primary-color;
+          path {
+            inset: $primary-color;
+          }
         }
       }
       &:hover {
         color: $primary-color;
         svg {
-          fill: $primary-color;
+          path {
+            inset: $primary-color;
+          }
         }
       }
     }

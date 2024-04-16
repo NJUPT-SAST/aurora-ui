@@ -43,8 +43,10 @@ const moreTimeClose = (div: HTMLDivElement) => {
     const ToasthideClass: string = classNames(styles['toastHide']);
     div.classList.add(ToasthideClass);
     setTimeout(() => {
-      toastContainer?.removeChild(div);
-      toasts = toasts.filter((toast) => toast !== div);
+      if (toastContainer?.contains(div)) {
+        toastContainer?.removeChild(div);
+        toasts = toasts.filter((toast) => toast !== div);
+      }
     }, 400);
   }, 5000);
 };

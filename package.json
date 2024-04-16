@@ -7,10 +7,10 @@
   "scripts": {
     "ui-uni:dev": "pnpm --filter @sast/ui-universal dev",
     "ui-uni:build": "pnpm --filter @sast/ui-universal build",
-    "ui-react:start": "pnpm --filter @sast/ui-react dev:lib",
-    "ui-react:dev": "pnpm --filter @sast/ui-react dev",
-    "ui-react:build": "pnpm --filter @sast/ui-react build:lib",
-    "ui-react:build-story": "pnpm --filter @sast/ui-react build",
+    "ui-react:start": "pnpm --filter @ui-aurora/react dev:lib",
+    "ui-react:dev": "pnpm --filter @ui-aurora/react dev",
+    "ui-react:build": "pnpm --filter @ui-aurora/react build:lib",
+    "ui-react:build-story": "pnpm --filter @ui-aurora/react build",
     "docs:dev": "pnpm --filter @sast/ui-docs dev",
     "commit": "git add . && pnpm lint-staged -p false && pnpm cz",
     "prepare": "husky"
