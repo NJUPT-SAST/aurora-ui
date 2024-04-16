@@ -5,6 +5,7 @@ import { ifDefined } from "lit/directives/if-defined.js";
 import { createComponent } from "@lit/react";
 import React from "react";
 import { classMap } from "lit/directives/class-map.js";
+import { live } from "lit/directives/live.js";
 
 export interface InputProps {
   /**
@@ -42,11 +43,7 @@ export interface InputProps {
   /**
    * value ,the value of the input
    */
-  value: string;
-  /**
-   * defaultValue, the defaultValue of the input
-   */
-  defaultValue?: string;
+  value?: string;
   /**
    * isBorder? have the border of the input
    */
@@ -58,14 +55,14 @@ export class AInput extends LitElement {
   static styles = styles;
   @property({ type: Number }) width: InputProps["width"] = 250;
   @property({ type: Boolean }) fill: InputProps["fill"] = false;
-  @property({ type: Boolean }) disabled: InputProps["disabled"] = false;
+  @property({ type: Boolean, reflect: true }) disabled: InputProps["disabled"] =
+    false;
   @property({ type: String }) label: InputProps["label"] = "输入框";
   @property({ type: String }) mode: InputProps["mode"] = "text";
   @property({ type: String }) placeholder: InputProps["placeholder"];
   @property({ type: Number }) fontsize: InputProps["fontsize"] = 16;
   @property({ type: Boolean }) isFillFather: InputProps["isFillFather"] = false;
   @property({ type: String }) value: InputProps["value"] = "";
-  @property({ type: String }) defaultValue: InputProps["defaultValue"];
   @property({ type: Boolean }) isBorder: InputProps["isBorder"] = true;
 
   @state() isFocus = false;
@@ -94,6 +91,7 @@ export class AInput extends LitElement {
         style="width:${this.fill
           ? "100%"
           : `${this.width}px`};--input-font-size:${this.fontsize}px;"
+        aria-disabled="${this.disabled ? "true" : "false"}"
       >
         ${this.label
           ? html`<label
@@ -113,7 +111,7 @@ export class AInput extends LitElement {
           class="input"
           type="${ifDefined(this.mode)}"
           placeholder=${ifDefined(this.placeholder)}
-          .value="${this.value}"
+          .value="${live(this.value) as string}"
           .disabled="${this.disabled}"
           @input="${this.handleInput}"
           @focus="${this.handleFocus}"
