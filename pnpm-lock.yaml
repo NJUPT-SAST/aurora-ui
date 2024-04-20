@@ -61,9 +61,6 @@ importers:
 
   packages/ui-react:
     dependencies:
-      '@monaco-editor/react':
-        specifier: ^4.6.0
-        version: 4.6.0(monaco-editor@0.47.0)(react-dom@18.2.0)(react@18.2.0)
       '@storybook/addon-docs':
         specifier: ^8.0.2
         version: 8.0.2
@@ -178,7 +175,7 @@ importers:
         version: 8.0.2(react-dom@18.2.0)(react@18.2.0)
       vite:
         specifier: ^5.0.8
-        version: 5.1.6(@types/node@20.11.30)(sass@1.72.0)
+        version: 5.1.6(@types/node@20.11.30)
       vite-plugin-dts:
         specifier: ^3.6.4
         version: 3.7.3(@types/node@20.11.30)(typescript@5.4.3)(vite@5.1.6)
@@ -187,7 +184,7 @@ importers:
         version: 1.1.1(vite@5.1.6)
       vitest:
         specifier: ^1.0.4
-        version: 1.4.0(@types/node@20.11.30)(@vitest/ui@1.4.0)(jsdom@23.2.0)(sass@1.72.0)
+        version: 1.4.0(@types/node@20.11.30)(@vitest/ui@1.4.0)(jsdom@23.2.0)
 
   packages/ui-universal:
     dependencies:
@@ -1956,7 +1953,7 @@ packages:
       magic-string: 0.27.0
       react-docgen-typescript: 2.2.2(typescript@5.4.3)
       typescript: 5.4.3
-      vite: 5.1.6(@types/node@20.11.30)(sass@1.72.0)
+      vite: 5.1.6(@types/node@20.11.30)
     dev: true
 
   /@jridgewell/gen-mapping@0.3.5:
@@ -2170,6 +2167,7 @@ packages:
     dependencies:
       monaco-editor: 0.47.0
       state-local: 1.0.7
+    dev: true
 
   /@monaco-editor/react@4.4.6(monaco-editor@0.47.0)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-Gr3uz3LYf33wlFE3eRnta4RxP5FSNxiIV9ENn2D2/rN8KgGAD8ecvcITRtsbbyuOuNkwbuHYxfeaz2Vr+CtyFA==}
@@ -2184,19 +2182,6 @@ packages:
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
     dev: true
-
-  /@monaco-editor/react@4.6.0(monaco-editor@0.47.0)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-RFkU9/i7cN2bsq/iTkurMWOEErmYcY6JiQI3Jn+WeR/FGISH8JbHERjpS9oRuSOPvDMJI0Z8nJeKkbOs9sBYQw==}
-    peerDependencies:
-      monaco-editor: '>= 0.25.0 < 1'
-      react: ^16.8.0 || ^17.0.0 || ^18.0.0
-      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
-    dependencies:
-      '@monaco-editor/loader': 1.4.0(monaco-editor@0.47.0)
-      monaco-editor: 0.47.0
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-    dev: false
 
   /@ndelangen/get-tarball@3.0.9:
     resolution: {integrity: sha512-9JKTEik4vq+yGosHYhZ1tiH/3WpUS0Nh0kej4Agndhox8pAdWhEx5knFVRcb/ya9knCRCs1rPxNrSXTDdfVqpA==}
@@ -3141,7 +3126,7 @@ packages:
       magic-string: 0.30.8
       ts-dedent: 2.2.0
       typescript: 5.4.3
-      vite: 5.1.6(@types/node@20.11.30)(sass@1.72.0)
+      vite: 5.1.6(@types/node@20.11.30)
     transitivePeerDependencies:
       - encoding
       - supports-color
@@ -3492,7 +3477,7 @@ packages:
       react-dom: 18.2.0(react@18.2.0)
       resolve: 1.22.8
       tsconfig-paths: 4.2.0
-      vite: 5.1.6(@types/node@20.11.30)(sass@1.72.0)
+      vite: 5.1.6(@types/node@20.11.30)
     transitivePeerDependencies:
       - '@preact/preset-vite'
       - encoding
@@ -3767,7 +3752,7 @@ packages:
       dom-accessibility-api: 0.6.3
       lodash: 4.17.21
       redent: 3.0.0
-      vitest: 1.4.0(@types/node@20.11.30)(@vitest/ui@1.4.0)(jsdom@23.2.0)(sass@1.72.0)
+      vitest: 1.4.0(@types/node@20.11.30)(@vitest/ui@1.4.0)(jsdom@23.2.0)
     dev: true
 
   /@testing-library/react@14.2.2(react-dom@18.2.0)(react@18.2.0):
@@ -4467,7 +4452,7 @@ packages:
       vite: ^4 || ^5
     dependencies:
       '@swc/core': 1.4.8
-      vite: 5.1.6(@types/node@20.11.30)(sass@1.72.0)
+      vite: 5.1.6(@types/node@20.11.30)
     transitivePeerDependencies:
       - '@swc/helpers'
     dev: true
@@ -4491,7 +4476,7 @@ packages:
       strip-literal: 2.0.0
       test-exclude: 6.0.0
       v8-to-istanbul: 9.2.0
-      vitest: 1.4.0(@types/node@20.11.30)(@vitest/ui@1.4.0)(jsdom@23.2.0)(sass@1.72.0)
+      vitest: 1.4.0(@types/node@20.11.30)(@vitest/ui@1.4.0)(jsdom@23.2.0)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -4538,7 +4523,7 @@ packages:
       pathe: 1.1.2
       picocolors: 1.0.0
       sirv: 2.0.4
-      vitest: 1.4.0(@types/node@20.11.30)(@vitest/ui@1.4.0)(jsdom@23.2.0)(sass@1.72.0)
+      vitest: 1.4.0(@types/node@20.11.30)(@vitest/ui@1.4.0)(jsdom@23.2.0)
     dev: true
 
   /@vitest/utils@1.4.0:
@@ -9135,7 +9120,6 @@ packages:
 
   /lucide-react@0.368.0(react@18.2.0):
     resolution: {integrity: sha512-soryVrCjheZs8rbXKdINw9B8iPi5OajBJZMJ1HORig89ljcOcEokKKAgGbg3QWxSXel7JwHOfDFUdDHAKyUAMw==}
-
     peerDependencies:
       react: ^16.5.1 || ^17.0.0 || ^18.0.0
     dependencies:
@@ -10233,6 +10217,7 @@ packages:
 
   /monaco-editor@0.47.0:
     resolution: {integrity: sha512-VabVvHvQ9QmMwXu4du008ZDuyLnHs9j7ThVFsiJoXSOQk18+LF89N4ADzPbFenm0W4V2bGHnFBztIRQTgBfxzw==}
+    dev: true
 
   /mri@1.2.0:
     resolution: {integrity: sha512-tzzskb3bG8LvYGFF/mDTpq3jpI6Q9wc3LEmBaghu+DdCssd1FakN7Bc0hVNmEyGq1bq3RgfkCb3cmQLpNPOroA==}
@@ -12329,6 +12314,7 @@ packages:
 
   /state-local@1.0.7:
     resolution: {integrity: sha512-HTEHMNieakEnoe33shBYcZ7NX83ACUjCu8c40iOGEZsngj9zRnkqS9j1pqQPXwobB0ZcVTk27REb7COQ0UR59w==}
+    dev: true
 
   /statuses@2.0.1:
     resolution: {integrity: sha512-RwNA9Z/7PrK06rYLIzFMlaF+l73iwpzsqRIFgbMLbTcLD6cOao82TaWefPXQvB2fOC4AjuYSEndS7N/mTCbkdQ==}
@@ -13278,7 +13264,7 @@ packages:
       vfile-message: 4.0.2
     dev: true
 
-  /vite-node@1.4.0(@types/node@20.11.30)(sass@1.72.0):
+  /vite-node@1.4.0(@types/node@20.11.30):
     resolution: {integrity: sha512-VZDAseqjrHgNd4Kh8icYHWzTKSCZMhia7GyHfhtzLW33fZlG9SwsB6CEhgyVOWkJfJ2pFLrp/Gj1FSfAiqH9Lw==}
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
@@ -13287,7 +13273,7 @@ packages:
       debug: 4.3.4
       pathe: 1.1.2
       picocolors: 1.0.0
-      vite: 5.1.6(@types/node@20.11.30)(sass@1.72.0)
+      vite: 5.1.6(@types/node@20.11.30)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -13339,7 +13325,7 @@ packages:
       debug: 4.3.4
       kolorist: 1.8.0
       typescript: 5.4.3
-      vite: 5.1.6(@types/node@20.11.30)(sass@1.72.0)
+      vite: 5.1.6(@types/node@20.11.30)
       vue-tsc: 1.8.27(typescript@5.4.3)
     transitivePeerDependencies:
       - '@types/node'
@@ -13353,7 +13339,43 @@ packages:
       vite: '*'
     dependencies:
       minimatch: 9.0.3
-      vite: 5.1.6(@types/node@20.11.30)(sass@1.72.0)
+      vite: 5.1.6(@types/node@20.11.30)
+    dev: true
+
+  /vite@5.1.6(@types/node@20.11.30):
+    resolution: {integrity: sha512-yYIAZs9nVfRJ/AiOLCA91zzhjsHUgMjB+EigzFb6W2XTLO8JixBCKCjvhKZaye+NKYHCrkv3Oh50dH9EdLU2RA==}
+    engines: {node: ^18.0.0 || >=20.0.0}
+    hasBin: true
+    peerDependencies:
+      '@types/node': ^18.0.0 || >=20.0.0
+      less: '*'
+      lightningcss: ^1.21.0
+      sass: '*'
+      stylus: '*'
+      sugarss: '*'
+      terser: ^5.4.0
+    peerDependenciesMeta:
+      '@types/node':
+        optional: true
+      less:
+        optional: true
+      lightningcss:
+        optional: true
+      sass:
+        optional: true
+      stylus:
+        optional: true
+      sugarss:
+        optional: true
+      terser:
+        optional: true
+    dependencies:
+      '@types/node': 20.11.30
+      esbuild: 0.19.12
+      postcss: 8.4.37
+      rollup: 4.13.0
+    optionalDependencies:
+      fsevents: 2.3.3
     dev: true
 
   /vite@5.1.6(@types/node@20.11.30)(sass@1.72.0):
@@ -13392,7 +13414,7 @@ packages:
     optionalDependencies:
       fsevents: 2.3.3
 
-  /vitest@1.4.0(@types/node@20.11.30)(@vitest/ui@1.4.0)(jsdom@23.2.0)(sass@1.72.0):
+  /vitest@1.4.0(@types/node@20.11.30)(@vitest/ui@1.4.0)(jsdom@23.2.0):
     resolution: {integrity: sha512-gujzn0g7fmwf83/WzrDTnncZt2UiXP41mHuFYFrdwaLRVQ6JYQEiME2IfEjU3vcFL3VKa75XhI3lFgn+hfVsQw==}
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
@@ -13437,8 +13459,8 @@ packages:
       strip-literal: 2.0.0
       tinybench: 2.6.0
       tinypool: 0.8.2
-      vite: 5.1.6(@types/node@20.11.30)(sass@1.72.0)
-      vite-node: 1.4.0(@types/node@20.11.30)(sass@1.72.0)
+      vite: 5.1.6(@types/node@20.11.30)
+      vite-node: 1.4.0(@types/node@20.11.30)
       why-is-node-running: 2.2.2
     transitivePeerDependencies:
       - less
