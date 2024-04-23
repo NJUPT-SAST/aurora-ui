@@ -1,115 +1,86 @@
-import React, { useEffect, useState, type CSSProperties, type ReactNode } from 'react';
+import React from 'react';
 import styles from './Table.module.scss';
-import { Pagination } from '..';
 
-export interface column {
-  /**
-   * title , the title of the column
-   */
-  title?: string;
-  /**
-   * dataIndex, the dataIndex of the column
-   */
-  dataIndex?: string;
-  /**
-   * width, the width of the column
-   */
-  width?: number;
-  /**
-   * render, the render of the column
-   */
-  render?: (title?: string, dataIndex?: string) => ReactNode;
-}
+export interface TableProps extends React.TableHTMLAttributes<HTMLTableElement> {}
 
-export interface dataItem {
-  /**
-   * key , the key of the dataItem
-   */
-  key?: string;
+export interface TheadProps extends React.HTMLAttributes<HTMLTableSectionElement> {}
 
-  /**
-   * other property
-   */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  [property: string]: any;
-}
+export interface TbodyProps extends React.HTMLAttributes<HTMLTableSectionElement> {}
 
-export interface TableProps extends React.TableHTMLAttributes<HTMLTableElement> {
-  /**
-   * the caption of the Table
-   */
-  caption?: ReactNode;
-  /**
-   * style , the style of the table
-   */
-  style?: CSSProperties;
-  /**
-   * columns, the column of the table
-   */
-  columns: column[];
-  /**
-   * dataSource
-   */
-  dataSource: dataItem[];
-  /**
-   * pageSize: number
-   */
-  pageSize: number;
-}
+export interface TrProps extends React.HTMLAttributes<HTMLTableRowElement> {}
 
-export const Table = React.forwardRef<HTMLTableElement, TableProps>(
-  ({ caption, style, columns, dataSource, pageSize = 8, ...rest }, ref) => {
-    const [page, setPage] = useState<number>(1);
-    const [showData, setShowData] = useState<dataItem[]>([]);
+export interface ThProps extends React.ThHTMLAttributes<HTMLTableCellElement> {}
 
-    useEffect(() => {
-      const newShowData = dataSource.slice((page - 1) * pageSize, page * pageSize);
-      setShowData(newShowData);
-    }, [page, pageSize, dataSource]);
-    return (
-      <>
-        <table
-          className={styles['table']}
-          style={style}
-          ref={ref}
-          {...rest}
-        >
-          <caption className={styles['caption']}>{caption}</caption>
-          <thead className={styles['thead']}>
-            <tr>
-              {columns?.map((item: column) => {
-                return (
-                  <th
-                    key={item.dataIndex}
-                    style={{ width: `${item?.width}px` }}
-                  >
-                    {item.render && item.render(item.title, item.dataIndex)}
-                    {!item.render && item.title}
-                  </th>
-                );
-              })}
-            </tr>
-          </thead>
-          <tbody className={styles['tbody']}>
-            {showData.map((dataItem) => (
-              <tr key={dataItem.key}>
-                {columns?.map((column) => (
-                  <td key={column.dataIndex}>{dataItem[`${column.dataIndex}`]}</td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        <div className={styles['pagination']}>
-          <Pagination
-            total={dataSource?.length}
-            pageSize={pageSize}
-            onChange={(value) => setPage(value)}
-          />
-        </div>
-      </>
-    );
-  },
-);
+export interface TdProps extends React.TdHTMLAttributes<HTMLTableCellElement> {}
+
+export const Table = React.forwardRef<HTMLTableElement, TableProps>(({ ...rest }, ref) => {
+  return (
+    <table
+      {...rest}
+      ref={ref}
+      className={styles['table']}
+    />
+  );
+});
+
+export const Thead = React.forwardRef<HTMLTableSectionElement, TheadProps>(({ ...rest }, ref) => {
+  return (
+    <thead
+      {...rest}
+      ref={ref}
+      className={styles['thead']}
+    />
+  );
+});
+
+export const Tbody = React.forwardRef<HTMLTableSectionElement, TbodyProps>(({ ...rest }, ref) => {
+  return (
+    <tbody
+      {...rest}
+      ref={ref}
+      className={styles['tbody']}
+    />
+  );
+});
+
+export const Tr = React.forwardRef<HTMLTableRowElement, TrProps>(({ ...rest }, ref) => {
+  return (
+    <tr
+      {...rest}
+      ref={ref}
+      className={styles['tr']}
+    />
+  );
+});
+
+export const Th = React.forwardRef<HTMLTableCellElement, ThProps>(({ ...rest }, ref) => {
+  return (
+    <th
+      {...rest}
+      ref={ref}
+      className={styles['th']}
+    />
+  );
+});
+
+export const Td = React.forwardRef<HTMLTableCellElement, ThProps>(({ ...rest }, ref) => {
+  return (
+    <td
+      {...rest}
+      ref={ref}
+      className={styles['td']}
+    />
+  );
+});
 
 Table.displayName = 'Table';
+
+Thead.displayName = 'Thead';
+
+Tbody.displayName = 'Tbody';
+
+Tr.displayName = 'Tr';
+
+Th.displayName = 'Th';
+
+Td.displayName = 'Td';
