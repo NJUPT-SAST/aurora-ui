@@ -32,6 +32,10 @@ export interface CarouselProps extends HtmlHTMLAttributes<HTMLDivElement> {
    * isSliding
    */
   isSliding?: boolean;
+  /**
+   * className
+   */
+  className?: string;
 }
 
 interface ContentProps {
@@ -48,6 +52,7 @@ export const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
       defaultSelected,
       selected,
       isSliding = true,
+      className,
       ...rest
     },
     ref,
@@ -165,7 +170,7 @@ export const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
 
     return (
       <div
-        className={carouselClass}
+        className={`${carouselClass} ${className}`}
         ref={ref}
         style={{ width: `${width}px`, height: `${height}px` }}
         {...rest}
