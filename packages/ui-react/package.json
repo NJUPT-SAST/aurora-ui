@@ -1,6 +1,6 @@
 {
   "name": "@ui-aurora/react",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "A React UI library built for SASTOJ",
   "author": "sast",
   "license": "MIT",
@@ -55,6 +55,7 @@
     "@types/node": "^20.10.4",
     "@types/react": "^18.2.43",
     "@types/react-dom": "^18.2.17",
+    "@types/react-table": "^7.7.20",
     "@typescript-eslint/eslint-plugin": "^6.14.0",
     "@typescript-eslint/parser": "^6.14.0",
     "@vitejs/plugin-react-swc": "^3.5.0",
@@ -73,6 +74,7 @@
     "prettier": "^3.1.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-table": "^7.8.0",
     "storybook": "^8.0.2",
     "vite": "^5.0.8",
     "vite-plugin-dts": "^3.6.4",
@@ -85,6 +87,7 @@
   },
   "dependencies": {
     "@storybook/addon-docs": "^8.0.2",
+    "@tanstack/react-table": "^8.16.0",
     "@types/react-transition-group": "^4.4.10",
     "classnames": "^2.5.1",
     "framer-motion": "^11.0.24",

@@ -1,5 +1,5 @@
 import React, { memo, useEffect, useRef, useState } from 'react';
-import { Button, type CarouselItemProps, CarouselItem } from '..';
+import { type CarouselItemProps, CarouselItem } from '..';
 import classNames from 'classnames';
 import styles from './Carousel.module.scss';
 
@@ -28,6 +28,10 @@ export interface CarouselProps {
    * select of the Carousel
    */
   selected?: number;
+  /**
+   * isSliding
+   */
+  isSliding?: boolean;
 }
 
 interface ContentProps {
@@ -36,7 +40,15 @@ interface ContentProps {
 
 export const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
   (
-    { width = 400, CarouselItems = undefined, height, onChange, defaultSelected, selected },
+    {
+      width = 400,
+      CarouselItems = undefined,
+      height,
+      onChange,
+      defaultSelected,
+      selected,
+      isSliding = true,
+    },
     ref,
   ) => {
     // The definition judgment of this rotating chart is determined by two factors,
@@ -55,15 +67,8 @@ export const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
     const divRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-      selected && setSelect(selected);
+      selected !== undefined && setSelect(selected);
     }, [selected]);
-    const pre = () => {
-      select !== 0 && setSelect(select - 1);
-    };
-
-    const next = () => {
-      select !== itemsNumber - 1 && setSelect(select + 1);
-    };
 
     const handleMouseDown = (e: React.MouseEvent) => {
       setStartX(e.clientX);
@@ -100,12 +105,10 @@ export const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
       if (Math.abs(difference) >= width / 2 && difference > 0 && select !== itemsNumber - 1) {
         setSelect(select + 1);
         setIsChanged(true);
-      }
-      if (Math.abs(difference) >= width / 2 && difference < 0 && select !== 0) {
+      } else if (Math.abs(difference) >= width / 2 && difference < 0 && select !== 0) {
         setSelect(select - 1);
         setIsChanged(true);
-      }
-      if (
+      } else if (
         Math.abs(difference) < width / 2 &&
         divRef.current &&
         select === itemsNumber - 1 &&
@@ -160,40 +163,22 @@ export const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
     });
 
     return (
-      <>
+      <div
+        className={carouselClass}
+        ref={ref}
+        style={{ width: `${width}px`, height: `${height}px` }}
+      >
         <div
-          style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '10px' }}
+          className={styles['carouselAll']}
+          ref={divRef}
+          onMouseDown={() => isSliding && handleMouseDown}
+          onMouseMove={() => isSliding && handleMouseMove}
+          onMouseUp={() => isSliding && handleMouseUp}
+          style={{ width: `${width}px`, height: `${height}px` }}
         >
-          <Button
-            onClick={pre}
-            color="ghost"
-          >
-            Pre
-          </Button>
-          <div
-            className={carouselClass}
-            ref={ref}
-            style={{ width: `${width}px`, height: `${height}px` }}
-          >
-            <div
-              className={styles['carouselAll']}
-              ref={divRef}
-              onMouseDown={handleMouseDown}
-              onMouseMove={handleMouseMove}
-              onMouseUp={handleMouseUp}
-              style={{ width: `${width}px`, height: `${height}px` }}
-            >
-              {CarouselItems && <Content CarouselItems={CarouselItems}></Content>}
-            </div>
-          </div>
-          <Button
-            onClick={next}
-            color="ghost"
-          >
-            Next
-          </Button>
+          {CarouselItems && <Content CarouselItems={CarouselItems}></Content>}
         </div>
-      </>
+      </div>
     );
   },
 );
