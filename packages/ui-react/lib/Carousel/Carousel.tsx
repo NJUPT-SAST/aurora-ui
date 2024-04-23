@@ -1,9 +1,9 @@
-import React, { memo, useEffect, useRef, useState } from 'react';
+import React, { memo, useEffect, useRef, useState, type HtmlHTMLAttributes } from 'react';
 import { type CarouselItemProps, CarouselItem } from '..';
 import classNames from 'classnames';
 import styles from './Carousel.module.scss';
 
-export interface CarouselProps {
+export interface CarouselProps extends HtmlHTMLAttributes<HTMLDivElement> {
   /**
    * width of the carousel
    */
@@ -19,7 +19,7 @@ export interface CarouselProps {
   /**
    * onChange : the onChange of the Carousel
    */
-  onChange?: (value: number) => void;
+  onchange?: (value: number) => void;
   /**
    * defaultselect the defaultselect of the Carousel
    */
@@ -44,10 +44,11 @@ export const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
       width = 400,
       CarouselItems = undefined,
       height,
-      onChange,
+      onchange,
       defaultSelected,
       selected,
       isSliding = true,
+      ...rest
     },
     ref,
   ) => {
@@ -121,8 +122,8 @@ export const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
     };
 
     useEffect(() => {
-      onChange && onChange(select);
-    }, [select, onChange]);
+      onchange && onchange(select);
+    }, [select, onchange]);
 
     useEffect(() => {
       if (difference === 0 && !isChanged) {
@@ -167,6 +168,7 @@ export const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
         className={carouselClass}
         ref={ref}
         style={{ width: `${width}px`, height: `${height}px` }}
+        {...rest}
       >
         <div
           className={styles['carouselAll']}
