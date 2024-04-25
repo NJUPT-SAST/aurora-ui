@@ -14,15 +14,19 @@ export interface CarouselItemProps {
    * height of the CarouselItem
    */
   height?: number;
+  /**
+   * className
+   */
+  className?: string;
 }
 
 export const CarouselItem = React.forwardRef<HTMLDivElement, CarouselItemProps>(
-  ({ children, width, height }, ref) => {
+  ({ children, width, height, className }, ref) => {
     return (
       <>
         <div
           ref={ref}
-          className={`${styles['item']}`}
+          className={`${styles['item']} ${className}`}
           style={{ width: `${width}px`, height: `${height}px` }}
         >
           {children}

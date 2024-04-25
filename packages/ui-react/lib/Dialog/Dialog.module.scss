@@ -45,7 +45,7 @@
   width: 100%;
   left: 0;
   top: 0;
-  position: absolute;
+  position: fixed;
   &.mask {
     background-color: rgb($black-color, var(--opacity-background));
     backdrop-filter: blur(var(--blur));
