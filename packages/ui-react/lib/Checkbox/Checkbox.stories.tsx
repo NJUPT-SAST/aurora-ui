@@ -3,6 +3,10 @@ import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 import { Checkbox, type CheckboxProps } from './Checkbox';
 
+const test = (value) => {
+  console.log(value);
+};
+
 const meta = {
   title: 'Components/Checkbox',
   component: Checkbox,
@@ -20,6 +24,7 @@ type Story = StoryObj<typeof meta>;
 const defaultProps: CheckboxProps = {
   label: 'SAST',
   disabled: false,
+  onChecked: test,
 };
 
 export const DefaultCheckbox: Story = {

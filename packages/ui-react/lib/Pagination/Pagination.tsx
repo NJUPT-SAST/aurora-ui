@@ -66,11 +66,8 @@ export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
 
     useEffect(() => {
       onChange(currentPage);
-    }, [currentPage, onChange]);
-
-    useEffect(() => {
-      if (activePage) changeCurrentPage(activePage);
-    }, [activePage, changeCurrentPage]);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [currentPage]);
 
     useEffect(() => {
       const newItems: ReactNode[] = [];
@@ -83,6 +80,7 @@ export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
               key={i}
               index={i}
               disabled={disabled}
+              activePage={activePage}
             >
               {i + 1}
             </PaginationItem>,
@@ -95,15 +93,20 @@ export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
             newItems.push(
               <PaginationItem
                 type="select"
+                key={i}
                 index={i}
                 disabled={disabled}
+                activePage={activePage}
               >
                 {i + 1}
               </PaginationItem>,
             );
           }
           newItems.push(
-            <PaginationItem type="none">
+            <PaginationItem
+              type="none"
+              key="more"
+            >
               <span>...</span>
             </PaginationItem>,
           );
@@ -112,7 +115,9 @@ export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
               <PaginationItem
                 type="select"
                 index={i}
+                key={i}
                 disabled={disabled}
+                activePage={activePage}
               >
                 {i + 1}
               </PaginationItem>,
@@ -126,14 +131,19 @@ export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
               <PaginationItem
                 type="select"
                 index={i}
+                key={i}
                 disabled={disabled}
+                activePage={activePage}
               >
                 {i + 1}
               </PaginationItem>,
             );
           }
           newItems.push(
-            <PaginationItem type="none">
+            <PaginationItem
+              type="none"
+              key="more"
+            >
               <span>...</span>
             </PaginationItem>,
           );
@@ -142,7 +152,9 @@ export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
               <PaginationItem
                 type="select"
                 index={i}
+                key={i}
                 disabled={disabled}
+                activePage={activePage}
               >
                 {i + 1}
               </PaginationItem>,
@@ -155,13 +167,18 @@ export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
             <PaginationItem
               type="select"
               index={0}
+              key={1}
               disabled={disabled}
+              activePage={activePage}
             >
               {1}
             </PaginationItem>,
           );
           newItems.push(
-            <PaginationItem type="none">
+            <PaginationItem
+              type="none"
+              key="leftMore"
+            >
               <span>...</span>
             </PaginationItem>,
           );
@@ -170,14 +187,19 @@ export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
               <PaginationItem
                 type="select"
                 index={i}
+                key={i}
                 disabled={disabled}
+                activePage={activePage}
               >
                 {i + 1}
               </PaginationItem>,
             );
           }
           newItems.push(
-            <PaginationItem type="none">
+            <PaginationItem
+              type="none"
+              key="rightMore"
+            >
               <span>...</span>
             </PaginationItem>,
           );
@@ -186,6 +208,8 @@ export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
               type="select"
               index={pageNumber - 1}
               disabled={disabled}
+              key={pageNumber - 1}
+              activePage={activePage}
             >
               {pageNumber}
             </PaginationItem>,
@@ -193,32 +217,32 @@ export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
         }
       }
       setItemList(newItems);
-    }, [pageNumber, currentPage, disabled]);
+    }, [pageNumber, currentPage, disabled, activePage]);
 
     const PaginationClass = classNames(`${styles['base']} ${styles[disabled ? 'disabled' : '']}`);
 
     return (
-      <>
-        <div
-          ref={ref}
-          {...rest}
-          className={PaginationClass}
+      <div
+        ref={ref}
+        {...rest}
+        className={PaginationClass}
+      >
+        <PaginationItem
+          type="delete"
+          disabled={currentPage === 1 || disabled}
+          key={'delete'}
         >
-          <PaginationItem
-            type="delete"
-            disabled={currentPage === 1 || disabled}
-          >
-            <ChevronsLeft size={16} />
-          </PaginationItem>
-          {itemList}
-          <PaginationItem
-            type="add"
-            disabled={currentPage === pageNumber || disabled}
-          >
-            <ChevronsRight size={16} />
-          </PaginationItem>
-        </div>
-      </>
+          <ChevronsLeft size={16} />
+        </PaginationItem>
+        {itemList}
+        <PaginationItem
+          type="add"
+          disabled={currentPage === pageNumber || disabled}
+          key={'add'}
+        >
+          <ChevronsRight size={16} />
+        </PaginationItem>
+      </div>
     );
   },
 );
