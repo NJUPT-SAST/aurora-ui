@@ -51,6 +51,10 @@ export interface SheetProps extends React.HtmlHTMLAttributes<HTMLDivElement> {
    * placement : left|right
    */
   placement?: 'left' | 'right';
+  /**
+   * isFooter
+   */
+  isFooter?: boolean;
 }
 
 export const Sheet = React.forwardRef<HTMLDivElement, SheetProps>(
@@ -67,6 +71,7 @@ export const Sheet = React.forwardRef<HTMLDivElement, SheetProps>(
       mask = true,
       maskStyle,
       placement = 'right',
+      isFooter,
       ...rest
     },
     ref,
@@ -124,7 +129,7 @@ export const Sheet = React.forwardRef<HTMLDivElement, SheetProps>(
                     content={sheetTitle}
                   ></SheetHeader>
                   <div className={styles['sheetMainContent']}>{mainContent}</div>
-                  <SheetFooter onCancel={onCancel}>{sheetFooter}</SheetFooter>
+                  {isFooter && <SheetFooter onCancel={onCancel}>{sheetFooter}</SheetFooter>}
                 </div>
               </div>
             )}

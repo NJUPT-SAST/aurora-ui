@@ -23,11 +23,28 @@ export interface CheckboxProps extends React.ButtonHTMLAttributes<HTMLButtonElem
    * onchange of the checkbox
    */
   onChecked?: (type: 'add' | 'delete', value: string) => void;
+  /**
+   * fontsize
+   */
+  fontsize?: number;
+  /**
+   * labelClass
+   */
+  labelClass?: string;
 }
 
 export const Checkbox = React.forwardRef<HTMLButtonElement, CheckboxProps>(
   (
-    { value, checked, label = 'SAST', disabled = false, onChecked = function () {}, ...rest },
+    {
+      value,
+      checked,
+      label = 'SAST',
+      disabled = false,
+      fontsize,
+      labelClass,
+      onChecked = function () {},
+      ...rest
+    },
     ref,
   ) => {
     const checkboxClass = classNames(`${styles['base']} ${styles[disabled ? 'disabled' : '']}`);
@@ -62,7 +79,12 @@ export const Checkbox = React.forwardRef<HTMLButtonElement, CheckboxProps>(
             />
           )}
         </button>
-        <label className={styles['labelSpan']}>{label}</label>
+        <label
+          className={`${labelClass} ${styles['labelSpan']}`}
+          style={{ fontSize: `${fontsize}px` }}
+        >
+          {label}
+        </label>
       </div>
     );
   },

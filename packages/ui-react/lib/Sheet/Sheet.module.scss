@@ -48,7 +48,7 @@ $padding-left-right-distance: 20px;
   position: fixed;
   left: 0;
   top: 0;
-  z-index: 1;
+  z-index: 999;
   box-sizing: border-box;
   &.mask {
     backdrop-filter: blur(var(--blur));
@@ -60,7 +60,7 @@ $padding-left-right-distance: 20px;
     height: 100vh;
     background-color: $white-color;
     position: absolute;
-    z-index: 2;
+    z-index: 1000;
     box-sizing: border-box;
     right: 0;
     padding: $padding-left-right-distance;
