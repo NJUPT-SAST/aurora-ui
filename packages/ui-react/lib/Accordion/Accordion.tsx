@@ -25,7 +25,7 @@ export interface AccordionProps {
 export const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>(
   ({ disabled = false, accordionTrigger, accordionContent, width = 280, ...rest }, ref) => {
     const accordionClass = classnames(styles['base']);
-    const [visible, setVisble] = useState<boolean>(false);
+    const [visible, setVisible] = useState<boolean>(false);
     return (
       <div
         style={{ width: width }}
@@ -35,7 +35,7 @@ export const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>(
       >
         <button
           className={`${styles['accordionTrigger']} ${disabled ? styles['disabled'] : ''}`}
-          onClick={() => setVisble(!visible)}
+          onClick={() => setVisible(!visible)}
           disabled={disabled}
         >
           <div> {accordionTrigger}</div>

@@ -2,7 +2,11 @@ import React, { useState, type ChangeEvent, useEffect } from 'react';
 import styles from './Input.module.scss';
 import classnames from 'classnames';
 
-export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
+  /**
+   * size , the size of the input
+   */
+  size?: 'small' | 'medium' | 'large';
   /**
    * The width of the Input.
    */
@@ -63,6 +67,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
       isBorder = true,
       defaultValue = '',
       className,
+      size = 'small',
       ...rest
     },
     ref,
@@ -75,6 +80,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
       styles[disabled ? 'disabled' : ''],
       styles[isFillFather ? 'fill' : ''],
       styles[isBorder ? 'border' : ''],
+      styles[size],
       className,
     );
     //If there is a placeholder move the label up.

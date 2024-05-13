@@ -51,6 +51,10 @@ export interface SelectProps extends React.HtmlHTMLAttributes<HTMLDivElement> {
    * placeHolder of the select
    */
   placeHolder?: string;
+  /**
+   * size?:
+   */
+  size?: 'small' | 'medium' | 'large';
 }
 
 export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
@@ -65,6 +69,7 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
       isBorder = true,
       width = 280,
       placeHolder = '',
+      size,
       ...rest
     },
     ref,
@@ -172,7 +177,7 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
     useEffect(() => {
       const results = fuzzySearch(optionsList, inputValue);
       setOptions(results);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [inputValue]);
 
     return (
@@ -192,6 +197,7 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
           disabled={disabled}
           onKeyDown={onKeyDown.bind(this)}
           ref={inputRef}
+          size={size}
           // According to the visible of the options box, determine the color of the placeholder,
           // if the options are not expanded, the display will be black,
           // if it has been expanded, the display will be gray.
