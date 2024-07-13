@@ -1,4 +1,5 @@
 @use '../variables' as *;
+
 .base {
   background-color: $primary-color;
   color: $white-color;
@@ -10,58 +11,73 @@
   font-weight: 400;
   transition: all 0.15s ease-in-out;
   @include shadow;
+
   &:hover {
     backdrop-filter: brightness(0.85);
   }
+
   &:active {
     transform: scale(0.98);
   }
+
   &.primary {
     background-color: $primary-color;
   }
+
   &.secondary {
     background-color: $white-color;
     color: $primary-color;
     border: 1px solid $primary-color;
   }
+
   &.border {
     border: solid 1px $border-white-color;
     background-color: $white-color;
     color: $black-color;
     font-weight: 500;
   }
+
   &.ghost {
+    background-color: transparent;
+    color: $primary-color;
+    font-weight: 600;
+
     &:hover:not(.disabled) {
       filter: brightness(1);
       backdrop-filter: brightness(0.97);
     }
-    background-color: transparent;
-    color: $primary-color;
-    font-weight: 600;
   }
+
   &.danger {
     background-color: $danger-color;
   }
+
   &.disabled {
     cursor: not-allowed;
+
     &:hover {
       backdrop-filter: none;
     }
+
     &:active {
       transform: none;
     }
   }
+
   &.disabledShadow {
     filter: grayscale(1);
   }
+
   &.small {
     padding: 6px 7px;
     font-size: 12px;
   }
+
   &.medium {
     padding: 8px 10px;
     font-size: 16px;
   }
+
   &.large {
     padding: 15px 18px;
     font-size: 20px;

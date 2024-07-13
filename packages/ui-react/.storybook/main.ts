@@ -6,7 +6,6 @@ const config: StorybookConfig = {
     '@storybook/addon-essentials',
     '@storybook/addon-actions',
     '@storybook/addon-docs',
-    '@storybook/addon-mdx-gfm',
   ],
   framework: {
     name: '@storybook/react-vite',
