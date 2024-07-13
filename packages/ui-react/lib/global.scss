@@ -28,6 +28,8 @@
   --background-blue: #ecf2ff;
   --border-white: #f1f1f1;
   --pale-white: #fcfcfc;
+  // TODO: 开发时为了好看，先设置字体为当前，生产时删除
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 ::-webkit-scrollbar {

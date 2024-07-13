@@ -6,7 +6,7 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   /**
    * The color of the button.
    */
-  color?: 'primary' | 'secondary' | 'ghost' | 'danger' | 'border';
+  color?: 'primary' | 'secondary' | 'ghost' | 'danger' | 'border' ;
   /**
    * The size of the button.
    */
@@ -23,21 +23,16 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
    * className of the button
    */
   className?: string;
-  /**
-   * disabledShadow, when the button is disabled ,the shadow is or not
-   */
-  disabledShadow?: boolean;
 }
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (
     {
       color = 'primary',
-      shadow = 'none',
+      shadow = 'regular',
       size = 'medium',
       disabled = false,
       className,
-      disabledShadow = true,
       ...rest
     },
     ref,
@@ -47,7 +42,6 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       styles[color],
       styles[size],
       styles[disabled ? 'disabled' : ''],
-      styles[disabledShadow && disabled ? 'disabledShadow' : ''],
       styles[`shadow-${shadow}`],
     );
     return (

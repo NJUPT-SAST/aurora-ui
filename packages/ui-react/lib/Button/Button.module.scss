@@ -1,85 +1,40 @@
 @use '../variables' as *;
 
 .base {
-  background-color: $primary-color;
-  color: $white-color;
-  padding: 10px;
-  border-radius: 5px;
+  display: block;
+  border-radius: 4px;
   border: none;
   cursor: pointer;
-  font-size: 16px;
   font-weight: 400;
-  transition: all 0.15s ease-in-out;
-  @include shadow;
+  transition: all $animation-time-regular $cubic-bezier;
+
+  @include color;
+
+  &.disabled {
+    @include disabled;
+  }
 
   &:hover {
-    backdrop-filter: brightness(0.85);
+    @include shadow;
   }
 
   &:active {
     transform: scale(0.98);
-  }
-
-  &.primary {
-    background-color: $primary-color;
-  }
-
-  &.secondary {
-    background-color: $white-color;
-    color: $primary-color;
-    border: 1px solid $primary-color;
-  }
-
-  &.border {
-    border: solid 1px $border-white-color;
-    background-color: $white-color;
-    color: $black-color;
-    font-weight: 500;
-  }
-
-  &.ghost {
-    background-color: transparent;
-    color: $primary-color;
-    font-weight: 600;
-
-    &:hover:not(.disabled) {
-      filter: brightness(1);
-      backdrop-filter: brightness(0.97);
-    }
-  }
-
-  &.danger {
-    background-color: $danger-color;
-  }
-
-  &.disabled {
-    cursor: not-allowed;
-
-    &:hover {
-      backdrop-filter: none;
-    }
-
-    &:active {
-      transform: none;
-    }
-  }
-
-  &.disabledShadow {
-    filter: grayscale(1);
+    filter: blur(0.1px);
   }
 
   &.small {
-    padding: 6px 7px;
-    font-size: 12px;
+    padding: 7px 14px;
+    font-size: 0.8rem;
   }
 
   &.medium {
-    padding: 8px 10px;
-    font-size: 16px;
+    font-size: 1rem;
+    padding: 10px 20px;
   }
 
   &.large {
-    padding: 15px 18px;
-    font-size: 20px;
+    padding: 14px 28px;
+    font-size: 1.2rem;
   }
 }
