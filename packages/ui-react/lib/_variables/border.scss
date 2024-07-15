@@ -1,4 +1,28 @@
+@use './color.scss';
 // border width variables
 $border-0: 0px;
 $border-1: 1px;
 $border-2: 2px;
+$border-3: 3px;
+
+@mixin border-color {
+  &.primary {
+    box-shadow: 0px 0px 0 3px $violet-color;
+  }
+
+  &.danger {
+    box-shadow: 0px 0px 0 3px $danger-color;
+  }
+
+  &.warning {
+    box-shadow: 0px 0px 0 3px $warning-color;
+  }
+
+  &.success {
+    box-shadow: 0px 0px 0 3px $success-color;
+  }
+
+  &.info {
+    box-shadow: 0px 0px 0 3px $info-color;
+  }
+}

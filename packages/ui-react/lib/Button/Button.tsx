@@ -6,7 +6,7 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   /**
    * The color of the button.
    */
-  color?: 'primary' | 'secondary' | 'ghost' | 'danger' | 'border' ;
+  color?: 'primary' | 'secondary' | 'ghost' | 'danger' | 'border';
   /**
    * The size of the button.
    */
@@ -48,8 +48,8 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       <button
         ref={ref}
         className={`${btnClass} ${className}`}
-        {...rest}
         disabled={disabled}
+        {...rest}
       />
     );
   },

@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import React from 'react';
 import { Input, type InputProps } from './Input';
+import { User } from 'lucide-react';
 
 const test = (value: string) => {
   console.log('change input value', value);
@@ -14,12 +15,7 @@ const meta = {
     layout: 'centered',
   },
   tags: ['autodocs'],
-  argTypes: {
-    mode: {
-      options: ['text', 'password'],
-      control: { type: 'select' },
-    },
-  },
+  argTypes: {},
 } satisfies Meta<typeof Input>;
 
 export default meta;
@@ -27,12 +23,9 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const defaultProps: InputProps = {
-  width: 250,
   disabled: false,
-  onchange: test,
-  defaultValue: 'hello world!',
+  onChange: test,
   isBorder: true,
-  className: 'test',
 };
 
 export const DefaultInput: Story = {
@@ -44,7 +37,12 @@ export const DefaultInput: Story = {
 export const ExampleInput: Story = {
   args: {
     ...defaultProps,
-    label: <button>userName</button>,
+    label: (
+      <User
+        height={18}
+        width={18}
+      />
+    ),
     placeholder: 'hello',
   },
 };
