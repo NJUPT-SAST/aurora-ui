@@ -6,7 +6,7 @@
   border: none;
   cursor: pointer;
   font-weight: 400;
-  transition: all $animation-time-regular $cubic-bezier;
+  transition: box-shadow $animation-time-regular $cubic-bezier;
 
   @include color;
 
@@ -24,17 +24,17 @@
   }
 
   &.small {
-    padding: 7px 14px;
+    padding: 6px 12px;
     font-size: 0.8rem;
   }
 
   &.medium {
     font-size: 1rem;
-    padding: 10px 20px;
+    padding: 8px 16px;
   }
 
   &.large {
-    padding: 14px 28px;
+    padding: 10px 20px;
     font-size: 1.2rem;
   }
 }
