@@ -1,6 +1,5 @@
 //color variables
 $primary-color: #0078d4;
-$secondary-color: #71afe5;
 $pale-white-color: #f6f6f7;
 $border-white-color: #f1f1f1;
 $black-color: #1c1f23;
@@ -15,6 +14,7 @@ $danger-color: #e54d2e;
 $warning-color: #ffdc00;
 $success-color: #46a758;
 $info-color: #0090ff;
+$secondary-color: #555b61;
 
 @mixin color {
     &.primary {

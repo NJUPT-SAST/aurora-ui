@@ -10,8 +10,8 @@ $animation-duration: $duration-200;
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
   background-color: $white-color;
+  box-sizing: border-box;
 
   &.disabled {
     @include disabled;
@@ -27,12 +27,6 @@ $animation-duration: $duration-200;
     font-size: 1.2rem;
   }
 
-  &::before {
-    content: '';
-    border-radius: 4px;
-    z-index: -1;
-  }
-
   &:focus-within {
     @include border-color;
   }
@@ -45,5 +39,6 @@ $animation-duration: $duration-200;
 
   .input {
     all: unset;
+    width: 100%;
   }
 }

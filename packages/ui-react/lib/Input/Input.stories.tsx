@@ -25,7 +25,6 @@ type Story = StoryObj<typeof meta>;
 const defaultProps: InputProps = {
   disabled: false,
   onChange: test,
-  isBorder: true,
 };
 
 export const DefaultInput: Story = {

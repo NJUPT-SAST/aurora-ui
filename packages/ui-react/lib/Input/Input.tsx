@@ -36,11 +36,6 @@ export interface InputProps
    * defaultValue, the defaultValue of the input
    */
   defaultValue?: string;
-  // TODO: delete it
-  /**
-   * isBorder? have the border of the input
-   */
-  isBorder?: boolean;
   /**
    * className, the className of the input
    */
@@ -56,7 +51,6 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
       onChange,
       value,
       theme = 'primary',
-      isBorder = true,
       defaultValue = '',
       className,
       size = 'medium',
@@ -68,7 +62,6 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
     const inputClass = classnames(
       styles['base'],
       styles[disabled ? 'disabled' : ''],
-      styles[isBorder ? 'border' : ''],
       styles[size],
       styles[theme],
       className,

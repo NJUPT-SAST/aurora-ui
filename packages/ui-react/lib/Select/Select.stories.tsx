@@ -20,11 +20,35 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-const defaultProps: SelectProps = {};
+const defaultProps: SelectProps = { optionsList: [] };
 
 export const DefaultSelect: Story = {
   args: {
     ...defaultProps,
+    onChange: test,
+    optionsList: [
+      {
+        label: 'nodejs',
+        value: 'nihao',
+        key: 3,
+      },
+      {
+        label: 'nextjs',
+        value: 'nihao',
+        key: 6,
+      },
+
+      {
+        label: 'nuxtjs',
+        value: 'nihao',
+        key: 4,
+      },
+      {
+        label: 'nestjs',
+        value: 'nihao',
+        key: 5,
+      },
+    ],
   },
 };
 
