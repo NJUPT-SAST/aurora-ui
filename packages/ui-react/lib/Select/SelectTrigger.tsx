@@ -5,12 +5,15 @@ import { KeySelectItemContext, SelectItemContext, useInputStringStore } from './
 import { useStore } from 'zustand';
 import fuzzySearch from './fuzzySearch';
 
-export interface SelectTriggerProps extends InputProps {
+export interface SelectTriggerProps extends Omit<InputProps, 'onChange'> {
   optionsList: OptionProps[];
+  closeOptions: () => void;
+  onChange?: (value: OptionProps) => void;
+  selectKey?: number;
 }
 
 export const SelectTrigger = React.forwardRef<HTMLInputElement, SelectTriggerProps>(
-  ({ optionsList, ...rest }, ref) => {
+  ({ optionsList, selectKey, onChange, closeOptions, ...rest }, ref) => {
     const keySelectItemStore = useContext(KeySelectItemContext);
     const selectItemStore = useContext(SelectItemContext);
     if (!keySelectItemStore) throw new Error('Missing BearContext.Provider in the tree');
@@ -22,9 +25,6 @@ export const SelectTrigger = React.forwardRef<HTMLInputElement, SelectTriggerPro
     const updateSelectItem = useStore(selectItemStore, (state) => state.updateSelectItem);
     const selectItem = useStore(selectItemStore, (state) => state.selectItem);
 
-    useEffect(() => {
-      console.log(selectItem);
-    }, [selectItem]);
     const onKeyDown: KeyboardEventHandler<HTMLInputElement> = (event) => {
       const options = inputValue ? fuzzySearch(optionsList, inputValue) : optionsList;
       const listLength = options.length;
@@ -36,6 +36,8 @@ export const SelectTrigger = React.forwardRef<HTMLInputElement, SelectTriggerPro
       const KEY_ARROW_DOWN = 'arrowdown';
       const KEY_ARROW_UP = 'arrowup';
       const KEY_ENTER = 'enter';
+
+      rest.onKeyDown && rest.onKeyDown(event);
 
       function handleArrowDown() {
         if (selectItemIndex === -1 || selectItemIndex === options.length - 1) {
@@ -55,26 +57,35 @@ export const SelectTrigger = React.forwardRef<HTMLInputElement, SelectTriggerPro
 
       function handleEnter() {
         if (selectItemIndex !== -1) {
-          updateSelectItem(optionsList[selectItemIndex]!);
-          // handleClick(optionsList[selectItemIndex]!);
-          // closeOptions();
+          updateSelectItem(options[selectItemIndex]!);
+          updateKeySelectItem(undefined);
+          changeValue(options[selectItemIndex]?.label);
+          closeOptions();
         }
       }
 
       if (event.key.toLocaleLowerCase() === KEY_ARROW_DOWN) {
         handleArrowDown();
+        updateKeySelectItem(options[selectItemIndex]);
       } else if (event.key.toLocaleLowerCase() === KEY_ARROW_UP) {
         handleArrowUp();
+        updateKeySelectItem(options[selectItemIndex]);
       } else if (event.key.toLocaleLowerCase() === KEY_ENTER) {
         handleEnter();
       }
-
-      updateKeySelectItem(options[selectItemIndex]!);
     };
 
-    const handleInput = (value: string) => {
-      changeValue(value);
+    const handleInputClick = (event: React.MouseEvent<HTMLInputElement>) => {
+      rest.onClick && rest.onClick(event);
+      changeValue('');
     };
+
+    useEffect(() => {
+      changeValue(selectItem?.label);
+      onChange && selectItem && onChange(selectItem);
+    }, [selectItem]);
+
+    const selectKeyValue = optionsList.find((item) => item.key === selectKey)?.label;
 
     return (
       <Input
@@ -82,9 +93,10 @@ export const SelectTrigger = React.forwardRef<HTMLInputElement, SelectTriggerPro
         ref={ref}
         className={styles['select-trigger']}
         onKeyDown={onKeyDown.bind(this)}
-        value={inputValue}
-        onChange={handleInput}
-        placeholder={selectItem?.label}
+        onClick={handleInputClick}
+        onChange={changeValue}
+        value={selectKeyValue ?? inputValue}
+        placeholder={selectItem?.label ?? rest.placeholder}
       />
     );
   },

@@ -12,24 +12,18 @@ export interface SelectContentProps
   /**
    * onChange
    */
-  onChange?: (value: OptionProps) => void;
-  selectKey?: number;
   shadow?: 'regular' | 'small' | 'medium' | 'large' | 'extraLarge' | 'inner' | 'none';
 }
 
 export const SelectContent = React.forwardRef<HTMLDivElement, SelectContentProps>(
-  ({ onChange, optionsList: options, selectKey, shadow, ...rest }, ref) => {
+  ({ optionsList: options, shadow, ...rest }, ref) => {
     return (
       <div
         className={`${styles['select-content']} ${styles[`shadow-${shadow}`]}`}
         ref={ref}
         {...rest}
       >
-        <SelectGroup
-          optionsList={options}
-          onChange={onChange}
-          selectKey={selectKey}
-        />
+        <SelectGroup optionsList={options} />
       </div>
     );
   },

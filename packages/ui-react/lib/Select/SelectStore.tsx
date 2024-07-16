@@ -14,7 +14,7 @@ const DEFAULT_PROPS: SelectItemProps = {
 };
 
 interface SelectItemState extends SelectItemProps {
-  updateSelectItem: (value: OptionProps) => void;
+  updateSelectItem: (value: OptionProps | undefined) => void;
 }
 
 export type selectItemStore = ReturnType<typeof createSelectItemStore>;
@@ -28,7 +28,7 @@ export const createSelectItemStore = (initProps?: Partial<SelectItemProps>) => {
 };
 
 interface KeySelectItemState extends SelectItemProps {
-  updateSelectItem: (value: OptionProps) => void;
+  updateSelectItem: (value: OptionProps | undefined) => void;
 }
 
 export type keySelectItemStore = ReturnType<typeof createKeySelectItemStore>;
@@ -43,7 +43,7 @@ export const createKeySelectItemStore = (initProps?: Partial<SelectItemProps>) =
 
 interface InputStringStore {
   value: string | undefined;
-  changeValue: (value: string) => void;
+  changeValue: (value: string | undefined) => void;
 }
 
 export const useInputStringStore = create<InputStringStore>()((set) => ({

@@ -9,6 +9,7 @@ import {
   KeySelectItemContext,
 } from './SelectStore';
 import styles from './Select.module.scss';
+import classNames from 'classnames';
 
 export interface OptionProps {
   value: string;
@@ -33,7 +34,6 @@ export interface SelectProps extends Omit<React.HtmlHTMLAttributes<HTMLDivElemen
    * diabled of the select
    */
   disabled?: boolean;
-
   /**
    * defaultselectKey ,the defaultselectkey of the options
    */
@@ -54,6 +54,10 @@ export interface SelectProps extends Omit<React.HtmlHTMLAttributes<HTMLDivElemen
    * shadow of the select
    */
   shadow?: 'regular' | 'small' | 'medium' | 'large' | 'extraLarge' | 'inner' | 'none';
+  /**
+   * className, the className of the select
+   */
+  className?: string;
 }
 
 export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
@@ -66,8 +70,9 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
       defaultSelectKey,
       selectKey,
       placeHolder,
-      size,
+      size = 'medium',
       shadow = 'regular',
+      className,
       ...rest
     },
     ref,
@@ -75,22 +80,22 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
     const defaultSelectItem: SelectItemProps = {
       selectItem: optionsList.find((item) => item.key === defaultSelectKey),
     };
+
     const selectItemStore = useRef(createSelectItemStore(defaultSelectItem)).current;
     const keySelectItemStore = useRef(createKeySelectItemStore(defaultSelectItem)).current;
-
     const [visible, setVisible] = useState<boolean>(false);
-    const closeContent = () => {
+    const selectClass = classNames(styles['base'], styles[size], className);
+    const closeOptions = () => {
       setTimeout(() => {
         setVisible(false);
       }, 100);
- 
     };
     return (
       <SelectItemContext.Provider value={selectItemStore}>
         <KeySelectItemContext.Provider value={keySelectItemStore}>
           <div
             ref={ref}
-            className={styles['base']}
+            className={selectClass}
             {...rest}
           >
             <SelectTrigger
@@ -100,12 +105,14 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
               size={size}
               optionsList={optionsList}
               onClick={() => setVisible(true)}
-              onBlur={closeContent}
+              onKeyDown={() => setVisible(true)}
+              onBlur={closeOptions}
+              closeOptions={() => setVisible(false)}
+              onChange={onChange}
+              selectKey={selectKey}
             />
             {visible && (
               <SelectContent
-                onChange={onChange}
-                selectKey={selectKey}
                 optionsList={optionsList}
                 shadow={shadow}
               />

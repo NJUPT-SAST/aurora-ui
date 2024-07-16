@@ -11,12 +11,10 @@ export interface SelectGroupProps
    * options the options of SelectGroupProps
    */
   optionsList: OptionProps[];
-  onChange?: (value: OptionProps) => void;
-  selectKey?: number;
 }
 
 export const SelectGroup = React.forwardRef<HTMLDivElement, SelectGroupProps>(
-  ({ optionsList, onChange, selectKey, ...rest }, ref) => {
+  ({ optionsList, ...rest }, ref) => {
     const inputValue = useInputStringStore((state) => state.value);
     const options: OptionProps[] = inputValue ? fuzzySearch(optionsList, inputValue) : optionsList;
 
