@@ -144,9 +144,8 @@ export const Dialog = React.forwardRef<HTMLDivElement, DialogProps>(
                     ref={ref}
                     className={`${styles['base']} `}
                     header={header}
-                    mainContent={mainContent}
+                    content={mainContent}
                     footer={footer}
-                    theme={theme}
                     size={size}
                     shadow={shadow}
                     {...rest}
