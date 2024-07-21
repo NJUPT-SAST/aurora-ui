@@ -21,13 +21,14 @@
 }
 
 .base {
-  @include shadow;
-  @include size;
   border-radius: 4px;
   border: solid 1px $default-color;
   background-color: $white-color;
   display: flex;
   flex-direction: column;
+
+  @include shadow;
+  @include size;
 
   .hero-image {
     object-fit: cover;

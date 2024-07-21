@@ -42,11 +42,12 @@ $animation-duration: $duration-300;
     border: solid 1px $default-color;
     margin-top: 6px;
     box-sizing: border-box;
-    @include shadow;
     width: 100%;
     max-height: 120px;
     overflow-y: scroll;
     background-color: $white-color;
+
+    @include shadow;
 
     .select-group {
       height: 100%;
