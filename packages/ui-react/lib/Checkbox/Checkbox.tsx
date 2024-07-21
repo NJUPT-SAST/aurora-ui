@@ -42,7 +42,7 @@ export const Checkbox = React.forwardRef<HTMLButtonElement, CheckboxProps>(
       disabled = false,
       fontsize,
       labelClass,
-      onChecked = function () {},
+      onChecked = function() { },
       ...rest
     },
     ref,

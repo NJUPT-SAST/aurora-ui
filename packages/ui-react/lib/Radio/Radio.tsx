@@ -1,34 +1,25 @@
 import classNames from 'classnames';
-import React, { useEffect, useState } from 'react';
+import React, { type ChangeEventHandler } from 'react';
 import styles from './Radio.module.scss';
 
-export interface RadioProps {
-  /**
-   * the key of the radio, is very important in radiogroup
-   */
-  key?: number;
+export interface RadioProps
+  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size' | 'onChange'> {
   /**
    * The color of the Radio.
    */
-  color?: 'primary' | 'warning' | 'danger';
-
+  color?: 'primary' | 'warning' | 'danger' | 'info' | 'ghost';
   /**
    * The size of the Radio.
    */
   size?: 'small' | 'medium' | 'large';
-
   /**
    * If `true`, the Radio will be disabled.
    */
   disabled?: boolean;
   /**
-   * the children of the radio
-   */
-  children?: string;
-  /**
    * the value of the radio,if not provide ,the value is children
    */
-  value?: string;
+  value: string | number;
   /**
    * the checked of the radio
    */
@@ -40,60 +31,62 @@ export interface RadioProps {
   /**
    * the onchange of the radio (type:the type of the click(used for can cancel radio),value:string)
    */
-  onChange?: (value: string) => void;
+  onChange?: (value: string | number, event: Event) => void;
+  /**
+   * label, the label of the Radio
+   */
+  label?: React.ReactNode;
 }
 
-export const Radio = React.forwardRef<HTMLDivElement, RadioProps>(
+export const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
   (
     {
       color = 'primary',
       size = 'medium',
       disabled = false,
-      children = 'radio',
-      value = children,
-      checked = false,
+      checked,
       onChange,
+      value,
       defaultChecked = false,
+      label,
       ...rest
     },
     ref,
   ) => {
-    const radioClass = classNames(
+    const radioId = `radio-${Math.random().toString(36).slice(2, 11)}`;
+
+    const radioWrapperClass = classNames(
       styles['base'],
       styles[color],
       styles[size],
       styles[disabled ? 'disabled' : ''],
     );
-    const [isChecked, setIsChecked] = useState<boolean>(defaultChecked);
 
-    const handleChange = () => {
-      if (onChange) onChange(value);
-      setIsChecked(true);
+    const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
+      onChange && onChange(value, event as unknown as Event);
     };
 
-    useEffect(() => {
-      setIsChecked(checked);
-    }, [checked]);
-
     return (
-      <div
-        className={radioClass}
-        {...rest}
-        ref={ref}
-      >
+      <div className={radioWrapperClass}>
         <input
           type="radio"
-          value={value}
-          className={styles['radioItem']}
-          id={children}
+          id={radioId}
+          defaultChecked={checked === undefined ? defaultChecked : undefined}
+          checked={checked}
+          className={`${styles['radio']} ${styles[color]}`}
           disabled={disabled}
-          checked={isChecked}
-          onChange={function () {}}
-          onClick={handleChange}
+          onChange={handleChange}
+          ref={ref}
+          {...rest}
         />
-        <label htmlFor={children}>
-          <span className={styles['radioSpan']}> {children}</span>
-        </label>
+        {label && (
+          <label
+            htmlFor={radioId}
+            className={styles['label']}
+          >
+            {label}
+          </label>
+        )}
       </div>
     );
   },
