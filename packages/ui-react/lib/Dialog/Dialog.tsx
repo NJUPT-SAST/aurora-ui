@@ -1,9 +1,9 @@
-import React, { useEffect, useRef, useState, type CSSProperties } from 'react';
+import React, { useEffect, useState, type CSSProperties } from 'react';
 import styles from './Dialog.module.scss';
 import { Button, Card } from '..';
 import { createPortal } from 'react-dom';
 
-export interface DialogProps extends React.HtmlHTMLAttributes<HTMLDivElement> {
+export interface DialogProps extends Omit<React.HtmlHTMLAttributes<HTMLDivElement>, 'content'> {
   /**
    * The header of the Dialog.
    */
@@ -11,7 +11,7 @@ export interface DialogProps extends React.HtmlHTMLAttributes<HTMLDivElement> {
   /**
    * The content of the Dialog.
    */
-  mainContent?: React.ReactNode;
+  content?: React.ReactNode;
   /**
    * The footer of the Dialog.
    */
@@ -23,11 +23,7 @@ export interface DialogProps extends React.HtmlHTMLAttributes<HTMLDivElement> {
   /**
    * shadow, the shadow of the dialog
    */
-  shadow?: 'regular' | 'small' | 'medium' | 'large' | 'extraLarge' | 'inner';
-  /**
-   * The theme of the Card.
-   */
-  theme?: 'dark' | 'light';
+  shadow?: 'regular' | 'small' | 'medium' | 'large' | 'extraLarge' | 'inner' | 'none';
   /**
    * The size of the Card.
    */
@@ -62,7 +58,7 @@ export const Dialog = React.forwardRef<HTMLDivElement, DialogProps>(
   (
     {
       header,
-      mainContent,
+      content,
       onCancel,
       onOk,
       footer = (
@@ -82,7 +78,6 @@ export const Dialog = React.forwardRef<HTMLDivElement, DialogProps>(
           </Button>
         </div>
       ),
-      theme,
       shadow = 'regular',
       size,
       visible = false,
@@ -94,69 +89,50 @@ export const Dialog = React.forwardRef<HTMLDivElement, DialogProps>(
     },
     ref,
   ) => {
-    const [dialogVisible, setDialogVisible] = useState<boolean>(false);
-    const [dialogIn, setDialogIn] = useState<boolean>(false);
+    const [shouldRender, setShouldRender] = useState<boolean>(false);
     const [dialogHide, setDialogHide] = useState<boolean>(false);
-    const dialogRef = useRef<HTMLDialogElement>(null);
 
     useEffect(() => {
       visible ? openDialog() : closeDialog();
     }, [visible]);
 
-    useEffect(() => {
-      dialogVisible ? dialogRef.current?.show() : dialogRef.current?.close();
-    }, [dialogVisible]);
-
     const openDialog = () => {
-      setDialogVisible(true);
+      setDialogHide(false);
+      setShouldRender(true);
       document.body.style.overflow = 'hidden';
-      setDialogIn(true);
     };
 
     const closeDialog = () => {
-      setDialogIn(false);
       setDialogHide(true);
-      setTimeout(() => {
-        setDialogHide(false);
+      // Vanishing animation is implemented by delaying the use of shouldrender to receive visiable data unidirectional
+      const timer = setTimeout(() => {
+        setShouldRender(false);
         document.body.style.overflow = '';
-        setDialogVisible(false);
-      }, 400);
+      }, 300);
+      return () => clearTimeout(timer);
     };
 
     return (
-      <>
-        {createPortal(
-          <div>
-            {dialogVisible && (
-              <div
-                className={`${styles['dialog-container']} ${styles[mask ? 'mask' : 'no-mask']} ${styles[dialogIn ? 'dialog-in' : '']}  
-            ${styles[dialogHide ? 'dialog-hide' : '']}`}
-                onClick={() => maskClosable && onCancel && onCancel()}
-                style={maskStyle}
-              >
-                <dialog
-                  ref={dialogRef}
-                  className={`${styles['dialog']}  ${styles[dialogIn ? 'dialog-in' : '']}  
-          ${styles[dialogHide ? 'dialog-hide' : '']}  ${className} `}
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  <Card
-                    ref={ref}
-                    className={`${styles['base']} `}
-                    header={header}
-                    content={mainContent}
-                    footer={footer}
-                    size={size}
-                    shadow={shadow}
-                    {...rest}
-                  ></Card>
-                </dialog>
-              </div>
-            )}
-          </div>,
-          document.body,
-        )}
-      </>
+      shouldRender &&
+      createPortal(
+        <div
+          className={`${styles['dialog-container']} ${styles[mask ? 'mask' : 'no-mask']} ${styles[dialogHide ? 'dialog-hide' : 'dialog-in']}`}
+          onClick={() => maskClosable && onCancel && onCancel()}
+          style={maskStyle}
+        >
+          <Card
+            ref={ref}
+            className={`${styles['base']} ${styles['dialog']} ${styles[dialogHide ? 'dialog-hide' : 'dialog-in']} ${className}`}
+            header={header}
+            content={content}
+            footer={footer}
+            size={size}
+            shadow={shadow}
+            {...rest}
+          />
+        </div>,
+        document.body,
+      )
     );
   },
 );

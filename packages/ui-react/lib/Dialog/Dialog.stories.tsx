@@ -2,7 +2,6 @@ import type { Meta, StoryObj } from '@storybook/react';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import React from 'react';
 import { Dialog, type DialogProps } from './Dialog';
-import { Button } from '../Button/Button';
 
 const meta = {
   title: 'Components/Dialog',
@@ -10,7 +9,6 @@ const meta = {
   parameters: {
     layout: 'centered',
   },
-  // tags: ['autodocs'],
   argTypes: {
     size: {
       options: ['small', 'medium', 'large'],
@@ -25,6 +23,7 @@ type Story = StoryObj<typeof meta>;
 
 const defaultProps: DialogProps = {
   size: 'medium',
+  visible: true,
 };
 
 export const DefaultDialog: Story = {
@@ -37,12 +36,7 @@ export const ExampleDialog: Story = {
   args: {
     ...defaultProps,
     size: 'medium',
-    header: <span>考试已经结束</span>,
-    mainContent: <span>请问您还需要提交吗</span>,
-    footer: (
-      <div style={{ display: 'flex', gap: 10, justifyContent: 'end' }}>
-        <Button>确定</Button>
-      </div>
-    ),
+    header: <h3>考试已经结束</h3>,
+    content: <div style={{ marginBottom: '30px' }}>现在提交不再生效, 请问您还需要提交吗</div>,
   },
 };

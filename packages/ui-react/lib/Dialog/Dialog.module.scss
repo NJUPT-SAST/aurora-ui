@@ -1,12 +1,19 @@
 @use '../variables' as *;
 
-@property --blur {
+@mixin animation($name) {
+  animation-name: $name;
+  animation-duration: 300ms;
+  animation-timing-function: $cubic-bezier;
+  animation-fill-mode: forwards;
+}
+
+@property --blur-mask {
   syntax: '<length>';
   inherits: false;
   initial-value: 0px;
 }
 
-@property --opacity-background {
+@property --opacity-mask {
   syntax: '<percentage>';
   inherits: false;
   initial-value: 0%;
@@ -18,23 +25,17 @@
   initial-value: 0%;
 }
 
-@property --scale {
+@property --scale-card {
   syntax: '<percentage>';
   inherits: false;
   initial-value: 80%;
-}
-
-@mixin animation($name) {
-  animation-name: $name;
-  animation-duration: 500ms;
-  animation-timing-function: $cubic-bezier;
-  animation-fill-mode: forwards;
 }
 
 @mixin dialog-animation() {
   &.dialog-in {
     @include animation(dialog-in);
   }
+
   &.dialog-hide {
     @include animation(dialog-hide);
   }
@@ -46,23 +47,20 @@
   left: 0;
   top: 0;
   position: fixed;
+
   &.mask {
-    background-color: rgb($black-color, var(--opacity-background));
-    backdrop-filter: blur(var(--blur));
+    background-color: rgb($black-color, var(--opacity-mask));
+    backdrop-filter: blur(var(--blur-mask));
   }
-  &.no-mask {
-    all: unset;
-  }
+
   @include dialog-animation();
+
   .dialog {
     z-index: 1;
     position: absolute;
     top: 50%;
-    transform: translateY(-50%);
-    padding: 0;
-    border: none;
-    border-radius: 8px;
-    scale: var(--scale);
+    left: 50%;
+    transform: translate(-50%, -50%) scale(var(--scale-card));
     opacity: var(--opacity-card);
     @include dialog-animation();
   }
@@ -70,29 +68,32 @@
 
 @keyframes dialog-in {
   0% {
-    --blur: 0px;
-    --opacity-background: 0%;
+    --blur-mask: 0px;
+    --opacity-mask: 0%;
     --opacity-card: 0%;
-    --scale: 70%;
+    --scale-card: 70%;
   }
+
   100% {
-    --blur: 4px;
-    --opacity-background: 40%;
+    --blur-mask: 4px;
+    --opacity-mask: 40%;
     --opacity-card: 100%;
-    --scale: 100%;
+    --scale-card: 100%;
   }
 }
+
 @keyframes dialog-hide {
   0% {
-    --blur: 4px;
-    --opacity-background: 40%;
+    --blur-mask: 4px;
+    --opacity-mask: 40%;
     --opacity-card: 100%;
-    --scale: 100%;
+    --scale-card: 100%;
   }
+
   100% {
-    --blur: 0px;
-    --opacity-background: 0%;
+    --blur-mask: 0px;
+    --opacity-mask: 0%;
     --opacity-card: 0%;
-    --scale: 80%;
+    --scale-card: 70%;
   }
 }
