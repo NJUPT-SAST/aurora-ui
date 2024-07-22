@@ -7,10 +7,12 @@
   &:hover {
     box-shadow: none !important;
     transform: none !important;
+    filter: blur(0.4px);
   }
 
-  &:active{
+  &:active {
     box-shadow: none !important;
     transform: none !important;
+    filter: blur(0.4px);
   }
 }

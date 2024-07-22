@@ -56,6 +56,26 @@
   }
 }
 
+@mixin radio-disabled {
+  &.disabled {
+    cursor: not-allowed;
+
+    &:hover {
+      .radio {
+        filter: blur(0.4px);
+      }
+    }
+
+    .radio {
+      @include disabled;
+    }
+
+    .label {
+      @include disabled;
+    }
+  }
+}
+
 .base {
   display: flex;
   flex-direction: row;
@@ -65,6 +85,8 @@
   font-size: var(--size);
 
   @include size;
+
+  @include radio-disabled;
 
   &:hover {
     .radio {

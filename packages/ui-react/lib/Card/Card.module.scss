@@ -1,6 +1,6 @@
 @use '../variables' as *;
 
-@mixin size {
+@mixin card-size {
   &.medium {
     font-size: 1rem;
     padding: 10px 20px;
@@ -28,7 +28,7 @@
   flex-direction: column;
 
   @include shadow;
-  @include size;
+  @include card-size;
 
   .hero-image {
     object-fit: cover;
@@ -37,11 +37,13 @@
     border: solid 1px $default-color;
   }
 
-  .card-header {}
+  .card-header {
+  }
 
   .card-content {
     flex-grow: 1;
   }
 
-  .card-footer {}
+  .card-footer {
+  }
 }

@@ -1,4 +1,4 @@
-@use "./color.scss" as *;
+@use './color.scss' as *;
 // box-shadow variables
 $shadow-sm: 1px 1px 0px 0 $default-color;
 $shadow: 2px 2px 0px 0 $default-color;
@@ -7,6 +7,7 @@ $shadow-lg: 4px 4px 0px 0px $default-color;
 $shadow-xl: 5px 5px 0px 0px $default-color;
 $shadow-inner: inset 0 2px 4px 0 rgb(0 0 0 / 0.05);
 
+// this is for button card ...
 @mixin shadow {
   &.shadow-regular {
     box-shadow: $shadow;

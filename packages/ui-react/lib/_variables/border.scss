@@ -5,6 +5,7 @@ $border-1: 1px;
 $border-2: 2px;
 $border-3: 3px;
 
+// this is for select input datepickter
 @mixin border-color {
   &.primary {
     box-shadow: 0px 0px 0 3px $violet-color;

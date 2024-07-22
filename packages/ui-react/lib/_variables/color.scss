@@ -16,32 +16,33 @@ $success-color: #46a758;
 $info-color: #0090ff;
 $secondary-color: #555b61;
 
+// this is for button
 @mixin color {
-    &.primary {
-        border: solid 1px $default-color;
-        background-color: $violet-color;
-        color: $default-color;
-    }
+  &.primary {
+    border: solid 1px $default-color;
+    background-color: $violet-color;
+    color: $default-color;
+  }
 
-    &.secondary {
-        border: solid 1px $default-color;
-        background-color: $white-color;
-        color: $default-color;
-    }
+  &.secondary {
+    border: solid 1px $default-color;
+    background-color: $white-color;
+    color: $default-color;
+  }
 
-    &.ghost {
-        border: none;
-        background-color: transparent;
-        color: $default-color;
+  &.ghost {
+    border: none;
+    background-color: transparent;
+    color: $default-color;
 
-        &:hover {
-            border: solid 1px $default-color;
-        }
+    &:hover {
+      border: solid 1px $default-color;
     }
+  }
 
-    &.danger {
-        border: solid 1px $default-color;
-        background-color: $danger-color;
-        color: $default-color;
-    }
+  &.danger {
+    border: solid 1px $default-color;
+    background-color: $danger-color;
+    color: $default-color;
+  }
 }

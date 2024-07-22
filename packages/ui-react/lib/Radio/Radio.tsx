@@ -36,6 +36,10 @@ export interface RadioProps
    * label, the label of the Radio
    */
   label?: React.ReactNode;
+  /**
+   * className of the wrapper of the radio
+   */
+  className?: string;
 }
 
 export const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
@@ -49,6 +53,7 @@ export const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
       value,
       defaultChecked = false,
       label,
+      className,
       ...rest
     },
     ref,
@@ -60,6 +65,7 @@ export const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
       styles[color],
       styles[size],
       styles[disabled ? 'disabled' : ''],
+      className,
     );
 
     const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
