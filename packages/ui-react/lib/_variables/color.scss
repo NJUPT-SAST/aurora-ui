@@ -16,7 +16,7 @@ $success-color: #46a758;
 $info-color: #0090ff;
 $secondary-color: #555b61;
 
-// this is for button
+// this is for button abd badge
 @mixin color {
   &.primary {
     border: solid 1px $default-color;
