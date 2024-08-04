@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, type CSSProperties } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState, type CSSProperties } from 'react';
 import styles from './Dialog.module.scss';
 import { Button, Card } from '..';
 import { createPortal } from 'react-dom';
@@ -99,7 +99,7 @@ export const Dialog = React.forwardRef<HTMLDivElement, DialogProps>(
     const [dialogHide, setDialogHide] = useState<boolean>(false);
     const dialogRef = useRef<HTMLDialogElement>(null);
 
-    useEffect(() => {
+    useLayoutEffect(() => {
       visible ? openDialog() : closeDialog();
     }, [visible]);
 
