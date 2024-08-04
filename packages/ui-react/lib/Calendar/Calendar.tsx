@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import styles from './Calendar.module.scss';
 import DayItem from './DayItem';
 import { Button } from '..';
+import { ChevronsLeft, ChevronsRight } from 'lucide-react';
 
 export interface CalendarProps extends React.HtmlHTMLAttributes<HTMLDivElement> {
   /**
@@ -103,32 +104,20 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
               onClick={() => changeMonth(true)}
               className={styles['button']}
             >
-              <svg
-                width="16"
-                height="16"
-                fill="#333333"
-                viewBox="0 0 16 16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M11.7265 12L12.6665 11.06L9.61317 8L12.6665 4.94L11.7265 4L7.7265 8L11.7265 12Z" />
-                <path d="M7.33344 12L8.27344 11.06L5.2201 8L8.27344 4.94L7.33344 4L3.33344 8L7.33344 12Z" />
-              </svg>
+              <ChevronsLeft
+                size={16}
+                color="#333333"
+              />
             </Button>
             <Button
               color="border"
               onClick={() => changeMonth(false)}
               className={styles['button']}
             >
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 16 16"
-                fill="#333333"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M4.2735 4L3.3335 4.94L6.38683 8L3.3335 11.06L4.2735 12L8.2735 8L4.2735 4Z" />
-                <path d="M8.66656 4L7.72656 4.94L10.7799 8L7.72656 11.06L8.66656 12L12.6666 8L8.66656 4Z" />
-              </svg>
+              <ChevronsRight
+                size={16}
+                color="#333333"
+              />
             </Button>
           </div>
           <span>

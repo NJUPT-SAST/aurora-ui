@@ -1,23 +1,68 @@
+@use '../variables' as *;
 .base {
+  background-color: $white-color;
+  width: 100%;
+  box-shadow: $shadow;
+  height: 55px;
   display: flex;
-  flex-direction: row;
-  margin: 0;
-  padding: 0;
-  text-align: center;
-  background-color: #f2f2f2;
-  padding: 30px;
-  justify-content: space-between;
-  width: 1000px;
-  .title {
-    font-size: 23px;
-    font-weight: 800;
-  }
-  .navbar {
-    padding: 0;
-    margin: 0;
-    list-style: none;
+  align-items: center;
+  padding: 0px 20px;
+  box-sizing: border-box;
+  gap: 40px;
+  .navbar-items-container {
     display: flex;
     flex-direction: row;
-    gap: 20px;
+    align-items: center;
+    gap: 12px;
+    flex-grow: 1;
+    position: relative;
+    .footer {
+      position: absolute;
+      left: 0;
+      bottom: -3px;
+      background-color: $primary-color;
+      height: 1.5px;
+      border-radius: 1px;
+      transition: all 250ms $cubic-bezier-string;
+    }
+    .navbar-item {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      color: rgb($black-color, 0.7);
+      transition: all 0.3s $cubic-bezier;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      font-weight: 600;
+      svg {
+        path {
+          inset: rgb($black-color, 0.7);
+          transition: all 0.3s $cubic-bezier;
+        }
+      }
+      &.select {
+        color: $primary-color;
+        svg {
+          path {
+            inset: $primary-color;
+          }
+        }
+      }
+      &:hover {
+        color: $primary-color;
+        svg {
+          path {
+            inset: $primary-color;
+          }
+        }
+      }
+    }
+    .divider {
+      height: 14px;
+      width: 1px;
+      background-color: rgb($black-color, 0.4);
+    }
   }
 }

@@ -1,20 +1,34 @@
-@use '../_variables/color.scss' as *;
-@use '../_variables/radius.scss' as *;
-@use '../_variables//border.scss' as *;
-@use '../_variables/fontSize.scss' as *;
-@use '../_variables/duration.scss' as *;
-@use '../_variables/animation.scss' as *;
-@use '../_variables/disabled.scss' as *;
+@use '../variables' as *;
 
-$border-radius: $radius-8;
 $border-width: $border-1;
-$font-size-select: $font-size-14;
-$font-size-label: $font-size-10;
-$padding-left-right: 11px;
-$padding-label-top: 8px;
 $animation-duration: $duration-200;
 
 .base {
+  $border-radius: $radius-8;
+  $padding-left-right: 11px;
+  $padding-label-top: 8px;
+  $padding-top: 22px;
+  $padding-bottom: 8px;
+  $font-size-select: $font-size-14;
+  $font-size-label: $font-size-10;
+  &.small {
+    $border-radius: 6px;
+    $padding-left-right: 6px;
+    $padding-label-top: 6px;
+    $font-size-label: 8px;
+    $font-size-select: 12px;
+    $padding-top: 16px;
+    $padding-bottom: 5px;
+  }
+  // &.large {
+  //   $border-radius: 10px;
+  //   $padding-left-right: 10px;
+  //   $padding-label-top: 10px;
+  //   $font-size-label: 12px;
+  //   $font-size-select: 16px;
+  //   $padding-top: 20px;
+  //   $padding-bottom: 9px;
+  // }
   width: fit-content;
   border-radius: $border-radius;
   box-sizing: border-box;
@@ -24,6 +38,7 @@ $animation-duration: $duration-200;
   font-weight: 500;
   background-color: $pale-white-color;
   box-sizing: border-box;
+
   &.border {
     border: $border-width solid $gray-color !important;
     &:hover:not(&.disabled) {
@@ -57,7 +72,7 @@ $animation-duration: $duration-200;
 
   .input {
     all: unset;
-    padding: 22px $padding-left-right 8px $padding-left-right;
+    padding: $padding-top $padding-left-right $padding-bottom $padding-left-right;
     width: -webkit-fill-available;
     position: relative;
     top: 0;

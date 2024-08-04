@@ -16,7 +16,7 @@ const meta = {
       control: { type: 'select' },
     },
     type: {
-      options: ['info', 'success', 'warning', 'error'],
+      options: ['info', 'success', 'warning', 'error', 'ghost'],
       control: { type: 'select' },
     },
   },

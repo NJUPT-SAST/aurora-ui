@@ -1,0 +1,87 @@
+@use "../../variables" as *;
+@use "../../_variables/color.scss" as *;
+@use "../../_variables/radius.scss" as *;
+@use "../../_variables/border.scss" as *;
+@use "../../_variables/fontSize.scss" as *;
+@use "../../_variables/duration.scss" as *;
+@use "../../_variables/animation.scss" as *;
+@use "../../_variables/disabled.scss" as *;
+$animation-duration: $duration-300;
+.base {
+  height: fit-content;
+  width: fit-content;
+  padding: 10px;
+  border-radius: $radius-10;
+  background-color: var(--white-color);
+  color: var(--black-color);
+  box-shadow: $shadow;
+  min-width: 19.6875rem;
+  .calendarTitle {
+    font-size: 18px;
+    font-weight: 1000;
+    color: var(--shadow-color);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 10px;
+    .buttonContainer {
+      display: flex;
+      gap: 3px;
+    }
+  }
+  .calendarItems {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: 1.5fr auto;
+    column-gap: 5px;
+    row-gap: 5px;
+    padding: 5px 10px;
+    box-sizing: border-box;
+    justify-items: center;
+    .calendarItem {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 35px;
+      height: 35px;
+      cursor: pointer;
+      &.otherMonth {
+        opacity: 0.4;
+      }
+      &:hover:not(&.today):not(&.select) {
+        background-color: var(--background-blue);
+        color: var(--primary-color);
+        border-radius: $radius-5;
+        transition: all $animation-duration $cubic-bezier;
+      }
+      &.select {
+        background-color: var(--primary-color);
+        border-radius: 5px;
+        color: var(--white-color);
+        transition: all $animation-duration $cubic-bezier;
+      }
+      &.today {
+        background-color: var(--background-blue);
+        color: var(--primary-color);
+        border-radius: $radius-5;
+      }
+    }
+  }
+  .weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    background-color: var(--title-shadow);
+    box-sizing: border-box;
+    gap: 5px;
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: 600;
+    color: var(--shadow-color);
+    .weekday {
+      font-size: $font-size-14;
+      width: 35px;
+      text-align: center;
+    }
+  }
+}

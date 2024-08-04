@@ -1,82 +1,9 @@
-// box-shadow variables
-$shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-$shadow:
-  0 1px 3px 0 rgba(0, 0, 0, 0.1),
-  0 1px 2px -1px rgba(0, 0, 0, 0.1);
-$shadow-md:
-  0 4px 6px -1px rgb(0 0 0 / 0.1),
-  0 2px 4px -2px rgb(0 0 0 / 0.1);
-$shadow-lg:
-  0 10px 15px -3px rgb(0 0 0 / 0.1),
-  0 4px 6px -4px rgb(0 0 0 / 0.1);
-$shadow-xl:
-  0 20px 25px -5px rgb(0 0 0 / 0.1),
-  0 8px 10px -6px rgb(0 0 0 / 0.1);
-$shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
-$shadow-inner: inset 0 2px 4px 0 rgb(0 0 0 / 0.05);
-
-@mixin shadow {
-  &.shadow-regular {
-    box-shadow: $shadow;
-  }
-  &.shadow-small {
-    box-shadow: $shadow-sm;
-  }
-  &.shadow-medium {
-    box-shadow: $shadow-md;
-  }
-  &.shadow-large {
-    box-shadow: $shadow-lg;
-  }
-  &.shadow-extraLarge {
-    box-shadow: $shadow-xl;
-  }
-  &.shadow-inner {
-    box-shadow: $shadow-inner;
-  }
-}
-
-// border width variables
-$border-0: 0px;
-$border-1: 1px;
-$border-2: 2px;
-
-//animation-duration varibles
-$duration-100: 100ms;
-$duration-200: 200ms;
-$duration-300: 300ms;
-$duration-400: 400ms;
-$duration-800: 800ms;
-
-//border radius variables
-$radius-10: 10px;
-$radius-8: 8px;
-$radius-5: 5px;
-$radius-15: 15px;
-$radius-half: 50%;
-
-//absolute center
-@mixin absolute-center {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-//font-size variables
-$font-size-8: 8px;
-$font-size-10: 10px;
-$font-size-12: 12px;
-$font-size-14: 14px;
-$font-size-16: 16px;
-
-//disabled
-@mixin disabled {
-  cursor: not-allowed;
-  opacity: 0.4;
-}
-
-//background color
-$background-shadow-color: rgb(var(--black-color-rgb), 0.6);
-
-$cubic-bezier: cubic-bezier(0.215, 0.61, 0.355, 1);
+@import './_variables/shadow.scss';
+@import './_variables/color.scss';
+@import './_variables/border.scss';
+@import './_variables/duration.scss';
+@import './_variables/radius.scss';
+@import './_variables/fontSize.scss';
+@import './_variables/disabled.scss';
+@import './_variables/animation.scss';
+@import './_variables/center.scss';

@@ -20,11 +20,16 @@
     border-radius: 6px;
     cursor: inherit;
     transition: all 0.2s $cubic-bezier;
-    .checkPath {
-      stroke-dasharray: 24;
-      stroke-dashoffset: 24;
-      animation: draw 0.3s linear forwards;
-      animation-delay: 0.2s;
+    .check-icon {
+      path {
+        stroke: white;
+        stroke-dasharray: 24;
+        stroke-dashoffset: 24;
+        animation: draw 0.3s linear forwards;
+        animation-delay: 0.2s;
+        stroke-width: 3;
+        animation-direction: reverse;
+      }
     }
     &::after {
       content: '';
@@ -55,10 +60,10 @@
 }
 
 @keyframes draw {
-  50% {
-    stroke-dashoffset: 18;
+  0% {
+    stroke-dashoffset: 0;
   }
   100% {
-    stroke-dashoffset: 0;
+    stroke-dashoffset: -24;
   }
 }

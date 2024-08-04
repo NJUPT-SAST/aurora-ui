@@ -5,12 +5,17 @@ import { ifDefined } from "lit/directives/if-defined.js";
 import { createComponent } from "@lit/react";
 import React from "react";
 import { classMap } from "lit/directives/class-map.js";
+import { live } from "lit/directives/live.js";
 
 export interface InputProps {
   /**
    * The width of the Input.
    */
   width: number;
+  /**
+   * If `true`, the input will fill the width of parent.
+   */
+  fill: boolean;
   /**
    * If `true`, the input will be disabled.
    */
@@ -38,29 +43,26 @@ export interface InputProps {
   /**
    * value ,the value of the input
    */
-  value: string;
-  /**
-   * defaultValue, the defaultValue of the input
-   */
-  defaultValue?: string;
+  value?: string;
   /**
    * isBorder? have the border of the input
    */
   isBorder: boolean;
 }
 
-@customElement("s-input")
-export class SInput extends LitElement {
+@customElement("a-input")
+export class AInput extends LitElement {
   static styles = styles;
   @property({ type: Number }) width: InputProps["width"] = 250;
-  @property({ type: Boolean }) disabled: InputProps["disabled"] = false;
+  @property({ type: Boolean }) fill: InputProps["fill"] = false;
+  @property({ type: Boolean, reflect: true }) disabled: InputProps["disabled"] =
+    false;
   @property({ type: String }) label: InputProps["label"] = "输入框";
   @property({ type: String }) mode: InputProps["mode"] = "text";
   @property({ type: String }) placeholder: InputProps["placeholder"];
   @property({ type: Number }) fontsize: InputProps["fontsize"] = 16;
   @property({ type: Boolean }) isFillFather: InputProps["isFillFather"] = false;
   @property({ type: String }) value: InputProps["value"] = "";
-  @property({ type: String }) defaultValue: InputProps["defaultValue"];
   @property({ type: Boolean }) isBorder: InputProps["isBorder"] = true;
 
   @state() isFocus = false;
@@ -82,21 +84,34 @@ export class SInput extends LitElement {
     return html`
       <div
         class="base ${classMap({
-      disabled: this.disabled,
-      fill: this.isFillFather,
-      border: this.isBorder,
-    })}"
-        style="width:${this.width}px;--input-font-size:${this.fontsize}px;"
+          disabled: this.disabled,
+          fill: this.isFillFather,
+          border: this.isBorder,
+        })}"
+        style="width:${this.fill
+          ? "100%"
+          : `${this.width}px`};--input-font-size:${this.fontsize}px;"
+        aria-disabled="${this.disabled ? "true" : "false"}"
       >
         ${this.label
-        ? html`<label htmlFor="input" class="inputLabel ${classMap({ isUpInputLabel: !!(this.value || this.placeholder || this.isFocus) })}">${this.label}</label>`
-        : ""}
+          ? html`<label
+              htmlFor="input"
+              class="inputLabel ${classMap({
+                isUpInputLabel: !!(
+                  this.value ||
+                  this.placeholder ||
+                  this.isFocus
+                ),
+              })}"
+              >${this.label}</label
+            >`
+          : ""}
         <input
           id="input"
           class="input"
           type="${ifDefined(this.mode)}"
           placeholder=${ifDefined(this.placeholder)}
-          .value="${this.value}"
+          .value="${live(this.value) as string}"
           .disabled="${this.disabled}"
           @input="${this.handleInput}"
           @focus="${this.handleFocus}"
@@ -109,18 +124,17 @@ export class SInput extends LitElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    "s-input": SInput;
+    "a-input": AInput;
   }
 }
 
 export const Input = createComponent({
-  tagName: "s-input",
-  elementClass: SInput,
+  tagName: "a-input",
+  elementClass: AInput,
   react: React,
   events: {
     onchange: "onChange",
     focus: "onFocus",
     blur: "onBlur",
-  }
+  },
 });
-

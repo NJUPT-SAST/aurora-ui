@@ -22,7 +22,7 @@ export interface SelectProps extends React.HtmlHTMLAttributes<HTMLDivElement> {
   /**
    * the optionList of the select
    */
-  optionsList?: Array<OptionProps>;
+  optionsList: Array<OptionProps>;
   /**
    * the title of the select
    */
@@ -51,23 +51,25 @@ export interface SelectProps extends React.HtmlHTMLAttributes<HTMLDivElement> {
    * placeHolder of the select
    */
   placeHolder?: string;
+  /**
+   * size?:
+   */
+  size?: 'small' | 'medium' | 'large';
 }
 
 export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
   (
     {
-      optionsList = [
-        { value: 'nextjs', label: 'nextjs', key: 3 },
-        { value: 'nuxtjs', label: 'nuxtjs', key: 5 },
-      ],
+      optionsList = [],
       onchange,
-      title = 'which framwork?',
+      title,
       disabled = false,
       defaultSelectKey,
       selectKey,
       isBorder = true,
       width = 280,
       placeHolder = '',
+      size,
       ...rest
     },
     ref,
@@ -75,7 +77,7 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
     // Here selectItemIndex is different from selectItem,
     // selectItem is all the contents of the selected selectItem,
     // selectItemIndex is the index value inside options, starting from 0, and has nothing to do with the key inside the options.
-    const [visible, setVisble] = useState<boolean>(false);
+    const [visible, setVisible] = useState<boolean>(false);
     const [selectItem, setSelectItem] = useState<OptionProps | undefined>(
       optionsList.find((item) => item.key === defaultSelectKey),
     );
@@ -90,7 +92,7 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
     }, [placeHolder]);
 
     const showOptions: MouseEventHandler = () => {
-      if (!disabled) setVisble(!visible);
+      if (!disabled) setVisible(!visible);
     };
 
     useEffect(() => {
@@ -168,60 +170,60 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
       setSelectItemIndex(-1);
       inputRef.current?.blur();
       setTimeout(() => {
-        setVisble(false);
+        setVisible(false);
       }, 100);
     };
 
     useEffect(() => {
       const results = fuzzySearch(optionsList, inputValue);
       setOptions(results);
-    }, [inputValue, optionsList]);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [inputValue]);
 
     return (
-      <>
-        <div
-          ref={ref}
-          {...rest}
-        >
-          <Input
-            onClick={showOptions}
-            onBlur={closeOptions}
-            value={inputValue}
-            width={width}
-            onchange={handleOptions}
-            label={title}
-            isBorder={isBorder}
-            placeholder={selectPlaceHolder}
-            disabled={disabled}
-            onKeyDown={onKeyDown.bind(this)}
-            ref={inputRef}
-            // According to the visible of the options box, determine the color of the placeholder,
-            // if the options are not expanded, the display will be black,
-            // if it has been expanded, the display will be gray.
-            className={`${styles['input']} ${visible ? styles['hide-placeholder'] : ''}`}
-          ></Input>
-          <div className={`${styles['options']} ${visible ? styles['show'] : ''}`}>
-            {!options.length ? (
-              <div className={styles['nothing-img-container']}>
-                <img src="../../public/sast_test_image/404.png" />
-                <span style={{ fontWeight: '700' }}>什么都没有检索到哦😭</span>
-              </div>
-            ) : (
-              options.map((obj, index) => {
-                return (
-                  <div
-                    key={obj.key}
-                    className={`${styles['option-item']} ${styles['option-item']}_${obj.key} ${selectItemIndex === index ? styles['option-item-selected'] : ''}`}
-                    onClick={() => handleClick(obj)}
-                  >
-                    <span className={styles['option-item-span']}>{obj.label}</span>
-                  </div>
-                );
-              })
-            )}
-          </div>
+      <div
+        ref={ref}
+        {...rest}
+      >
+        <Input
+          onClick={showOptions}
+          onBlur={closeOptions}
+          value={inputValue}
+          width={width}
+          onchange={handleOptions}
+          label={title}
+          isBorder={isBorder}
+          placeholder={selectPlaceHolder}
+          disabled={disabled}
+          onKeyDown={onKeyDown.bind(this)}
+          ref={inputRef}
+          size={size}
+          // According to the visible of the options box, determine the color of the placeholder,
+          // if the options are not expanded, the display will be black,
+          // if it has been expanded, the display will be gray.
+          className={`${styles['input']} ${visible ? styles['hide-placeholder'] : ''}`}
+        ></Input>
+        <div className={`${styles['options']} ${visible ? styles['show'] : ''}`}>
+          {!options.length ? (
+            <div className={styles['nothing-img-container']}>
+              <img src="../../public/sast_test_image/404.png" />
+              <span style={{ fontWeight: '700' }}>什么都没有检索到哦😭</span>
+            </div>
+          ) : (
+            options.map((obj, index) => {
+              return (
+                <div
+                  key={obj.key}
+                  className={`${styles['option-item']} ${styles['option-item']}_${obj.key} ${selectItemIndex === index ? styles['option-item-selected'] : ''}`}
+                  onClick={() => handleClick(obj)}
+                >
+                  <span className={styles['option-item-span']}>{obj.label}</span>
+                </div>
+              );
+            })
+          )}
         </div>
-      </>
+      </div>
     );
   },
 );

@@ -7,10 +7,10 @@
   "scripts": {
     "ui-uni:dev": "pnpm --filter @sast/ui-universal dev",
     "ui-uni:build": "pnpm --filter @sast/ui-universal build",
-    "ui-react:start": "pnpm --filter @sast/ui-react dev:lib",
-    "ui-react:dev": "pnpm --filter @sast/ui-react dev",
-    "ui-react:build": "pnpm --filter @sast/ui-react build:lib",
-    "ui-react:build-story": "pnpm --filter @sast/ui-react build",
+    "ui-react:start": "pnpm --filter @ui-aurora/react dev:lib",
+    "ui-react:dev": "pnpm --filter @ui-aurora/react dev",
+    "ui-react:build": "pnpm --filter @ui-aurora/react build:lib",
+    "ui-react:build-story": "pnpm --filter @ui-aurora/react build",
     "docs:dev": "pnpm --filter @sast/ui-docs dev",
     "commit": "git add . && pnpm lint-staged -p false && pnpm cz",
     "prepare": "husky"
@@ -19,8 +19,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   },
   "engines": {
     "node": ">=18",
@@ -30,13 +30,14 @@
     "commitizen": "^4.3.0",
     "cz-conventional-changelog": "^3.3.0",
     "husky": "^9.0.11",
-    "lint-staged": "^15.2.2",
-    "sass": "^1.69.5",
-    "typescript": "^5.3.3"
+    "lint-staged": "^15.2.7",
+    "sass": "^1.77.8",
+    "typescript": "^5.5.3"
   },
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
-  }
+  },
+  "packageManager": "pnpm@9.5.0+sha512.140036830124618d624a2187b50d04289d5a087f326c9edfc0ccd733d76c4f52c3a313d4fc148794a2a9d81553016004e6742e8cf850670268a7387fc220c903"
 }

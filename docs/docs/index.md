@@ -2,9 +2,9 @@
 pageType: home
 
 hero:
-  name: SAST UI DOCS
+  name: Aurora UI
   text: 🌏 UI component library for the future
-  tagline: now available for React
+  tagline: Now available for React
   actions:
     - theme: brand
       text: Components
@@ -13,8 +13,8 @@ hero:
       text: GitHub
       link: https://github.com/NJUPT-SAST/SAST-UI
   image:
-    src: /sast-ui-logo-icon.svg
-    alt: SAST UI DOCS Logo
+    src: /homelogo.png
+    alt: Aurora UI logo
 features:
   - title: W3C standards
     details: Follow the W3C standards and provide a consistent and accessible user experience. Universal version is based on Web Components and is future-proof.

@@ -3,6 +3,7 @@ import styles from './Pagination.module.scss';
 import classNames from 'classnames';
 import { PaginationItem } from './PaginationItem';
 import { useCurrentPageStore } from './useCurrentPageStore';
+import { ChevronsLeft, ChevronsRight } from 'lucide-react';
 
 export interface PaginationProps {
   /**
@@ -65,11 +66,8 @@ export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
 
     useEffect(() => {
       onChange(currentPage);
-    }, [currentPage, onChange]);
-
-    useEffect(() => {
-      if (activePage) changeCurrentPage(activePage);
-    }, [activePage, changeCurrentPage]);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [currentPage]);
 
     useEffect(() => {
       const newItems: ReactNode[] = [];
@@ -82,6 +80,7 @@ export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
               key={i}
               index={i}
               disabled={disabled}
+              activePage={activePage}
             >
               {i + 1}
             </PaginationItem>,
@@ -94,15 +93,20 @@ export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
             newItems.push(
               <PaginationItem
                 type="select"
+                key={i}
                 index={i}
                 disabled={disabled}
+                activePage={activePage}
               >
                 {i + 1}
               </PaginationItem>,
             );
           }
           newItems.push(
-            <PaginationItem type="none">
+            <PaginationItem
+              type="none"
+              key="more"
+            >
               <span>...</span>
             </PaginationItem>,
           );
@@ -111,7 +115,9 @@ export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
               <PaginationItem
                 type="select"
                 index={i}
+                key={i}
                 disabled={disabled}
+                activePage={activePage}
               >
                 {i + 1}
               </PaginationItem>,
@@ -125,14 +131,19 @@ export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
               <PaginationItem
                 type="select"
                 index={i}
+                key={i}
                 disabled={disabled}
+                activePage={activePage}
               >
                 {i + 1}
               </PaginationItem>,
             );
           }
           newItems.push(
-            <PaginationItem type="none">
+            <PaginationItem
+              type="none"
+              key="more"
+            >
               <span>...</span>
             </PaginationItem>,
           );
@@ -141,7 +152,9 @@ export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
               <PaginationItem
                 type="select"
                 index={i}
+                key={i}
                 disabled={disabled}
+                activePage={activePage}
               >
                 {i + 1}
               </PaginationItem>,
@@ -154,13 +167,18 @@ export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
             <PaginationItem
               type="select"
               index={0}
+              key={1}
               disabled={disabled}
+              activePage={activePage}
             >
               {1}
             </PaginationItem>,
           );
           newItems.push(
-            <PaginationItem type="none">
+            <PaginationItem
+              type="none"
+              key="leftMore"
+            >
               <span>...</span>
             </PaginationItem>,
           );
@@ -169,14 +187,19 @@ export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
               <PaginationItem
                 type="select"
                 index={i}
+                key={i}
                 disabled={disabled}
+                activePage={activePage}
               >
                 {i + 1}
               </PaginationItem>,
             );
           }
           newItems.push(
-            <PaginationItem type="none">
+            <PaginationItem
+              type="none"
+              key="rightMore"
+            >
               <span>...</span>
             </PaginationItem>,
           );
@@ -185,6 +208,8 @@ export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
               type="select"
               index={pageNumber - 1}
               disabled={disabled}
+              key={pageNumber - 1}
+              activePage={activePage}
             >
               {pageNumber}
             </PaginationItem>,
@@ -192,48 +217,32 @@ export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
         }
       }
       setItemList(newItems);
-    }, [pageNumber, currentPage, disabled]);
+    }, [pageNumber, currentPage, disabled, activePage]);
 
     const PaginationClass = classNames(`${styles['base']} ${styles[disabled ? 'disabled' : '']}`);
 
     return (
-      <>
-        <div
-          ref={ref}
-          {...rest}
-          className={PaginationClass}
+      <div
+        ref={ref}
+        {...rest}
+        className={PaginationClass}
+      >
+        <PaginationItem
+          type="delete"
+          disabled={currentPage === 1 || disabled}
+          key={'delete'}
         >
-          <PaginationItem
-            type="delete"
-            disabled={currentPage === 1 || disabled}
-          >
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 16 16"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path d="M11.7267 12L12.6667 11.06L9.61341 8L12.6667 4.94L11.7267 4L7.72675 8L11.7267 12Z" />
-              <path d="M7.33344 12L8.27344 11.06L5.2201 8L8.27344 4.94L7.33344 4L3.33344 8L7.33344 12Z" />
-            </svg>
-          </PaginationItem>
-          {itemList}
-          <PaginationItem
-            type="add"
-            disabled={currentPage === pageNumber || disabled}
-          >
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 16 16"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path d="M4.27325 4L3.33325 4.94L6.38659 8L3.33325 11.06L4.27325 12L8.27325 8L4.27325 4Z" />
-              <path d="M8.66656 4L7.72656 4.94L10.7799 8L7.72656 11.06L8.66656 12L12.6666 8L8.66656 4Z" />
-            </svg>
-          </PaginationItem>
-        </div>
-      </>
+          <ChevronsLeft size={16} />
+        </PaginationItem>
+        {itemList}
+        <PaginationItem
+          type="add"
+          disabled={currentPage === pageNumber || disabled}
+          key={'add'}
+        >
+          <ChevronsRight size={16} />
+        </PaginationItem>
+      </div>
     );
   },
 );

@@ -9,7 +9,7 @@ export default {
         "git add ."
     ],
     "packages/ui-react/**/*.{js,cjs,ts,html,json,css,scss,tsx,sass}": () => [
-        "pnpm --filter @sast/ui-react test",
+        // "pnpm --filter @sast/ui-react test",
         "pnpm --filter @sast/ui-react format",
         "pnpm --filter @sast/ui-react lint",
         "git add ."

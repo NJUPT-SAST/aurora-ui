@@ -8,6 +8,7 @@ $animation-duration: $duration-300;
   background-color: var(--white-color);
   color: var(--black-color);
   box-shadow: $shadow;
+  min-width: 18rem;
   .calendarTitle {
     font-size: 18px;
     font-weight: 1000;
@@ -68,8 +69,8 @@ $animation-duration: $duration-300;
     }
   }
   .weekdays {
-    grid-column: 1 / 8;
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
     background-color: var(--title-shadow);
     box-sizing: border-box;
     gap: 5px;
@@ -77,6 +78,7 @@ $animation-duration: $duration-300;
     border-radius: 5px;
     font-weight: 600;
     color: var(--shadow-color);
+    justify-items: center;
     .weekday {
       font-size: 14px;
       width: 35px;

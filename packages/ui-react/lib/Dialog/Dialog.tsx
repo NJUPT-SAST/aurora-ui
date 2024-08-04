@@ -1,6 +1,7 @@
-import React, { useLayoutEffect, useState } from 'react';
+import React, { useEffect, useRef, useState, type CSSProperties } from 'react';
 import styles from './Dialog.module.scss';
 import { Button, Card } from '..';
+import { createPortal } from 'react-dom';
 
 export interface DialogProps extends React.HtmlHTMLAttributes<HTMLDivElement> {
   /**
@@ -32,13 +33,29 @@ export interface DialogProps extends React.HtmlHTMLAttributes<HTMLDivElement> {
    */
   size?: 'small' | 'medium' | 'large';
   /**
-   * cancel, the cancel callback
+   * cancel, the default 取消 button  callback
    */
   onCancel?: () => void;
   /**
-   * onOk , the onOk callback
+   * onOk , the default 确定 button callback
    */
   onOk?: () => void;
+  /**
+   * classname, the classname of the dialog
+   */
+  className?: string;
+  /**
+   * mask, Whether to display the mask
+   */
+  mask?: boolean;
+  /**
+   * Whether or not to allow closing the dialog by clicking on the mask
+   */
+  maskClosable?: boolean;
+  /**
+   * the style of the mask
+   */
+  maskStyle?: CSSProperties;
 }
 
 export const Dialog = React.forwardRef<HTMLDivElement, DialogProps>(
@@ -49,28 +66,30 @@ export const Dialog = React.forwardRef<HTMLDivElement, DialogProps>(
       onCancel,
       onOk,
       footer = (
-        <>
-          <div style={{ display: 'flex', gap: '8px', width: '100%', justifyContent: 'end' }}>
-            <Button
-              color="ghost"
-              shadow="small"
-              onClick={onCancel}
-            >
-              取消
-            </Button>
-            <Button
-              shadow="small"
-              onClick={onOk}
-            >
-              确定
-            </Button>
-          </div>
-        </>
+        <div style={{ display: 'flex', gap: '8px', width: '100%', justifyContent: 'end' }}>
+          <Button
+            color="ghost"
+            shadow="small"
+            onClick={onCancel}
+          >
+            取消
+          </Button>
+          <Button
+            shadow="small"
+            onClick={onOk}
+          >
+            确定
+          </Button>
+        </div>
       ),
       theme,
       shadow = 'regular',
       size,
       visible = false,
+      className,
+      mask = true,
+      maskClosable = true,
+      maskStyle,
       ...rest
     },
     ref,
@@ -78,49 +97,65 @@ export const Dialog = React.forwardRef<HTMLDivElement, DialogProps>(
     const [dialogVisible, setDialogVisible] = useState<boolean>(false);
     const [dialogIn, setDialogIn] = useState<boolean>(false);
     const [dialogHide, setDialogHide] = useState<boolean>(false);
+    const dialogRef = useRef<HTMLDialogElement>(null);
 
-    useLayoutEffect(() => {
-      if (visible) {
-        console.log('hello');
-        setDialogVisible(true);
-        document.body.style.overflow = 'hidden';
-        setDialogIn(true);
-        setTimeout(() => {
-          setDialogIn(false);
-        }, 200000);
-      }
-      if (!visible) {
-        console.log('hi');
-        setDialogHide(true);
-        setTimeout(() => {
-          setDialogHide(false);
-          setDialogVisible(false);
-          document.body.style.overflow = '';
-        }, 400);
-      }
+    useEffect(() => {
+      visible ? openDialog() : closeDialog();
     }, [visible]);
+
+    useEffect(() => {
+      dialogVisible ? dialogRef.current?.show() : dialogRef.current?.close();
+    }, [dialogVisible]);
+
+    const openDialog = () => {
+      setDialogVisible(true);
+      document.body.style.overflow = 'hidden';
+      setDialogIn(true);
+    };
+
+    const closeDialog = () => {
+      setDialogIn(false);
+      setDialogHide(true);
+      setTimeout(() => {
+        setDialogHide(false);
+        document.body.style.overflow = '';
+        setDialogVisible(false);
+      }, 400);
+    };
 
     return (
       <>
-        {dialogVisible && (
-          <div
-            className={`${styles['background']}  ${styles[dialogIn ? 'background-in' : '']} 
-          ${styles[dialogHide ? 'background-hide' : '']}`}
-          >
-            <Card
-              ref={ref}
-              className={`${styles['base']} 
-          ${styles[dialogIn ? 'in' : '']} 
-          ${styles[dialogHide ? 'hide' : '']}`}
-              header={header}
-              mainContent={mainContent}
-              footer={footer}
-              shadow={shadow}
-              theme={theme}
-              size={size}
-              {...rest}
-            ></Card>
-          </div>
+        {createPortal(
+          <div>
+            {dialogVisible && (
+              <div
+                className={`${styles['dialog-container']} ${styles[mask ? 'mask' : 'no-mask']} ${styles[dialogIn ? 'dialog-in' : '']}  
+            ${styles[dialogHide ? 'dialog-hide' : '']}`}
+                onClick={() => maskClosable && onCancel && onCancel()}
+                style={maskStyle}
+              >
+                <dialog
+                  ref={dialogRef}
+                  className={`${styles['dialog']}  ${styles[dialogIn ? 'dialog-in' : '']}  
+          ${styles[dialogHide ? 'dialog-hide' : '']}  ${className} `}
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <Card
+                    ref={ref}
+                    className={`${styles['base']} `}
+                    header={header}
+                    mainContent={mainContent}
+                    footer={footer}
+                    theme={theme}
+                    size={size}
+                    shadow={shadow}
+                    {...rest}
+                  ></Card>
+                </dialog>
+              </div>
+            )}
+          </div>,
+          document.body,
         )}
       </>
     );

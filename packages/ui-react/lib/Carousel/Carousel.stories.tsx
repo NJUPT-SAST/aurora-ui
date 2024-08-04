@@ -47,9 +47,10 @@ export const DefaultCarousel: Story = {
       { children: <div style={styles}>4</div> },
       { children: <div style={styles}>5</div> },
     ],
-    onChange: test,
+    onchange: test,
     defaultSelected: 2,
     selected: 1,
+    className: 'test',
   },
 };
 
