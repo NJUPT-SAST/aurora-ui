@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import styles from './Dialog.module.scss';
 import { Button, Card } from '..';
 
@@ -79,7 +79,7 @@ export const Dialog = React.forwardRef<HTMLDivElement, DialogProps>(
     const [dialogIn, setDialogIn] = useState<boolean>(false);
     const [dialogHide, setDialogHide] = useState<boolean>(false);
 
-    useEffect(() => {
+    useLayoutEffect(() => {
       if (visible) {
         console.log('hello');
         setDialogVisible(true);
