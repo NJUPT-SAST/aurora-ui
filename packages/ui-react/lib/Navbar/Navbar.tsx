@@ -1,26 +1,20 @@
 import classNames from 'classnames';
-import React, {
-  Fragment,
-  useEffect,
-  useRef,
-  useState,
-  type HtmlHTMLAttributes,
-  type ReactNode,
-} from 'react';
+import React, { useCallback, useState, type HtmlHTMLAttributes, type ReactNode } from 'react';
 import styles from './Navbar.module.scss';
 
 export interface NavbarItemProps {
-  itemKey: string;
-  text?: string;
-  icon?: ReactNode;
+  navbarItemKey: string;
+  navbarItemContent?: ReactNode;
+  navbarItemIcon?: ReactNode;
   onClick?: () => void;
 }
 
-export interface NavbarProps extends HtmlHTMLAttributes<HTMLDivElement> {
+export interface NavbarProps
+  extends Omit<HtmlHTMLAttributes<HTMLDivElement>, 'content' | 'onChange'> {
   /**
    * items, the items of the Navbar
    */
-  items?: NavbarItemProps[];
+  contentItems?: NavbarItemProps[];
   /**
    * className, the className of the navbar, 最外层元素的样式名
    */
@@ -36,7 +30,7 @@ export interface NavbarProps extends HtmlHTMLAttributes<HTMLDivElement> {
   /**
    * mainContent, the mainContent of the header,If you don't want to use items and let us do the rendering, you can define your own mainContent as items
    */
-  mainContent?: ReactNode;
+  content?: ReactNode;
   /**
    * defaultSelectedKey ,
    */
@@ -48,85 +42,71 @@ export interface NavbarProps extends HtmlHTMLAttributes<HTMLDivElement> {
   /**
    * onchange , callback the itemKey
    */
-  onchange?: (value: string) => void;
+  onChange?: (value: string) => void;
+  /**
+   * headerClassName
+   */
+  headerClassName?: string;
+  /**
+   * footerClassName
+   */
+  footerClassName?: string;
 }
 
 export const Navbar = React.forwardRef<HTMLDivElement, NavbarProps>(
   (
     {
       className,
-      items,
+      contentItems = [],
       footer,
       header,
-      mainContent,
+      content,
       defaultSelectedKey,
       selectedKey,
-      onchange,
+      onChange,
+      headerClassName,
+      footerClassName,
       ...rest
     },
     ref,
   ) => {
-    const [selectItem, setSelectItem] = useState<string>('');
-    const footerRef = useRef<HTMLDivElement>(null);
-    const selectedItemRef = useRef<HTMLDivElement>(null);
-    const mainClass = classNames(styles['base'], className);
+    const navbarClass = classNames(styles['base'], className);
+    const [selectItemKey, setSelectItemKey] = useState<string>(defaultSelectedKey ?? '');
 
-    useEffect(() => {
-      defaultSelectedKey && setSelectItem(defaultSelectedKey);
-      // eslint-disable-next-line react-hooks/exhaustive-deps
+    const handleClickItem = useCallback((contentItem: NavbarItemProps) => {
+      contentItem.onClick && contentItem.onClick();
+      onChange && onChange(contentItem.navbarItemKey);
+      setSelectItemKey(contentItem.navbarItemKey);
     }, []);
-
-    useEffect(() => {
-      itemMoveAnimation();
-      onchange && onchange(selectItem);
-    }, [selectItem, onchange]);
-
-    const itemMoveAnimation = () => {
-      const currentEle = selectedItemRef.current as HTMLDivElement;
-      const width = currentEle?.offsetWidth;
-      const offsetLeft = currentEle?.offsetLeft;
-      const footerEle = footerRef.current as HTMLDivElement;
-      footerEle.style.width = `${width}px`;
-      footerEle.style.transform = `translateX(${offsetLeft + 1}px)`;
-    };
-
-    useEffect(() => {
-      selectedKey && setSelectItem(selectedKey);
-    }, [selectedKey]);
 
     return (
       <div
-        className={mainClass}
+        className={navbarClass}
         {...rest}
         ref={ref}
       >
-        {header}
-        <div className={styles['navbar-items-container']}>
-          <div
-            className={styles['footer']}
-            ref={footerRef}
-          />
-          {!mainContent &&
-            items?.map((item, index) => {
-              const isLastItem = index === items.length - 1;
-              return (
-                <Fragment key={index}>
-                  <div
-                    className={`${styles['navbar-item']} ${selectItem === item.itemKey ? styles['select'] : ''}`}
-                    id={item.itemKey}
-                    ref={selectItem === item.itemKey ? selectedItemRef : undefined}
-                    onClick={() => setSelectItem(item.itemKey)}
-                  >
-                    {item.icon}
-                    <span>{item.text}</span>
-                  </div>
-                  {!isLastItem && <div className={styles['divider']} />}
-                </Fragment>
-              );
-            })}
-          {mainContent}
-        </div>
-        {footer}
+        <div className={classNames(styles['header-container'], headerClassName)}>{header}</div>
+        {contentItems.length > 0 && (
+          <div className={styles['navbar-items-container']}>
+            {contentItems.map((contentItem) => (
+              <div
+                onClick={() => handleClickItem(contentItem)}
+                className={classNames(
+                  styles['navbar-item-container'],
+                  (selectedKey ?? selectItemKey) === contentItem.navbarItemKey
+                    ? styles['select-item']
+                    : '',
+                )}
+                key={contentItem.navbarItemKey}
+              >
+                {contentItem.navbarItemIcon}
+                {contentItem.navbarItemContent}
+              </div>
+            ))}
+          </div>
+        )}
+        {content}
+        <div className={classNames(styles['footer-container'], footerClassName)}>{footer}</div>
       </div>
     );
   },

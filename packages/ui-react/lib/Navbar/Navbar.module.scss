@@ -1,68 +1,41 @@
 @use '../variables' as *;
+
 .base {
   background-color: $white-color;
   width: 100%;
-  box-shadow: $shadow;
-  height: 55px;
+  border-bottom: solid 1px black;
+  height: 4rem;
   display: flex;
   align-items: center;
   padding: 0px 20px;
   box-sizing: border-box;
   gap: 40px;
+
+  .header-container {
+    cursor: pointer;
+  }
+
+  .footer-container {
+    cursor: pointer;
+  }
+
   .navbar-items-container {
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 12px;
-    flex-grow: 1;
-    position: relative;
-    .footer {
-      position: absolute;
-      left: 0;
-      bottom: -3px;
-      background-color: $primary-color;
-      height: 1.5px;
-      border-radius: 1px;
-      transition: all 250ms $cubic-bezier-string;
-    }
-    .navbar-item {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 5px;
-      color: rgb($black-color, 0.7);
-      transition: all 0.3s $cubic-bezier;
-      font-size: 12px;
-      font-weight: 500;
+    justify-content: center;
+    gap: 1rem;
+
+    .navbar-item-container {
       cursor: pointer;
-      font-weight: 600;
-      svg {
-        path {
-          inset: rgb($black-color, 0.7);
-          transition: all 0.3s $cubic-bezier;
-        }
-      }
-      &.select {
-        color: $primary-color;
-        svg {
-          path {
-            inset: $primary-color;
-          }
-        }
-      }
-      &:hover {
-        color: $primary-color;
-        svg {
-          path {
-            inset: $primary-color;
-          }
-        }
-      }
-    }
-    .divider {
-      height: 14px;
-      width: 1px;
-      background-color: rgb($black-color, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+
+      // &.select-item {
+      //   color: $violet-color;
+      // }
     }
   }
 }

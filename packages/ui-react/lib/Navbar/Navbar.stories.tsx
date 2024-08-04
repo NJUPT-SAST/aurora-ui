@@ -30,21 +30,16 @@ const defaultProps: NavbarProps = {};
 export const DefaultNavbar: Story = {
   args: {
     ...defaultProps,
-    items: [
+    contentItems: [
       {
-        itemKey: 'Home',
-        text: '首页',
-        icon: <Home />,
+        navbarItemKey: 'Home',
+        navbarItemContent: 'Home',
+        navbarItemIcon: <Home />,
       },
       {
-        itemKey: 'Library',
-        text: '题库题库',
-        icon: <LayoutList />,
-      },
-      {
-        itemKey: 'Rank',
-        text: '排名',
-        icon: <Award />,
+        navbarItemKey: 'Library',
+        navbarItemContent: 'Library',
+        navbarItemIcon: <LayoutList />,
       },
     ],
     footer: <>test</>,
@@ -55,9 +50,8 @@ export const DefaultNavbar: Story = {
         height={36}
       />
     ),
-    defaultSelectedKey: 'Rank',
-    selectedKey: 'Library',
-    onchange: test,
+    defaultSelectedKey: 'Home',
+    onChange: test,
   },
 };
 
