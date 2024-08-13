@@ -42,7 +42,7 @@ export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
       ),
       footer = null,
       close,
-      shadow = 'regular',
+      shadow = 'none',
       ...rest
     },
     ref,
@@ -55,6 +55,7 @@ export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
       styles[size],
       styles[visible ? 'visible' : ''],
       styles[`shadow-${shadow}`],
+      styles[`${type}Sider`],
     );
 
     useEffect(() => {
@@ -70,7 +71,7 @@ export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
               className={toastClass}
               {...rest}
             >
-              <div className={`${styles['sider']} ${styles[`${type}Sider`]}`}></div>
+              <div className={`${styles['sider']}`}></div>
               <div>
                 <div className={styles['header']}>
                   {/* Capitalize the TYPE one-key to present it as a headline */}

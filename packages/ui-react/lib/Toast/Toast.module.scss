@@ -27,30 +27,33 @@ $border-radius: $radius-5;
   padding: 12px 10px 16px 20px;
   display: flex !important;
   @include shadow;
-  background-color: var(--white-color);
+  background-color: $white-color;
   &.visible {
     opacity: 1;
     scale: 1;
     transform: translateY(0);
   }
-  .sider {
-    position: absolute;
-    width: 5px;
-    height: -webkit-fill-available;
-    left: 0;
-    top: 0;
-    &.infoSider {
-      background-color: var(--primary-color);
-    }
-    &.errorSider {
-      background-color: var(--danger-color);
-    }
-    &.warningSider {
-      background-color: var(--warning-color);
-    }
-    &.successSider {
-      background-color: var(--success-color);
-    }
+  // .sider {
+  //   position: absolute;
+  //   width: 5px;
+  //   height: -webkit-fill-available;
+  //   left: 0;
+  //   top: 0;
+  &.infoSider {
+    border: 1px solid $info-color;
+    background-color: rgba($info-color, 0.1);
+  }
+  &.errorSider {
+    border: 1px solid $danger-color;
+    background-color: rgba($danger-color, 0.1);
+  }
+  &.warningSider {
+    border: 1px solid $warning-color;
+    background-color: rgba($warning-color, 0.1);
+  }
+  &.successSider {
+    border: 1px solid $success-color;
+    background-color: rgba($success-color, 0.1);
   }
   display: flex;
   flex-direction: column;
