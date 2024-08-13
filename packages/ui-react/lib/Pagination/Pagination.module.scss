@@ -2,7 +2,11 @@
 .base {
   display: flex;
   flex-direction: row;
-  gap: 5px;
+  border-radius: 100px;
+  overflow: hidden;
+  gap: 1px;
+  background-color: black;
+  border: 1px solid $default-color;
   &.disabled {
     @include disabled;
   }
@@ -13,5 +17,9 @@
     align-items: center;
     justify-content: center;
     font-size: 13px !important;
+    border-radius: 0;
+    padding: 0 !important; 
+    border: unset !important;
+    filter: unset !important;
   }
 }

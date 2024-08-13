@@ -11,7 +11,9 @@
   @include color;
 
   &.disabled {
+    // all: unset;
     @include disabled;
+    background-color: $white-color;
   }
 
   &:hover {

@@ -38,6 +38,7 @@ export const PaginationItem = ({
       color={`${index !== undefined && (activePage || currentPage) === index + 1 ? 'primary' : 'border'}`}
       onClick={() => handleClick(type, index)}
       disabled={disabled}
+      shadow="none"
     >
       {children}
     </Button>
