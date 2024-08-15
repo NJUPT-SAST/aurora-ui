@@ -20,11 +20,15 @@ export interface BadgeProps {
    */
   clickCopy?: boolean;
   /**
-   * The shadow of the button.
+   * The shadow of the Badge.
    */
   shadow?: 'regular' | 'small' | 'medium' | 'large' | 'extraLarge' | 'inner' | 'none';
   /**
-   * classname , the classname of the badge
+   * The color of the Badge.
+   */
+  color?: string;
+  /**
+   * classname , the classname of the Badge
    */
   className?: string;
 }
@@ -38,6 +42,7 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
       clickCopy = false,
       shadow = 'none',
       className,
+      color,
       ...rest
     },
     ref,
@@ -54,12 +59,15 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
       navigator.clipboard.writeText(content);
     };
 
+    const badgeStyle = color ? { backgroundColor: color } : undefined;
+
     return (
       <div
         ref={ref}
         className={badgeClass}
         {...rest}
         onClick={clickCopy ? handleBadge : undefined}
+        style={badgeStyle}
       >
         <span>{content}</span>
       </div>
