@@ -78,8 +78,7 @@ export const Navbar = React.forwardRef<HTMLDivElement, NavbarProps>(
 
     useEffect(() => {
       itemMoveAnimation();
-      onchange && onchange(selectItem);
-    }, [selectItem, onchange]);
+    }, [selectItem]);
 
     const itemMoveAnimation = () => {
       const currentEle = selectedItemRef.current as HTMLDivElement;
@@ -115,7 +114,10 @@ export const Navbar = React.forwardRef<HTMLDivElement, NavbarProps>(
                     className={`${styles['navbar-item']} ${selectItem === item.itemKey ? styles['select'] : ''}`}
                     id={item.itemKey}
                     ref={selectItem === item.itemKey ? selectedItemRef : undefined}
-                    onClick={() => setSelectItem(item.itemKey)}
+                    onClick={() => {
+                      setSelectItem(item.itemKey);
+                      onchange && onchange(item.itemKey);
+                    }}
                   >
                     {item.icon}
                     <span>{item.text}</span>
