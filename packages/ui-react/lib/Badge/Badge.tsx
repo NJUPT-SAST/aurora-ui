@@ -38,7 +38,7 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
     {
       type = 'info',
       size = 'medium',
-      content = 'hello',
+      content,
       clickCopy = false,
       shadow = 'none',
       className,

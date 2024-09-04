@@ -16,6 +16,12 @@ $border-radius: $radius-5;
     }
   }
 }
+
+$info-back-color: rgba(232, 245, 255, 1);
+$success-back-color: rgba(238, 246, 239, 1);
+$warning-back-color: rgba(255, 252, 232, 1);
+$danger-back-color: rgba(252, 239, 236, 1);
+
 .base {
   border-radius: $border-radius;
   gap: 10px;
@@ -33,27 +39,21 @@ $border-radius: $radius-5;
     scale: 1;
     transform: translateY(0);
   }
-  // .sider {
-  //   position: absolute;
-  //   width: 5px;
-  //   height: -webkit-fill-available;
-  //   left: 0;
-  //   top: 0;
   &.infoSider {
     border: 1px solid $info-color;
-    background-color: rgba($info-color, 0.1);
+    background-color: $info-back-color;
   }
   &.errorSider {
     border: 1px solid $danger-color;
-    background-color: rgba($danger-color, 0.1);
+    background-color: $danger-back-color;
   }
   &.warningSider {
     border: 1px solid $warning-color;
-    background-color: rgba($warning-color, 0.1);
+    background-color: $warning-back-color;
   }
   &.successSider {
     border: 1px solid $success-color;
-    background-color: rgba($success-color, 0.1);
+    background-color: $success-back-color;
   }
   display: flex;
   flex-direction: column;

@@ -29,7 +29,7 @@ type Story = StoryObj<typeof meta>;
 const defaultProps: BadgeProps = {
   size: 'medium',
   type: 'info',
-  content: 'hello',
+  content: '你好 世界👋',
   clickCopy: false,
 };
 

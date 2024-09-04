@@ -33,20 +33,19 @@ type Story = StoryObj<typeof meta>;
 const defaultProps: ButtonProps = {
   color: 'primary',
   size: 'medium',
-  disabledShadow: true,
+  children: '点击 我🙋!',
 };
 
 export const DefaultButton: Story = {
   args: {
     ...defaultProps,
-    children: 'Click Me!',
   },
 };
 
 export const DisabledButton: Story = {
   args: {
     ...defaultProps,
-    children: 'Click Me!',
+    // children: 'Click Me!',
     disabled: true,
   },
 };
@@ -54,7 +53,7 @@ export const DisabledButton: Story = {
 export const ShowToastButton: Story = {
   args: {
     ...defaultProps,
-    children: 'Click Me!',
+    // children: 'Click Me!',
     onClick: () => showToast({ type: 'error' }),
   },
 };

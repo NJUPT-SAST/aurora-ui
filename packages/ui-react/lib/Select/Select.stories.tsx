@@ -28,25 +28,26 @@ export const DefaultSelect: Story = {
   args: {
     ...defaultProps,
     onChange: test,
+    size: 'medium',
     optionsList: [
       {
-        label: 'nodejs',
+        label: '第一个元素👨',
         value: 'nihao',
         key: 3,
       },
       {
-        label: 'nextjs',
+        label: '第二个元素👩',
         value: 'nihao',
         key: 6,
       },
 
       {
-        label: 'nuxtjs',
+        label: '第三个元素👦',
         value: 'nihao',
         key: 4,
       },
       {
-        label: 'nestjs',
+        label: '第四个元素👧',
         value: 'nihao',
         key: 5,
       },
@@ -64,30 +65,6 @@ export const DisabledSelect: Story = {
         width={18}
       />
     ),
-    optionsList: [
-      {
-        label: 'nodejs',
-        value: 'nihao',
-        key: 3,
-      },
-      {
-        label: 'nextjs',
-        value: 'nihao',
-        key: 6,
-      },
-
-      {
-        label: 'nuxtjs',
-        value: 'nihao',
-        key: 4,
-      },
-      {
-        label: 'nestjs',
-        value: 'nihao',
-        key: 5,
-      },
-    ],
-
     disabled: true,
   },
 };

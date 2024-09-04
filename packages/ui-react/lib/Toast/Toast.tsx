@@ -37,7 +37,7 @@ export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
       size = 'medium',
       content = (
         <span>
-          this is the message <strong>{type}</strong>
+          这是一条<strong>{type}</strong>信息
         </span>
       ),
       footer = null,

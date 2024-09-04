@@ -42,6 +42,6 @@ export const ExampleInput: Story = {
         width={18}
       />
     ),
-    placeholder: 'hello',
+    placeholder: '你好 世界👋',
   },
 };

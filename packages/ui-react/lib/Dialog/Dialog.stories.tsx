@@ -36,7 +36,7 @@ export const ExampleDialog: Story = {
   args: {
     ...defaultProps,
     size: 'medium',
-    header: <h3>考试已经结束</h3>,
-    content: <div style={{ marginBottom: '30px' }}>现在提交不再生效, 请问您还需要提交吗</div>,
+    header: <h3>这是一个标题</h3>,
+    content: <div style={{ marginBottom: '30px' }}>这是一个 Dialog 的内容</div>,
   },
 };

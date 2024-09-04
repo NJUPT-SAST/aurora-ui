@@ -45,16 +45,14 @@ export const ExampleCard: Story = {
     shadow: 'none',
     header: (
       <>
-        <h3 style={{ color: 'rgba(128, 128, 128)' }}>SAST</h3>
-        <h2>基础知识竞赛基础</h2>
+        <h3 style={{ color: 'rgba(128, 128, 128)' }}>这是个副标题</h3>
+        <h2>这是个标题</h2>
       </>
     ),
     content: (
       <>
         <div>
-          基础知识竞赛基础知识竞赛基础知识竞赛基础知识竞赛基础知识竞赛基础知识竞赛基础知识竞赛基础知识竞赛基础知识竞赛基础知识竞赛基础知识竞赛基础知识竞赛基础知识竞赛
-          基础知识竞赛基础知识竞赛基础知识竞赛基础知识竞赛基础知识竞赛基础知识竞赛基础知识竞赛基础知识竞赛基础知识竞赛基础知识竞赛基础知识竞赛基础知识竞赛基础知识竞赛
-          基础知识竞赛基础知识竞赛基础知识竞赛基础知识竞赛基础知识竞赛基础知识竞赛基础知识竞赛基础知识竞赛基础知识竞赛基础知识竞赛基础知识竞赛基础知识竞赛基础知识竞赛
+          这些是内容这些是内容这些是内容这些是内容这些是内容这些是内容这些是内容这些是内容这些是内容这些是内容这些是内容这些是内容这些是内容这些是内容这些是内容这些是内容这些是内容这些是内容这些是内容这些是内容这些是内容这些是内容这些是内容这些是内容这些是内容这些是内容
         </div>
       </>
     ),
@@ -68,8 +66,8 @@ export const ExampleCard: Story = {
           marginBottom: '10px',
         }}
       >
-        <Button color="danger">cancel</Button>
-        <Button>enter</Button>
+        <Button color="danger">取消</Button>
+        <Button>确定</Button>
       </div>
     ),
   },
@@ -79,7 +77,7 @@ export const ImageCard: Story = {
   args: {
     ...defaultProps,
     heroImage: '../../public/file cover - 1.png',
-    header: <h1 style={{ textAlign: 'end', marginRight: '5px' }}>Welcome to SAST OJ </h1>,
+    header: <h1 style={{ textAlign: 'end', marginRight: '5px' }}>这是个带图片的卡片</h1>,
     size: 'small',
     shadow: 'none',
     style: { padding: '10px' },

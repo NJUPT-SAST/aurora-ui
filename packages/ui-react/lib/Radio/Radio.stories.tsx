@@ -25,19 +25,20 @@ type Story = StoryObj<typeof meta>;
 const defaultProps: RadioProps = {
   size: 'medium',
   color: 'primary',
-  value: 'hello',
+  value: '你好 世界👋',
+  label: '你好 世界👋',
 };
 
 export const DefaultRadio: Story = {
   args: {
     ...defaultProps,
-    label: 'Storybook',
+    // label: 'Storybook',
   },
 };
 
 export const ExampleRadio: Story = {
   args: {
     ...defaultProps,
-    label: 'Bun',
+    // label: 'Bun',
   },
 };
