@@ -7,7 +7,7 @@ export interface RadioProps
   /**
    * The color of the Radio.
    */
-  color?: 'primary' | 'warning' | 'danger' | 'info' | 'ghost';
+  type?: 'primary' | 'warning' | 'danger' | 'info';
   /**
    * The size of the Radio.
    */
@@ -45,7 +45,7 @@ export interface RadioProps
 export const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
   (
     {
-      color = 'primary',
+      type = 'primary',
       size = 'medium',
       disabled = false,
       checked,
@@ -62,7 +62,7 @@ export const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
 
     const radioWrapperClass = classNames(
       styles['base'],
-      styles[color],
+      styles[type],
       styles[size],
       styles[disabled ? 'disabled' : ''],
       className,
@@ -79,7 +79,7 @@ export const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
           id={radioId}
           defaultChecked={checked === undefined ? defaultChecked : undefined}
           checked={checked}
-          className={`${styles['radio']} ${styles[color]}`}
+          className={`${styles['radio']} ${styles[type]}`}
           disabled={disabled}
           onChange={handleChange}
           ref={ref}

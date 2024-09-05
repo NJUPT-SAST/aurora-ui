@@ -22,7 +22,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const defaultProps: CheckboxProps = {
-  label: 'SAST',
+  label: '你好 世界👋',
   disabled: false,
   onChecked: test,
 };
