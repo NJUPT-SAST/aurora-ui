@@ -59,13 +59,13 @@
     border: 2px solid rgba($default-color, 0.9);
     border-radius: 4px;
     cursor: inherit;
-    transition: all 0.2s $cubic-bezier;
+    transition: all 0.1s $cubic-bezier;
     .check-icon {
       path {
         stroke: $default-color;
         stroke-dasharray: 24;
         stroke-dashoffset: 24;
-        animation: draw 0.3s linear forwards;
+        animation: draw 0.15s linear forwards;
         animation-delay: 0.2s;
         stroke-width: 3;
         animation-direction: reverse;

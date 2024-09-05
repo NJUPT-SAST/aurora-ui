@@ -19,7 +19,7 @@ export const Content = memo(function Content({ options, selectValue, changeSelec
             label={child.label}
             key={child.key || index}
             onChecked={changeSelect}
-          ></Checkbox>
+          />
         );
       })}
     </>

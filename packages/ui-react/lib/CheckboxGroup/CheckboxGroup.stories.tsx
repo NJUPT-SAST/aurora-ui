@@ -34,6 +34,7 @@ export const DefaultCheckboxGroup: Story = {
   args: {
     ...defaultProps,
     onChange: test,
+    defaultValue: ['node'],
   },
 };
 
