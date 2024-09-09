@@ -31,7 +31,7 @@ $switch-sizes: (
     height: $size;
     width: $size;
     transform: translateY(-50%);
-    background-color: var(--primary-color);
+    background-color: $violet-color;
     z-index: 0;
     transition: all $animation-duration $cubic-bezier;
   }
@@ -96,6 +96,7 @@ $switch-sizes: (
 .background {
   position: relative;
   overflow: hidden;
+  border: 1px solid $default-color;
   &.medium {
     $switch-size-anim: $switch-size-medium;
     @include background-size($switch-size-medium);
@@ -107,11 +108,9 @@ $switch-sizes: (
     @include background-size($switch-size-small);
   }
   .base {
-    position: relative;
     all: unset;
     display: block;
-    background-color: var(--shadow-color);
-    z-index: -1;
+    background-color: $white-color;
     box-shadow: $shadow-inner;
     cursor: pointer;
     transition: all $animation-duration $cubic-bezier;
@@ -130,7 +129,7 @@ $switch-sizes: (
       content: '';
       position: absolute;
       top: 50%;
-      background-color: var(--white-color);
+      background-color: $default-color;
       transform: translate(0, -50%);
       @include animation('not-checked');
       z-index: 1;
