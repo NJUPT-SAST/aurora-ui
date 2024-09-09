@@ -5,12 +5,10 @@
   border-radius: 100px;
   overflow: hidden;
   gap: 1px;
-  background-color: black;
-  border: 1px solid $default-color;
-  &.disabled {
-    @include disabled;
-  }
+  outline: 1px solid $default-color;
+
   .pagination-item {
+    outline: 1px solid $default-color;
     width: 32px;
     height: 32px;
     display: flex;
@@ -18,7 +16,7 @@
     justify-content: center;
     font-size: 13px !important;
     border-radius: 0;
-    padding: 0 !important; 
+    padding: 0 !important;
     border: unset !important;
     filter: unset !important;
   }

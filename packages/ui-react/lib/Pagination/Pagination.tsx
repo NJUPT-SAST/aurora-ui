@@ -105,6 +105,7 @@ export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
             <PaginationItem
               type="none"
               key="more"
+              disabled={disabled}
             >
               <span>...</span>
             </PaginationItem>,
@@ -140,6 +141,7 @@ export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
             <PaginationItem
               type="none"
               key="more"
+              disabled={disabled}
             >
               <span>...</span>
             </PaginationItem>,
@@ -173,6 +175,7 @@ export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
             <PaginationItem
               type="none"
               key="leftMore"
+              disabled={disabled}
             >
               <span>...</span>
             </PaginationItem>,
@@ -193,6 +196,7 @@ export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
             <PaginationItem
               type="none"
               key="rightMore"
+              disabled={disabled}
             >
               <span>...</span>
             </PaginationItem>,
