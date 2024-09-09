@@ -92,7 +92,7 @@ export const Dialog = React.forwardRef<HTMLDivElement, DialogProps>(
     const [shouldRender, setShouldRender] = useState<boolean>(false);
     const [dialogHide, setDialogHide] = useState<boolean>(false);
 
-    useEffect(() => {
+    useLayoutEffect(() => {
       visible ? openDialog() : closeDialog();
     }, [visible]);
 
