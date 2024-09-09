@@ -1,4 +1,4 @@
-import React, { useEffect, useState, type CSSProperties } from 'react';
+import React, { useEffect, useLayoutEffect, useState, type CSSProperties } from 'react';
 import styles from './Dialog.module.scss';
 import { Button, Card } from '..';
 import { createPortal } from 'react-dom';
