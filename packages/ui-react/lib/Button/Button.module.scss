@@ -8,18 +8,6 @@
   font-weight: 400;
   transition: box-shadow $animation-time-regular $cubic-bezier;
 
-  @include color;
-
-  &.disabled {
-    // all: unset;
-    @include disabled;
-    background-color: $white-color;
-  }
-
-  &:hover {
-    @include shadow;
-  }
-
   &:active {
     transform: scale(0.98);
     filter: blur(0.1px);
@@ -38,5 +26,17 @@
   &.large {
     padding: 10px 20px;
     font-size: 1.2rem;
+  }
+
+  @include color;
+
+  &.disabled {
+    // all: unset;
+    @include disabled;
+    background-color: $white-color;
+  }
+
+  &:hover {
+    @include shadow;
   }
 }

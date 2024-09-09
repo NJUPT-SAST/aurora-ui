@@ -32,8 +32,29 @@ $danger-back-color: rgba(252, 239, 236, 1);
   transition: all $animation-duration $cubic-bezier;
   padding: 12px 10px 16px 20px;
   display: flex !important;
-  @include shadow;
   background-color: $white-color;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  &.small {
+    width: 300px;
+    .inner {
+      padding: 10px;
+    }
+  }
+  &.medium {
+    width: 400px;
+    .inner {
+      padding: 15px;
+    }
+  }
+  &.large {
+    width: 500px;
+    .inner {
+      padding: 20px;
+    }
+  }
   &.visible {
     opacity: 1;
     scale: 1;
@@ -55,9 +76,6 @@ $danger-back-color: rgba(252, 239, 236, 1);
     border: 1px solid $success-color;
     background-color: $success-back-color;
   }
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
   .header {
     font-weight: bold;
     font-size: 20px;
@@ -89,6 +107,8 @@ $danger-back-color: rgba(252, 239, 236, 1);
   .footer {
     margin-top: 10px;
   }
+  @include shadow;
+
   &.info {
     @include type(primary);
   }
@@ -100,24 +120,6 @@ $danger-back-color: rgba(252, 239, 236, 1);
   }
   &.error {
     @include type(danger);
-  }
-  &.small {
-    width: 300px;
-    .inner {
-      padding: 10px;
-    }
-  }
-  &.medium {
-    width: 400px;
-    .inner {
-      padding: 15px;
-    }
-  }
-  &.large {
-    width: 500px;
-    .inner {
-      padding: 20px;
-    }
   }
 }
 
