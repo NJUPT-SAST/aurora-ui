@@ -2,16 +2,22 @@
 .base {
   display: flex;
   flex-direction: row;
-  gap: 5px;
-  &.disabled {
-    @include disabled;
-  }
+  border-radius: 100px;
+  overflow: hidden;
+  gap: 1px;
+  outline: 1px solid $default-color;
+
   .pagination-item {
+    outline: 1px solid $default-color;
     width: 32px;
     height: 32px;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 13px !important;
+    border-radius: 0;
+    padding: 0 !important;
+    border: unset !important;
+    filter: unset !important;
   }
 }

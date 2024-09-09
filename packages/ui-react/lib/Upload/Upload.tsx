@@ -176,7 +176,7 @@ export const Upload = React.forwardRef<HTMLInputElement, UploadProps>(
                     <Card
                       id={`upload-item-${index}`}
                       className={styles['upload-item']}
-                      mainContent={
+                      content={
                         <UploadItem
                           name={file.name}
                           size={file.size}
@@ -188,8 +188,6 @@ export const Upload = React.forwardRef<HTMLInputElement, UploadProps>(
                       }
                       header={null}
                       footer={null}
-                      padding={8}
-                      width={300}
                     />
                   </motion.div>
                 ))}

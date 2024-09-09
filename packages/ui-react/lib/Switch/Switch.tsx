@@ -1,8 +1,9 @@
 import classNames from 'classnames';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import styles from './Switch.module.scss';
 
-export interface SwitchProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface SwitchProps
+  extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'onChange'> {
   /**
    * size, the size of the Switch
    */
@@ -18,52 +19,45 @@ export interface SwitchProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   /**
    * onChange, the onChange of the switch
    */
-  onchange?: (value: boolean) => void;
+  onChange?: (value: boolean) => void;
   /**
    * disabled, the disabled of the switch
    */
   disabled?: boolean;
 }
 
-export const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(
+const SwitchImpl = React.forwardRef<HTMLButtonElement, SwitchProps>(
   (
-    {
-      size = 'medium',
-      checked = false,
-      defaultChecked = false,
-      onchange,
-      disabled = false,
-      ...rest
-    },
+    { size = 'medium', checked, defaultChecked = false, onChange, disabled = false, ...rest },
     ref,
   ) => {
     const [isChecked, setIsChecked] = useState<boolean | undefined>(defaultChecked);
     const switchClass = classNames(
-      `${styles['base']} ${isChecked ? styles['isChecked'] : ''} ${styles[size]} 
+      `${styles['base']} ${(checked !== undefined ? checked : isChecked) ? styles['isChecked'] : ''} ${styles[size]} 
       ${disabled ? styles['disabled'] : ''}`,
     );
 
-    useEffect(() => {
-      setIsChecked(checked);
-    }, [checked]);
+    const handleClick = useCallback(() => {
+      setIsChecked(!isChecked);
+      onChange && onChange(checked !== undefined ? !checked : !isChecked);
+    }, [onChange, checked, isChecked]);
 
-    useEffect(() => {
-      onchange && isChecked !== undefined && onchange(isChecked);
-    }, [isChecked, onchange]);
     return (
       <>
         <div className={`${styles['background']} ${styles[size]}`}>
           <button
             className={switchClass}
-            onClick={() => setIsChecked(!isChecked)}
+            onClick={handleClick}
             ref={ref}
             disabled={disabled}
             {...rest}
-          ></button>
+          />
         </div>
       </>
     );
   },
 );
 
-Switch.displayName = 'Switch';
+SwitchImpl.displayName = 'Switch';
+
+export const Switch = React.memo(SwitchImpl);

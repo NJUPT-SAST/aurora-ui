@@ -28,9 +28,8 @@ type Story = StoryObj<typeof meta>;
 
 const defaultProps: SwitchProps = {
   size: 'medium',
-  checked: false,
   defaultChecked: false,
-  onchange: test,
+  onChange: test,
   disabled: false,
 };
 

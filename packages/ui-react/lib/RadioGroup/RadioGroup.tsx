@@ -1,22 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import type { RadioProps } from '..';
 import classNames from 'classnames';
 import styles from './RadioGroup.module.scss';
 import { Radio } from '../Radio/Radio';
 
-export interface RadioGroupProps {
+export interface RadioGroupProps
+  extends Omit<React.HtmlHTMLAttributes<HTMLDivElement>, 'onChange'> {
   /**
    * the direction of the group
    */
   direction?: 'horizontal' | 'vertical';
   /**
-   * the defaultvalue of the group,if you use multipe ,the defaultValue must be an array
+   * the defaultvalue of the group
    */
   defaultValue?: string | undefined;
   /**
    * the onchange of the group
    */
-  onChange: (value: string) => void;
+  onChange?: (value: string | number, event: Event) => void;
   /**
    * the options of the radioGroup
    */
@@ -28,56 +29,30 @@ export interface RadioGroupProps {
 }
 
 export const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>(
-  (
-    {
-      direction = 'vertical',
-      defaultValue = 'nodejs',
-      onChange,
-      options = [
-        { children: 'nodejs', value: 'nodejs', key: 1 },
-        { children: 'vuejs', value: 'vuejs', key: 2 },
-        { children: 'react', value: 'react', key: 3 },
-      ],
-      value,
-      ...rest
-    },
-    ref,
-  ) => {
-    const [selectedValue, setSelectedValue] = useState<string>(defaultValue);
-    const handleRadioChange = (value: string) => {
-      setSelectedValue(value);
+  ({ direction = 'vertical', defaultValue, onChange, options, value, ...rest }, ref) => {
+    const [radioValue, setRadioValue] = useState<string | number | undefined>(defaultValue);
+
+    const handleRadioChange = (value: string | number, event: Event) => {
+      setRadioValue(value);
+      onChange && onChange(value, event);
     };
 
     const radioGroupClass = classNames(styles[direction], styles['base']);
 
-    useEffect(() => {
-      onChange(selectedValue);
-    }, [selectedValue, onChange]);
-
-    useEffect(() => {
-      value && setSelectedValue(value);
-    }, [value]);
-
     return (
       <div
-        {...rest}
         ref={ref}
         className={radioGroupClass}
+        {...rest}
       >
-        {options.map((item, index) => {
+        {options.map(({ ...optionRest }, index) => {
           return (
             <Radio
-              key={item.key || index}
-              value={item.value}
               onChange={handleRadioChange}
-              checked={selectedValue === item.value}
-              color={item.color}
-              size={item.size}
-              disabled={item.disabled}
-              defaultChecked={item.defaultChecked}
-            >
-              {item.children}
-            </Radio>
+              checked={value ? value === optionRest.value : radioValue === optionRest.value}
+              key={index}
+              {...optionRest}
+            />
           );
         })}
       </div>

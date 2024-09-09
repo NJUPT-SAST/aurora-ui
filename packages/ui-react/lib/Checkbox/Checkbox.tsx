@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styles from './Checkbox.module.scss';
 import classNames from 'classnames';
 import { Check } from 'lucide-react';
-export interface CheckboxProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface CheckboxProps extends React.HtmlHTMLAttributes<HTMLDivElement> {
   /**
    * value of the checkbox
    */
@@ -24,35 +24,43 @@ export interface CheckboxProps extends React.ButtonHTMLAttributes<HTMLButtonElem
    */
   onChecked?: (type: 'add' | 'delete', value: string) => void;
   /**
-   * fontsize
-   */
-  fontsize?: number;
-  /**
    * labelClass
    */
   labelClass?: string;
+  /**
+   * classname:string
+   */
+  className?: string;
+  /**
+   * type
+   */
+  type?: 'primary' | 'warning' | 'danger' | 'info' | 'ghost';
 }
 
-export const Checkbox = React.forwardRef<HTMLButtonElement, CheckboxProps>(
+export const Checkbox = React.forwardRef<HTMLDivElement, CheckboxProps>(
   (
     {
       value,
       checked,
-      label = 'SAST',
+      label,
       disabled = false,
-      fontsize,
+      className,
       labelClass,
       onChecked = function () {},
+      type = 'primary',
       ...rest
     },
     ref,
   ) => {
-    const checkboxClass = classNames(`${styles['base']} ${styles[disabled ? 'disabled' : '']}`);
+    const checkboxClass = classNames(
+      `${styles['base']} ${styles[disabled ? 'disabled' : '']} ${className} ${styles[type]}`,
+    );
     const [isChecked, setIsChecked] = useState<boolean>(false);
 
     useEffect(() => {
       checked && setIsChecked(checked);
     }, [checked]);
+
     const handleChecked = () => {
       const newIsChecked = !isChecked;
       setIsChecked(newIsChecked);
@@ -64,13 +72,13 @@ export const Checkbox = React.forwardRef<HTMLButtonElement, CheckboxProps>(
       <div
         className={checkboxClass}
         onClick={handleChecked}
+        ref={ref}
+        {...rest}
       >
         <button
           id="checkbox"
           disabled={disabled}
-          className={`${styles['checkboxButton']} ${styles[isChecked ? 'checked' : '']}`}
-          ref={ref}
-          {...rest}
+          className={`${styles['checkbox-button']} ${styles[isChecked ? 'checked' : '']}`}
         >
           {isChecked && (
             <Check
@@ -79,12 +87,7 @@ export const Checkbox = React.forwardRef<HTMLButtonElement, CheckboxProps>(
             />
           )}
         </button>
-        <label
-          className={`${labelClass} ${styles['labelSpan']}`}
-          style={{ fontSize: `${fontsize}px` }}
-        >
-          {label}
-        </label>
+        <label className={`${labelClass} ${styles['label-span']}`}>{label}</label>
       </div>
     );
   },

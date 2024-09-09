@@ -1,14 +1,48 @@
 //color variables
 $primary-color: #0078d4;
-$secondary-color: #71afe5;
-$danger-color: #dc2626;
-$warning-color: #facc15;
-$success-color: #16a34a;
-$white-color: #ffffff;
 $pale-white-color: #f6f6f7;
 $border-white-color: #f1f1f1;
-$black-color: #121212;
+$black-color: #1c1f23;
 $gray-color: #808080;
 $background-shadow-color: rgb(var(--black-color-rgb), 0.6);
 $title-bg-color: #f3f3f3;
 
+$default-color: #1c1f23;
+$violet-color: #b286fd;
+$white-color: #f9f9f9;
+$danger-color: #e54d2e;
+$warning-color: #ffdc00;
+$success-color: #46a758;
+$info-color: #0090ff;
+$secondary-color: #555b61;
+
+// this is for button abd badge
+@mixin color {
+  &.primary {
+    border: solid 1px $default-color;
+    background-color: $violet-color;
+    color: $default-color;
+  }
+
+  &.secondary {
+    border: solid 1px $default-color;
+    background-color: $white-color;
+    color: $default-color;
+  }
+
+  &.ghost {
+    border: none;
+    background-color: transparent;
+    color: $default-color;
+
+    &:hover {
+      border: solid 1px $default-color;
+    }
+  }
+
+  &.danger {
+    border: solid 1px $default-color;
+    background-color: $danger-color;
+    color: $default-color;
+  }
+}

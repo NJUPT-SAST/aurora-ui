@@ -19,8 +19,8 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const defaultProps: AccordionProps = {
-  accordionTrigger: <span>hello</span>,
-  accordionContent: <span>hi</span>,
+  accordionTrigger: <span>你好 👋</span>,
+  accordionContent: <span>世界 🌍</span>,
   disabled: false,
   width: 300,
 };

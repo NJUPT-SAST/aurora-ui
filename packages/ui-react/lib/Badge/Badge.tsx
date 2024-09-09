@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { type MouseEventHandler } from 'react';
 import styles from './Badge.module.scss';
 import classNames from 'classnames';
 
-export interface BadgeProps {
+export interface BadgeProps extends Omit<React.HtmlHTMLAttributes<HTMLDivElement>, 'onClick'> {
   /**
    * the type of the Badge
    */
@@ -27,6 +27,10 @@ export interface BadgeProps {
    * classname , the classname of the badge
    */
   className?: string;
+  /**
+   * onClick
+   */
+  onClick?: MouseEventHandler<HTMLDivElement>;
 }
 
 export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
@@ -34,10 +38,11 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
     {
       type = 'info',
       size = 'medium',
-      content = 'hello',
+      content,
       clickCopy = false,
       shadow = 'none',
       className,
+      onClick,
       ...rest
     },
     ref,
@@ -50,16 +55,17 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
       className,
     );
 
-    const handleBadge = () => {
+    const handleClickBadge: MouseEventHandler<HTMLDivElement> = (event) => {
       navigator.clipboard.writeText(content);
+      onClick && onClick(event);
     };
 
     return (
       <div
         ref={ref}
         className={badgeClass}
+        onClick={clickCopy ? handleClickBadge : undefined}
         {...rest}
-        onClick={clickCopy ? handleBadge : undefined}
       >
         <span>{content}</span>
       </div>

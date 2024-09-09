@@ -1,5 +1,18 @@
-//disabled
+//disabled SCSS variable
 @mixin disabled {
   cursor: not-allowed;
-  opacity: 0.4;
+  opacity: 0.5;
+  filter: blur(0.4px);
+
+  &:hover {
+    box-shadow: none !important;
+    transform: none !important;
+    filter: blur(0.4px);
+  }
+
+  &:active {
+    box-shadow: none !important;
+    transform: none !important;
+    filter: blur(0.4px);
+  }
 }

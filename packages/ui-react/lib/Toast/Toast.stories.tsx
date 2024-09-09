@@ -45,6 +45,6 @@ export const ExampleToast: Story = {
   args: {
     ...defaultProps,
     type: 'error',
-    content: <span>考试已结束，请不要重复提交</span>,
+    content: <span>这里是新的内容 📚</span>,
   },
 };

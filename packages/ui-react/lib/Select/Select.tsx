@@ -1,12 +1,15 @@
-import React, {
-  useState,
-  type MouseEventHandler,
-  type KeyboardEvent,
-  useEffect,
-  useRef,
-} from 'react';
+import React, { useRef, useState } from 'react';
+import { SelectTrigger } from './SelectTrigger';
+import { SelectContent } from './SelectContent';
+import {
+  createKeySelectItemStore,
+  createSelectItemStore,
+  type SelectItemProps,
+  SelectItemContext,
+  KeySelectItemContext,
+} from './SelectStore';
 import styles from './Select.module.scss';
-import { Input } from '..';
+import classNames from 'classnames';
 
 export interface OptionProps {
   value: string;
@@ -14,19 +17,19 @@ export interface OptionProps {
   key: number;
 }
 
-export interface SelectProps extends React.HtmlHTMLAttributes<HTMLDivElement> {
+export interface SelectProps extends Omit<React.HtmlHTMLAttributes<HTMLDivElement>, 'onChange'> {
+  /**
+   * the label of the select
+   */
+  label?: React.ReactNode;
   /**
    * onChange of the select
    */
-  onchange?: (value: OptionProps) => void;
+  onChange?: (value: OptionProps) => void;
   /**
    * the optionList of the select
    */
   optionsList: Array<OptionProps>;
-  /**
-   * the title of the select
-   */
-  title?: string;
   /**
    * diabled of the select
    */
@@ -40,14 +43,6 @@ export interface SelectProps extends React.HtmlHTMLAttributes<HTMLDivElement> {
    */
   selectKey?: number;
   /**
-   * isBorder,  the border of the select
-   */
-  isBorder?: boolean;
-  /**
-   * width, the width of the select
-   */
-  width?: number;
-  /**
    * placeHolder of the select
    */
   placeHolder?: string;
@@ -55,175 +50,82 @@ export interface SelectProps extends React.HtmlHTMLAttributes<HTMLDivElement> {
    * size?:
    */
   size?: 'small' | 'medium' | 'large';
+  /**
+   * shadow of the select
+   */
+  shadow?: 'regular' | 'small' | 'medium' | 'large' | 'extraLarge' | 'inner' | 'none';
+  /**
+   * className, the className of the select
+   */
+  className?: string;
 }
 
 export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
   (
     {
       optionsList = [],
-      onchange,
-      title,
+      label,
+      onChange,
       disabled = false,
       defaultSelectKey,
       selectKey,
-      isBorder = true,
-      width = 280,
-      placeHolder = '',
-      size,
+      placeHolder,
+      size = 'medium',
+      shadow = 'regular',
+      className,
       ...rest
     },
     ref,
   ) => {
-    // Here selectItemIndex is different from selectItem,
-    // selectItem is all the contents of the selected selectItem,
-    // selectItemIndex is the index value inside options, starting from 0, and has nothing to do with the key inside the options.
+    const defaultSelectItem: SelectItemProps = {
+      selectItem: optionsList.find((item) => item.key === defaultSelectKey),
+    };
+
+    const selectItem: SelectItemProps = {
+      selectItem: optionsList.find((item) => item.key === selectKey),
+    };
+
+    const selectItemStore = useRef(createSelectItemStore(defaultSelectItem ?? selectKey)).current;
+    const keySelectItemStore = useRef(
+      createKeySelectItemStore(defaultSelectItem ?? selectItem),
+    ).current;
     const [visible, setVisible] = useState<boolean>(false);
-    const [selectItem, setSelectItem] = useState<OptionProps | undefined>(
-      optionsList.find((item) => item.key === defaultSelectKey),
-    );
-    const [options, setOptions] = useState<OptionProps[]>(optionsList);
-    const [inputValue, setInputValue] = useState<string>('');
-    const [selectPlaceHolder, setSelectPlaceHolder] = useState<string>('');
-    const [selectItemIndex, setSelectItemIndex] = useState<number>(-1);
-    const inputRef = useRef<HTMLInputElement>(null);
-
-    useEffect(() => {
-      setSelectPlaceHolder(placeHolder);
-    }, [placeHolder]);
-
-    const showOptions: MouseEventHandler = () => {
-      if (!disabled) setVisible(!visible);
-    };
-
-    useEffect(() => {
-      setSelectItem(optionsList.find((item) => item.key === selectKey));
-    }, [selectKey, optionsList]);
-
-    function handleClick(value: OptionProps): void {
-      setSelectItem(value);
-      setSelectPlaceHolder(value.label);
-      setTimeout(() => {
-        setInputValue('');
-      }, 300);
-    }
-
-    const onKeyDown = (event: KeyboardEvent) => {
-      const optionsList = options;
-      const listLength = optionsList.length;
-      if (listLength === 0) return;
-      const KEY_ARROW_DOWN = 'arrowdown';
-      const KEY_ARROW_UP = 'arrowup';
-      const KEY_ENTER = 'enter';
-
-      function handleArrowDown() {
-        if (selectItemIndex === -1 || selectItemIndex === optionsList.length - 1) {
-          setSelectItemIndex(0);
-        } else {
-          setSelectItemIndex((selectItemIndex) => selectItemIndex + 1);
-        }
-      }
-
-      function handleArrowUp() {
-        if (selectItemIndex === -1 || selectItemIndex === 0) {
-          setSelectItemIndex(optionsList.length - 1);
-        } else {
-          setSelectItemIndex((selectItemIndex) => selectItemIndex - 1);
-        }
-      }
-
-      function handleEnter() {
-        if (selectItemIndex !== -1) {
-          handleClick(optionsList[selectItemIndex]!);
-          closeOptions();
-        }
-      }
-
-      if (event.key.toLocaleLowerCase() === KEY_ARROW_DOWN) {
-        handleArrowDown();
-      } else if (event.key.toLocaleLowerCase() === KEY_ARROW_UP) {
-        handleArrowUp();
-      } else if (event.key.toLocaleLowerCase() === KEY_ENTER) {
-        handleEnter();
-      }
-    };
-
-    useEffect(() => {
-      onchange && selectItem && onchange(selectItem);
-      selectItem?.label && setSelectPlaceHolder(selectItem.label);
-    }, [selectItem, onchange]);
-
-    const handleOptions = (value: string) => {
-      if (value === '') {
-        setSelectItem(undefined);
-      }
-      setInputValue(value);
-    };
-
-    function fuzzySearch(optionsList: OptionProps[], searchTerm: string): OptionProps[] {
-      const regex = new RegExp(searchTerm, 'i');
-      return optionsList.filter((option) => regex.test(option.label));
-    }
-
-    // When closeoptions, you need to set selectItemIndex to -1,
-    // and at the same time input loses focus and options disappear.
+    const selectClass = classNames(styles['base'], styles[size], className);
     const closeOptions = () => {
-      setSelectItemIndex(-1);
-      inputRef.current?.blur();
       setTimeout(() => {
         setVisible(false);
       }, 100);
     };
-
-    useEffect(() => {
-      const results = fuzzySearch(optionsList, inputValue);
-      setOptions(results);
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [inputValue]);
-
     return (
-      <div
-        ref={ref}
-        {...rest}
-      >
-        <Input
-          onClick={showOptions}
-          onBlur={closeOptions}
-          value={inputValue}
-          width={width}
-          onchange={handleOptions}
-          label={title}
-          isBorder={isBorder}
-          placeholder={selectPlaceHolder}
-          disabled={disabled}
-          onKeyDown={onKeyDown.bind(this)}
-          ref={inputRef}
-          size={size}
-          // According to the visible of the options box, determine the color of the placeholder,
-          // if the options are not expanded, the display will be black,
-          // if it has been expanded, the display will be gray.
-          className={`${styles['input']} ${visible ? styles['hide-placeholder'] : ''}`}
-        ></Input>
-        <div className={`${styles['options']} ${visible ? styles['show'] : ''}`}>
-          {!options.length ? (
-            <div className={styles['nothing-img-container']}>
-              <img src="../../public/sast_test_image/404.png" />
-              <span style={{ fontWeight: '700' }}>什么都没有检索到哦😭</span>
-            </div>
-          ) : (
-            options.map((obj, index) => {
-              return (
-                <div
-                  key={obj.key}
-                  className={`${styles['option-item']} ${styles['option-item']}_${obj.key} ${selectItemIndex === index ? styles['option-item-selected'] : ''}`}
-                  onClick={() => handleClick(obj)}
-                >
-                  <span className={styles['option-item-span']}>{obj.label}</span>
-                </div>
-              );
-            })
-          )}
-        </div>
-      </div>
+      <SelectItemContext.Provider value={selectItemStore}>
+        <KeySelectItemContext.Provider value={keySelectItemStore}>
+          <div
+            ref={ref}
+            className={selectClass}
+            {...rest}
+          >
+            <SelectTrigger
+              label={label}
+              disabled={disabled}
+              placeholder={placeHolder}
+              size={size}
+              optionsList={optionsList}
+              onClick={() => setVisible(true)}
+              onKeyDown={() => setVisible(true)}
+              onBlur={closeOptions}
+              closeOptions={() => setVisible(false)}
+              onChange={onChange}
+              selectKey={selectKey}
+            />
+            {visible && (
+              <SelectContent
+                optionsList={optionsList}
+                shadow={shadow}
+              />
+            )}
+          </div>
+        </KeySelectItemContext.Provider>
+      </SelectItemContext.Provider>
     );
   },
 );

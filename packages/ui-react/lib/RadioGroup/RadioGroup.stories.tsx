@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import React, { useState } from 'react';
 import { RadioGroup, type RadioGroupProps } from './RadioGroup';
 
-const handleRadioChange = (value: string | string[] | null) => {
+const handleRadioChange = (value: string | number | null) => {
   console.log('Selected value:', value);
 };
 const meta = {
@@ -22,12 +22,11 @@ type Story = StoryObj<typeof meta>;
 
 const defaultProps: RadioGroupProps = {
   direction: 'vertical',
-  defaultValue: '',
-  onChange: () => {},
+  defaultValue: 'nodejs',
   options: [
-    { children: 'nodejs', value: 'nodejs', color: 'danger', size: 'large' },
-    { children: 'vuejs', value: 'vuejs', color: 'warning' },
-    { children: 'react', value: 'react', size: 'small' },
+    { label: '第一个最大的元素👨', value: 'nodejs', color: 'danger', size: 'large' },
+    { label: '第二个中等的元素👩', value: 'vuejs', color: 'warning' },
+    { label: '第三个最小的元素🧒', value: 'react', size: 'small' },
   ],
 };
 
@@ -41,6 +40,6 @@ export const ExampleRadioGroup: Story = {
   args: {
     ...defaultProps,
     onChange: handleRadioChange,
-    defaultValue: 'nodejs',
+    value: 'vuejs',
   },
 };

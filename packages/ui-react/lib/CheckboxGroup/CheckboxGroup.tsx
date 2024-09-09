@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState, type HtmlHTMLAttributes } from 'react';
 import { type CheckboxProps } from '..';
 import { Content } from './Content';
 
 export interface OptionItemProps extends CheckboxProps {
-  value?: string;
   key?: number;
 }
 
-export interface CheckboxGroupProps {
+export interface CheckboxGroupProps extends Omit<HtmlHTMLAttributes<HTMLDivElement>, 'onChange'> {
   /**
    * options of the checkboxGroup
    */
@@ -20,39 +19,44 @@ export interface CheckboxGroupProps {
    * type  "column"|"row"
    */
   direction?: 'column' | 'row';
+  /**
+   * defaultValue, the defaultValue of the checkbox Group
+   */
+  defaultValue?: string[];
 }
 
 export const CheckboxGroup = React.forwardRef<HTMLDivElement, CheckboxGroupProps>(
-  ({ options, onChange, direction, ...rest }, ref) => {
-    const [selectedValue, setSelectedValue] = useState<string[]>([]);
+  ({ options, onChange, direction, defaultValue, ...rest }, ref) => {
+    const [selectedValue, setSelectedValue] = useState<string[]>(defaultValue ?? []);
 
-    const changeSelect = (type: 'add' | 'delete', value: string) => {
-      if (type === 'add') {
-        const newSelected = [...selectedValue, value];
-        setSelectedValue(newSelected);
-      }
-      if (type === 'delete') {
-        const newSelected = selectedValue.filter((element) => element !== value);
-        setSelectedValue(newSelected);
-      }
-    };
-
-    useEffect(() => {
-      onChange && onChange(selectedValue);
-    }, [selectedValue, onChange]);
+    const changeSelect = useCallback(
+      (type: 'add' | 'delete', value: string) => {
+        if (type === 'add') {
+          const newSelected = [...selectedValue, value];
+          setSelectedValue(newSelected);
+          onChange && onChange(newSelected);
+        }
+        if (type === 'delete') {
+          const newSelected = selectedValue.filter((element) => element !== value);
+          setSelectedValue(newSelected);
+          onChange && onChange(newSelected);
+        }
+      },
+      [selectedValue],
+    );
 
     return (
       <>
         <div
           ref={ref}
-          {...rest}
           style={{ display: 'flex', gap: '5px', flexDirection: direction }}
+          {...rest}
         >
           <Content
             options={options}
             selectValue={selectedValue}
             changeSelect={changeSelect}
-          ></Content>
+          />
         </div>
       </>
     );

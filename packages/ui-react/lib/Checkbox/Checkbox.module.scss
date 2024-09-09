@@ -7,7 +7,47 @@
   &.disabled {
     @include disabled;
   }
-  .checkboxButton {
+  &.primary {
+    .checkbox-button {
+      &.checked {
+        background-color: $violet-color;
+      }
+      &.checked:hover {
+        box-shadow: 0 0px 2px $violet-color;
+      }
+    }
+  }
+  &.info {
+    .checkbox-button {
+      &.checked {
+        background-color: $info-color;
+      }
+      &.checked:hover {
+        box-shadow: 0 0px 2px $info-color;
+      }
+    }
+  }
+  &.warning {
+    .checkbox-button {
+      &.checked {
+        background-color: $warning-color;
+      }
+      &.checked:hover {
+        box-shadow: 0 0px 2px $warning-color;
+      }
+    }
+  }
+  &.danger {
+    .checkbox-button {
+      &.checked {
+        background-color: $danger-color;
+      }
+      &.checked:hover {
+        box-shadow: 0 0px 2px $danger-color;
+      }
+    }
+  }
+  .checkbox-button {
     all: unset;
     position: relative;
     height: 20px;
@@ -16,16 +56,16 @@
     justify-content: center;
     align-items: center;
     box-sizing: border-box;
-    border: 2px solid var(--shadow-color);
-    border-radius: 6px;
+    border: 2px solid rgba($default-color, 0.9);
+    border-radius: 4px;
     cursor: inherit;
-    transition: all 0.2s $cubic-bezier;
+    transition: all 0.1s $cubic-bezier;
     .check-icon {
       path {
-        stroke: white;
+        stroke: $default-color;
         stroke-dasharray: 24;
         stroke-dashoffset: 24;
-        animation: draw 0.3s linear forwards;
+        animation: draw 0.15s linear forwards;
         animation-delay: 0.2s;
         stroke-width: 3;
         animation-direction: reverse;
@@ -36,24 +76,19 @@
       position: absolute;
       top: -1px;
       left: -1px;
-      height: 22px;
-      width: 22px;
-      border-radius: 8px;
-      transition: all 0.2s $cubic-bezier;
+      height: 20px;
+      width: 20px;
+      transition: all 0.1s $cubic-bezier;
     }
     &:hover::after {
       background-color: rgba(var(--shadow-color-rgb), 0.2);
     }
     &.checked {
-      background-color: var(--primary-color);
-      border: unset;
+      // border: unset;
       transition: all 0.2s $cubic-bezier;
     }
-    &.checked:hover {
-      box-shadow: 0 0px 15px rgba(var(--primary-color-rgb), 0.5);
-    }
   }
-  .labelSpan {
+  .label-span {
     font-size: 18px;
     cursor: inherit;
   }

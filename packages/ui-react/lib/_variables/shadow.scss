@@ -1,36 +1,34 @@
+@use './color.scss' as *;
 // box-shadow variables
-$shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-$shadow:
-  0 1px 3px 0 rgba(0, 0, 0, 0.1),
-  0 1px 2px -1px rgba(0, 0, 0, 0.1);
-$shadow-md:
-  0 4px 6px -1px rgb(0 0 0 / 0.1),
-  0 2px 4px -2px rgb(0 0 0 / 0.1);
-$shadow-lg:
-  0 10px 15px -3px rgb(0 0 0 / 0.1),
-  0 4px 6px -4px rgb(0 0 0 / 0.1);
-$shadow-xl:
-  0 20px 25px -5px rgb(0 0 0 / 0.1),
-  0 8px 10px -6px rgb(0 0 0 / 0.1);
-$shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+$shadow-sm: 1px 1px 0px 0 $default-color;
+$shadow: 2px 2px 0px 0 $default-color;
+$shadow-md: 3px 3px 0 0 $default-color;
+$shadow-lg: 4px 4px 0px 0px $default-color;
+$shadow-xl: 5px 5px 0px 0px $default-color;
 $shadow-inner: inset 0 2px 4px 0 rgb(0 0 0 / 0.05);
 
+// this is for button card ...
 @mixin shadow {
   &.shadow-regular {
     box-shadow: $shadow;
   }
+
   &.shadow-small {
     box-shadow: $shadow-sm;
   }
+
   &.shadow-medium {
     box-shadow: $shadow-md;
   }
+
   &.shadow-large {
     box-shadow: $shadow-lg;
   }
+
   &.shadow-extraLarge {
     box-shadow: $shadow-xl;
   }
+
   &.shadow-inner {
     box-shadow: $shadow-inner;
   }

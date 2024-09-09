@@ -1,5 +1,5 @@
-import { type ReactNode } from 'react';
-import { Button } from '..';
+import { memo, useCallback, useContext, useEffect, type ReactNode } from 'react';
+import { Button, PaginiationStoreContext } from '..';
 import styles from './Pagination.module.scss';
 import { useCurrentPageStore } from './useCurrentPageStore';
 
@@ -8,15 +8,14 @@ export interface PaginationItemProps {
   disabled?: boolean;
   type: 'select' | 'add' | 'delete' | 'none';
   index?: number;
-  activePage?: number;
 }
 
-export const PaginationItem = ({
+export const PaginationItemImpl = ({
   children,
   disabled = false,
   index,
   type,
-  activePage,
+  // activePage,
 }: PaginationItemProps) => {
   const [currentPage, increaseCurrentPage, decreaseCurrentPage, changeCurrentPage] =
     useCurrentPageStore((state) => [
@@ -26,20 +25,36 @@ export const PaginationItem = ({
       state.changeCurrentPage,
     ]);
 
-  const handleClick = (type: 'select' | 'add' | 'delete' | 'none', index?: number) => {
-    if (type === 'select' && index !== undefined) changeCurrentPage(index + 1);
-    if (type === 'add') increaseCurrentPage();
-    if (type === 'delete') decreaseCurrentPage();
-  };
+  const paginationStoreContext = useContext(PaginiationStoreContext);
+
+  const handleClick = useCallback((type: 'select' | 'add' | 'delete' | 'none', index?: number) => {
+    const activePage = paginationStoreContext?.activePage!;
+
+    if (type === 'select' && index !== undefined) {
+      !activePage && changeCurrentPage(index + 1);
+      paginationStoreContext && paginationStoreContext.onChange?.(index + 1);
+    } else if (type === 'add') {
+      !activePage && increaseCurrentPage();
+      paginationStoreContext &&
+        paginationStoreContext.onChange?.(activePage ? activePage + 1 : currentPage + 1);
+    } else if (type === 'delete') {
+      !activePage && decreaseCurrentPage();
+      paginationStoreContext &&
+        paginationStoreContext.onChange?.(activePage ? activePage + 1 : currentPage - 1);
+    }
+  }, []);
 
   return (
     <Button
       className={styles['pagination-item']}
-      color={`${index !== undefined && (activePage || currentPage) === index + 1 ? 'primary' : 'border'}`}
+      color={`${index !== undefined && (paginationStoreContext!.activePage ?? currentPage) === index + 1 ? 'primary' : 'border'}`}
       onClick={() => handleClick(type, index)}
       disabled={disabled}
+      shadow="none"
     >
       {children}
     </Button>
   );
 };
+
+export const PaginationItem = memo(PaginationItemImpl);

@@ -1,44 +1,67 @@
 @use '../variables' as *;
+
 @mixin color-badge($color-name) {
   background-color: $color-name;
-  color: $white-color;
-  font-weight: bold;
 }
 
-.base {
-  border-radius: $radius-5;
-  display: inline-flex;
-  @include shadow;
-  transition: all $duration-100 $cubic-bezier;
-  &:hover {
-    opacity: 0.8;
-  }
+@mixin badge-color {
   &.info {
-    @include color-badge($primary-color);
+    @include color-badge($info-color);
   }
+
   &.success {
     @include color-badge($success-color);
   }
+
   &.warning {
     @include color-badge($warning-color);
   }
+
   &.error {
     @include color-badge($danger-color);
   }
+
   &.ghost {
     @include color-badge($pale-white-color);
     color: $black-color;
   }
+}
+
+@mixin badge-size {
   &.medium {
-    font-size: 14px;
-    padding: 2px 11px;
+    font-size: 1rem;
+    padding: 0px 12px;
+    height: 28px;
+    border-radius: 14px;
   }
+
   &.large {
-    font-size: 18px;
-    padding: 3px 14px;
+    font-size: 1.2rem;
+    padding: 0px 16px;
+    height: 32px;
+    border-radius: 16px;
   }
+
   &.small {
-    font-size: 10px;
-    padding: 2px 8px;
+    padding: 0px 8px;
+    height: 24px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+  }
+}
+
+.base {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: solid 1px $default-color;
+  cursor: pointer;
+
+  @include shadow;
+  @include badge-color;
+  @include badge-size;
+
+  span {
+    display: inline;
   }
 }

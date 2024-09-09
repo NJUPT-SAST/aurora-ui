@@ -3,7 +3,7 @@ import styles from './Accordion.module.scss';
 import classnames from 'classnames';
 import { ChevronDown } from 'lucide-react';
 
-export interface AccordionProps {
+export interface AccordionProps extends React.HtmlHTMLAttributes<HTMLDivElement> {
   /**
    * the width of the Accordion
    */
@@ -20,17 +20,24 @@ export interface AccordionProps {
    * the accordionContent of the Accordion
    */
   accordionContent: React.ReactNode;
+  /**
+   * className
+   */
+  className?: string;
 }
 
 export const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>(
-  ({ disabled = false, accordionTrigger, accordionContent, width = 280, ...rest }, ref) => {
+  (
+    { disabled = false, accordionTrigger, accordionContent, className, width = 280, ...rest },
+    ref,
+  ) => {
     const accordionClass = classnames(styles['base']);
     const [visible, setVisible] = useState<boolean>(false);
     return (
       <div
         style={{ width: width }}
         ref={ref}
-        className={`${accordionClass}  ${visible ? styles['show'] : ''}`}
+        className={`${accordionClass}  ${visible ? styles['show'] : ''} ${className}`}
         {...rest}
       >
         <button

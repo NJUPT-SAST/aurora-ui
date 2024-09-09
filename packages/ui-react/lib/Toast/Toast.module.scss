@@ -16,6 +16,12 @@ $border-radius: $radius-5;
     }
   }
 }
+
+$info-back-color: rgba(232, 245, 255, 1);
+$success-back-color: rgba(238, 246, 239, 1);
+$warning-back-color: rgba(255, 252, 232, 1);
+$danger-back-color: rgba(252, 239, 236, 1);
+
 .base {
   border-radius: $border-radius;
   gap: 10px;
@@ -26,35 +32,50 @@ $border-radius: $radius-5;
   transition: all $animation-duration $cubic-bezier;
   padding: 12px 10px 16px 20px;
   display: flex !important;
-  @include shadow;
-  background-color: var(--white-color);
+  background-color: $white-color;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  &.small {
+    width: 300px;
+    .inner {
+      padding: 10px;
+    }
+  }
+  &.medium {
+    width: 400px;
+    .inner {
+      padding: 15px;
+    }
+  }
+  &.large {
+    width: 500px;
+    .inner {
+      padding: 20px;
+    }
+  }
   &.visible {
     opacity: 1;
     scale: 1;
     transform: translateY(0);
   }
-  .sider {
-    position: absolute;
-    width: 5px;
-    height: -webkit-fill-available;
-    left: 0;
-    top: 0;
-    &.infoSider {
-      background-color: var(--primary-color);
-    }
-    &.errorSider {
-      background-color: var(--danger-color);
-    }
-    &.warningSider {
-      background-color: var(--warning-color);
-    }
-    &.successSider {
-      background-color: var(--success-color);
-    }
+  &.infoSider {
+    border: 1px solid $info-color;
+    background-color: $info-back-color;
   }
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
+  &.errorSider {
+    border: 1px solid $danger-color;
+    background-color: $danger-back-color;
+  }
+  &.warningSider {
+    border: 1px solid $warning-color;
+    background-color: $warning-back-color;
+  }
+  &.successSider {
+    border: 1px solid $success-color;
+    background-color: $success-back-color;
+  }
   .header {
     font-weight: bold;
     font-size: 20px;
@@ -86,6 +107,8 @@ $border-radius: $radius-5;
   .footer {
     margin-top: 10px;
   }
+  @include shadow;
+
   &.info {
     @include type(primary);
   }
@@ -97,24 +120,6 @@ $border-radius: $radius-5;
   }
   &.error {
     @include type(danger);
-  }
-  &.small {
-    width: 300px;
-    .inner {
-      padding: 10px;
-    }
-  }
-  &.medium {
-    width: 400px;
-    .inner {
-      padding: 15px;
-    }
-  }
-  &.large {
-    width: 500px;
-    .inner {
-      padding: 20px;
-    }
   }
 }
 

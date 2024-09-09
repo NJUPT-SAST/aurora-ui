@@ -4,7 +4,7 @@ import React from 'react';
 import { Pagination, type PaginationProps } from './Pagination';
 
 const test = (value: number) => {
-  console.log('currentpage', value);
+  console.log('当前的选中的值', value);
 };
 
 const meta = {
@@ -24,7 +24,7 @@ type Story = StoryObj<typeof meta>;
 const defaultProps: PaginationProps = {
   total: 80,
   pageSize: 10,
-  activePage: undefined,
+  // activePage: 7,
   defaultActivePage: 4,
   onChange: test,
   disabled: false,
