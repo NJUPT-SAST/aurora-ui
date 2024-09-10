@@ -28,7 +28,7 @@ export interface AccordionProps extends React.HtmlHTMLAttributes<HTMLDivElement>
 
 export const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>(
   (
-    { disabled = false, accordionTrigger, accordionContent, className, width = 280, ...rest },
+    { disabled = false, accordionTrigger, accordionContent, className, width = 240, ...rest },
     ref,
   ) => {
     const accordionClass = classnames(styles['base']);
