@@ -106,7 +106,7 @@ export const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>(
            `}
             >
               <Calendar
-                onchange={handleDate}
+                onChange={handleDate}
                 defaultSelected={defaultPickDate}
                 onClick={(e) => {
                   e.stopPropagation();

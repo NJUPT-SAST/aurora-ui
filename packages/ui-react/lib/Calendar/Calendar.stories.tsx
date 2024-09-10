@@ -22,7 +22,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const defaultProps: CalendarProps = {
-  onChange: function () {},
+  onChange: test,
   defaultSelected: undefined,
 };
 
