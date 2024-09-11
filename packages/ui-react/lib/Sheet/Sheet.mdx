@@ -13,10 +13,11 @@ export const ShowSheet = () => {
   const [visible, setVisible] = useState(false);
   return (
     <>
-      <Button onClick={() => setVisible(true)}>Show Dialog</Button>
+      <Button onClick={() => setVisible(true)}>Show Sheet</Button>
       <Sheet
         visible={visible}
         onCancel={() => setVisible(false)}
+        sheetTitle='这是一个基本的sheet 🪗'
       />
     </>
   );

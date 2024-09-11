@@ -15,7 +15,7 @@ export interface SheetHeaderProps {
 }
 
 export const SheetHeader = React.forwardRef<HTMLDivElement, SheetHeaderProps>(
-  ({ content = 'Basic Sheet', onCancel, ...rest }, ref) => {
+  ({ content, onCancel, ...rest }, ref) => {
     return (
       <>
         <div
