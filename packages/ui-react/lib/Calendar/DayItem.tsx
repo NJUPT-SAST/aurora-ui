@@ -1,5 +1,6 @@
-import { memo } from 'react';
+import { memo, useMemo } from 'react';
 import styles from './Calendar.module.scss';
+import { Button } from '..';
 
 interface DayItemProps {
   index: number;
@@ -18,20 +19,6 @@ const DayItem = memo(function otherMonthItem({
   onChange,
   selectMonth,
 }: DayItemProps) {
-  let month;
-
-  switch (isOtherMonth) {
-    case 'pre':
-      month = selectMonth - 1;
-      break;
-    case 'after':
-      month = selectMonth + 1;
-      break;
-    default:
-      month = selectMonth;
-      break;
-  }
-
   function isSameDay(date1?: Date, date2?: Date) {
     return (
       date1?.getFullYear() === date2?.getFullYear() &&
@@ -40,23 +27,41 @@ const DayItem = memo(function otherMonthItem({
     );
   }
 
-  const thisDate = new Date(currentDate.getFullYear(), month, index);
+  const thisDate = useMemo(() => {
+    let month: number = selectMonth;
+
+    switch (isOtherMonth) {
+      case 'pre':
+        month = selectMonth - 1;
+        break;
+      case 'after':
+        month = selectMonth + 1;
+        break;
+      default:
+        month = selectMonth;
+        break;
+    }
+
+    return new Date(currentDate.getFullYear(), month, index);
+  }, [currentDate, index, isOtherMonth, selectMonth]);
 
   const handleClick = () => {
     thisDate && onChange(thisDate);
   };
 
   return (
-    <div
+    <Button
       key={`${isOtherMonth} ${index}`}
       className={`${styles['calendarItem']}
            ${styles[isOtherMonth !== 'this' ? 'otherMonth' : '']}
            ${styles[isSameDay(thisDate, currentDate) ? 'today' : '']}          
            ${styles[isSameDay(thisDate, selectDate) ? 'select' : '']}`}
       onClick={handleClick}
+      shadow="none"
+      color="ghost"
     >
       {index}
-    </div>
+    </Button>
   );
 });
 

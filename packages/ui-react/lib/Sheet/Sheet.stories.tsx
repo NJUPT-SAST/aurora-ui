@@ -19,6 +19,7 @@ type Story = StoryObj<typeof meta>;
 
 const defaultProps: SheetProps = {
   visible: false,
+  sheetTitle: '这是一个基本的sheet 🪗',
 };
 
 export const DefaultSheet: Story = {

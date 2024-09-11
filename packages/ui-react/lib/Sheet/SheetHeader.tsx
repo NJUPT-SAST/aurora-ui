@@ -16,11 +16,6 @@ export interface SheetHeaderProps {
 
 export const SheetHeader = React.forwardRef<HTMLDivElement, SheetHeaderProps>(
   ({ content, onCancel, ...rest }, ref) => {
-    const [headerContent, setHeaderContent] = useState<string>('Basic Sheet');
-
-    useEffect(() => {
-      content && setHeaderContent(content);
-    }, [content]);
     return (
       <>
         <div
@@ -29,16 +24,17 @@ export const SheetHeader = React.forwardRef<HTMLDivElement, SheetHeaderProps>(
           className={styles['sheet-header']}
         >
           <div className={styles['sheet-header-content']}>
-            <span>{headerContent}</span>
+            <span>{content}</span>
             <Button
               color="ghost"
               className={styles['svg-container']}
               size="small"
               onClick={onCancel}
+              shadow="none"
             >
               <X
                 size={16}
-                color="#808080"
+                // color="#808080"
               />
             </Button>
           </div>

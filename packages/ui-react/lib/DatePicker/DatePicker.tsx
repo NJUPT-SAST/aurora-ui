@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Button, Calendar } from '..';
 import styles from './DatePicker.module.scss';
 import { CalendarDays } from 'lucide-react';
 
-export interface DatePickerProps extends React.HtmlHTMLAttributes<HTMLDivElement> {
+export interface DatePickerProps
+  extends Omit<React.HtmlHTMLAttributes<HTMLDivElement>, 'onChange'> {
   /**
    * onchange, the onchange of the datepicker
    */
-  onchange?: (value: Date) => void;
+  onChange?: (value: Date) => void;
   /**
    * defaultPickDate, the defaultPickDate of the datepicker
    */
@@ -19,7 +20,7 @@ export interface DatePickerProps extends React.HtmlHTMLAttributes<HTMLDivElement
 }
 
 export const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>(
-  ({ onchange, defaultPickDate, pickDate, ...rest }, ref) => {
+  ({ onChange, defaultPickDate, pickDate, ...rest }, ref) => {
     const [calendarVisible, setCalendarVisible] = useState<boolean>(false);
     const [selectDate, setSelectDate] = useState<Date | undefined>(defaultPickDate);
     const [selectDateString, setSelectDateString] = useState<string | undefined>(
@@ -28,18 +29,17 @@ export const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>(
     const [calendarIn, setCalendarIn] = useState<boolean>(false);
     const [calendarHide, setCalendarHide] = useState<boolean>(false);
 
-    useEffect(() => {
-      if (pickDate) {
-        setSelectDate(pickDate);
-        setSelectDateString(pickDate.toString());
-      }
-    }, [pickDate]);
+    const pickDateString = useMemo<string | undefined>(() => pickDate?.toString(), [pickDate]);
 
-    useEffect(() => {
-      selectDate && onchange && onchange(selectDate);
-    }, [selectDate, onchange]);
+    // useEffect(() => {
+    //   if (pickDate) {
+    //     setSelectDate(pickDate);
+    //     setSelectDateString(pickDate.toString());
+    //   }
+    // }, [pickDate]);
 
     const handleDate = (value: Date) => {
+      onChange && onChange(value);
       setSelectDate(value);
       if (value.toString() !== new Date().toString()) {
         setSelectDateString(value.toString());
@@ -74,8 +74,6 @@ export const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>(
       }, 200);
     };
 
-    // console.log('selectDateString', selectDateString);
-
     return (
       <>
         <div
@@ -86,14 +84,17 @@ export const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>(
             color="border"
             className={`${styles['date-picker-button']} 
             ${styles[calendarVisible ? 'is-select-date' : '']}
-             ${styles[selectDateString ? 'have-select-date' : '']}`}
+             ${styles[(pickDateString ?? selectDateString) ? 'have-select-date' : '']}`}
             onClick={handleCalendarVisible}
+            shadow="none"
           >
             <CalendarDays size={18} />
-            {!selectDateString ? (
+            {!(pickDateString ?? selectDateString) ? (
               <span>Pick a date</span>
             ) : (
-              <span className={styles['select-date']}>{selectDate?.toDateString()}</span>
+              <span className={styles['select-date']}>
+                {(pickDate ?? selectDate)?.toDateString()}
+              </span>
             )}
           </Button>
           {calendarVisible && (
@@ -106,12 +107,12 @@ export const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>(
            `}
             >
               <Calendar
-                onchange={handleDate}
+                onChange={handleDate}
                 defaultSelected={defaultPickDate}
                 onClick={(e) => {
                   e.stopPropagation();
                 }}
-              ></Calendar>
+              />
             </div>
           )}
         </div>

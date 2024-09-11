@@ -32,7 +32,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const defaultProps: DatePickerProps = {
-  onchange: test,
+  onChange: test,
 };
 
 export const DefaultDatePicker: Story = {

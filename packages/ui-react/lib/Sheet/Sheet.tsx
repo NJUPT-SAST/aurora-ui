@@ -1,4 +1,4 @@
-import React, { useEffect, useState, type CSSProperties } from 'react';
+import React, { useEffect, useLayoutEffect, useState, type CSSProperties } from 'react';
 import styles from './Sheet.module.scss';
 // import SheetTrigger from './SheetTrigger';
 import { SheetHeader } from './SheetHeader';
@@ -81,7 +81,7 @@ export const Sheet = React.forwardRef<HTMLDivElement, SheetProps>(
     const [sheetHide, setSheetHide] = useState<boolean>(false);
     const [open, close] = useWrapperVisibleStore((state) => [state.open, state.close]);
 
-    useEffect(() => {
+    useLayoutEffect(() => {
       visible ? openSheet() : closeSheet();
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [visible]);
@@ -127,7 +127,7 @@ export const Sheet = React.forwardRef<HTMLDivElement, SheetProps>(
                   <SheetHeader
                     onCancel={onCancel}
                     content={sheetTitle}
-                  ></SheetHeader>
+                  />
                   <div className={styles['sheetMainContent']}>{mainContent}</div>
                   {isFooter && <SheetFooter onCancel={onCancel}>{sheetFooter}</SheetFooter>}
                 </div>
