@@ -11,25 +11,17 @@ $border: $border-1;
   display: flex;
   align-items: center;
   gap: 10px;
-  color: var(--shadow-color) !important;
+  color: $default-color !important;
   transition: all $animation-duration $cubic-bezier;
   padding: 10px 15px !important;
   width: 250px;
   height: 42px;
-  border-radius: $radius-10;
-  border: $border solid var(--shadow-color) !important;
+  border-radius: 3px;
+  border: $border solid $default-color !important;
   font-size: $font-size-14 !important;
   padding: 11px !important;
   .select-date {
-    color: var(--black-color) !important;
-  }
-  &.is-select-date {
-    border: $border solid var(--primary-color) !important;
-    color: var(--primary-color) !important;
-  }
-  &:hover {
-    color: var(--primary-color) !important;
-    border: $border solid var(--primary-color) !important;
+    color: $default-color !important;
   }
 }
 .calendar-container {
