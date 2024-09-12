@@ -23,8 +23,8 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center;
     gap: 1rem;
+    flex-grow: 1;
 
     .navbar-item-container {
       cursor: pointer;
@@ -33,10 +33,10 @@
       justify-content: center;
       gap: 0.4rem;
 
-      // 未来想要加被选中的样式直接在这里加好了
-      // &.select-item {
-      //   color: $violet-color;
-      // }
+      // TODO: 未来想要加被选中的样式直接在这里加好了
+      &.select-item {
+        // color: $violet-color;
+      }
     }
   }
 }

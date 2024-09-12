@@ -80,10 +80,10 @@ export const Navbar = React.forwardRef<HTMLDivElement, NavbarProps>(
     }, []);
 
     return (
-      <div
+      <header
         className={navbarClass}
-        {...rest}
         ref={ref}
+        {...rest}
       >
         <div className={classNames(styles['header-container'], headerClassName)}>{header}</div>
         {contentItems.length > 0 && (
@@ -107,7 +107,7 @@ export const Navbar = React.forwardRef<HTMLDivElement, NavbarProps>(
         )}
         {content}
         <div className={classNames(styles['footer-container'], footerClassName)}>{footer}</div>
-      </div>
+      </header>
     );
   },
 );

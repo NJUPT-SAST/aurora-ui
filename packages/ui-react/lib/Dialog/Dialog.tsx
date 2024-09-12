@@ -85,6 +85,7 @@ export const Dialog = React.forwardRef<HTMLDivElement, DialogProps>(
       mask = true,
       maskClosable = true,
       maskStyle,
+      onClick,
       ...rest
     },
     ref,
@@ -128,6 +129,10 @@ export const Dialog = React.forwardRef<HTMLDivElement, DialogProps>(
             footer={footer}
             size={size}
             shadow={shadow}
+            onClick={(event: React.MouseEvent<HTMLDivElement>) => {
+              event.stopPropagation();
+              onClick && onClick(event);
+            }}
             {...rest}
           />
         </div>,

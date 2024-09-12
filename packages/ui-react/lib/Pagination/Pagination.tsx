@@ -229,6 +229,7 @@ export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
             type="delete"
             disabled={currentPage === 1 || disabled}
             key={'delete'}
+            className={styles['pagination-item-direction']}
           >
             <ChevronsLeft size={16} />
           </PaginationItem>
@@ -237,6 +238,7 @@ export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
             type="add"
             disabled={currentPage === pageNumber || disabled}
             key={'add'}
+            className={styles['pagination-item-direction']}
           >
             <ChevronsRight size={16} />
           </PaginationItem>

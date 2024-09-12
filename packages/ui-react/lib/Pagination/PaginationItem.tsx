@@ -1,13 +1,14 @@
-import { memo, useCallback, useContext, useEffect, type ReactNode } from 'react';
+import React, { memo, useCallback, useContext, useEffect, type ReactNode } from 'react';
 import { Button, PaginiationStoreContext } from '..';
 import styles from './Pagination.module.scss';
 import { useCurrentPageStore } from './useCurrentPageStore';
 
-export interface PaginationItemProps {
+export interface PaginationItemProps extends React.HtmlHTMLAttributes<HTMLButtonElement> {
   children?: ReactNode;
   disabled?: boolean;
   type: 'select' | 'add' | 'delete' | 'none';
   index?: number;
+  className?: string;
 }
 
 export const PaginationItemImpl = ({
@@ -15,6 +16,8 @@ export const PaginationItemImpl = ({
   disabled = false,
   index,
   type,
+  className,
+  ...rest
   // activePage,
 }: PaginationItemProps) => {
   const [currentPage, increaseCurrentPage, decreaseCurrentPage, changeCurrentPage] =
@@ -46,11 +49,13 @@ export const PaginationItemImpl = ({
 
   return (
     <Button
-      className={styles['pagination-item']}
+      className={`${styles['pagination-item']} ${className}`}
+      // @ts-ignore
       color={`${index !== undefined && (paginationStoreContext!.activePage ?? currentPage) === index + 1 ? 'primary' : 'border'}`}
       onClick={() => handleClick(type, index)}
       disabled={disabled}
       shadow="none"
+      {...rest}
     >
       {children}
     </Button>

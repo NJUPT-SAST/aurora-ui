@@ -30,6 +30,9 @@ const defaultProps: NavbarProps = {};
 export const DefaultNavbar: Story = {
   args: {
     ...defaultProps,
+    style: {
+      width: '1000px',
+    },
     contentItems: [
       {
         navbarItemKey: 'Home',
