@@ -1,9 +1,17 @@
-import React, { memo, useEffect, useRef, useState, type HtmlHTMLAttributes } from 'react';
+import React, { memo, useEffect, useMemo, useRef, useState, type HtmlHTMLAttributes } from 'react';
 import { type CarouselItemProps, CarouselItem } from '..';
 import classNames from 'classnames';
 import styles from './Carousel.module.scss';
 
-export interface CarouselProps extends HtmlHTMLAttributes<HTMLDivElement> {
+export interface CarouselProps extends Omit<HtmlHTMLAttributes<HTMLDivElement>, 'onChange'> {
+  /**
+   * select of the Carousel
+   */
+  selectedIndex?: number;
+  /**
+   * defaultselect the defaultselect of the Carousel
+   */
+  defaultSelectedIndex?: number;
   /**
    * width of the carousel
    */
@@ -15,19 +23,11 @@ export interface CarouselProps extends HtmlHTMLAttributes<HTMLDivElement> {
   /**
    * CarouselItems of the carousel
    */
-  CarouselItems?: CarouselItemProps[];
+  carouselItems: CarouselItemProps[];
   /**
    * onChange : the onChange of the Carousel
    */
-  onchange?: (value: number) => void;
-  /**
-   * defaultselect the defaultselect of the Carousel
-   */
-  defaultSelected?: number;
-  /**
-   * select of the Carousel
-   */
-  selected?: number;
+  onChange?: (value: number) => void;
   /**
    * isSliding
    */
@@ -49,12 +49,12 @@ interface ContentProps {
 export const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
   (
     {
-      width = 400,
-      CarouselItems = undefined,
-      height,
-      onchange,
-      defaultSelected,
-      selected,
+      // width,
+      carouselItems,
+      // height,
+      onChange,
+      defaultSelectedIndex,
+      selectedIndex,
       isSliding = true,
       className,
       itemClassName,
@@ -66,7 +66,7 @@ export const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
     // one is whether it has reached the halfway position,
     // and the second is the speed of movement, when the dragging speed is greater than 0.5, it is automatically switched.
     // 这个轮播图的界定判断由两个因素决定，一个是是否到达了一半的位置，第二个是移动的速度，当拖拽速度大于0.5时，自动进行切换。
-    const [select, setSelect] = useState<number>(defaultSelected || 0);
+    const [select, setSelect] = useState<number>(defaultSelectedIndex || 0);
     const [startX, setStartX] = useState<number>(0);
     const [endX, setEndX] = useState<number>(0);
     const [startTime, setStartTime] = useState<number>(0);
@@ -75,16 +75,40 @@ export const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
     const [difference, setDifference] = useState<number>(0);
     const [isChanged, setIsChanged] = useState<boolean>(false);
     const [itemsNumber, setItemsNumber] = useState<number>(0);
-    const divRef = useRef<HTMLDivElement>(null);
+    const containerRef = useRef<HTMLDivElement | null>(null);
+    const viewRef = useRef<HTMLDivElement | null>(null);
+    const [width, setWidth] = useState<number>(0);
+    const [height, setHeight] = useState<number>(0);
 
     useEffect(() => {
-      selected !== undefined && setSelect(selected);
-    }, [selected]);
+      const handleResize = () => {
+        if (containerRef.current) {
+          setWidth(containerRef.current.offsetWidth);
+          setHeight(containerRef.current.offsetHeight);
+        }
+      };
+
+      // Initialize container width on mount
+      handleResize();
+
+      // Update container width on window resize
+      window.addEventListener('resize', handleResize);
+
+      // Clean up event listener on unmount
+      return () => {
+        window.removeEventListener('resize', handleResize);
+      };
+    }, []);
+
+    useEffect(() => {
+      selectedIndex !== undefined && setSelect(selectedIndex);
+    }, [selectedIndex]);
 
     const handleMouseDown = (e: React.MouseEvent) => {
       setStartX(e.clientX);
       setStartTime(Date.now());
       setIsDragging(true);
+      console.log('startX', startX);
     };
 
     const handleMouseMove = (e: React.MouseEvent) => {
@@ -95,16 +119,16 @@ export const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
     };
 
     useEffect(() => {
-      if (divRef.current) {
-        divRef.current.style.transition = 'auto';
-        divRef.current.style.transform = `translateX(${-(width * select + difference)}px)`;
+      if (containerRef.current) {
+        containerRef.current.style.transition = 'auto';
+        containerRef.current.style.transform = `translateX(${-(width * select + difference)}px)`;
       }
     }, [difference, select, width]);
 
     useEffect(() => {
-      if (difference === 0 && divRef.current) {
-        divRef.current.style.transition = '';
-        divRef.current.style.transform = `translateX(-${width * select}px)`;
+      if (difference === 0 && containerRef.current) {
+        containerRef.current.style.transition = '';
+        containerRef.current.style.transform = `translateX(-${width * select}px)`;
       }
     }, [select, width, difference]);
 
@@ -121,19 +145,19 @@ export const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
         setIsChanged(true);
       } else if (
         Math.abs(difference) < width / 2 &&
-        divRef.current &&
+        containerRef.current &&
         select === itemsNumber - 1 &&
         select === 0
       ) {
-        divRef.current.style.transform = `translateX(-${width * select}px)`;
+        containerRef.current.style.transform = `translateX(-${width * select}px)`;
       }
       setDifference(0);
       setIsDragging(false);
     };
 
     useEffect(() => {
-      onchange && onchange(select);
-    }, [select, onchange]);
+      onChange && onChange(select);
+    }, [select, onChange]);
 
     useEffect(() => {
       if (difference === 0 && !isChanged) {
@@ -152,10 +176,10 @@ export const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
     const carouselClass = classNames(styles['base']);
 
     useEffect(() => {
-      CarouselItems && setItemsNumber(CarouselItems.length);
-    }, [CarouselItems]);
+      carouselItems && setItemsNumber(carouselItems.length);
+    }, [carouselItems]);
 
-    const Content = memo(function content({ CarouselItems }: ContentProps) {
+    const Content = function content({ CarouselItems }: ContentProps) {
       return (
         <>
           {CarouselItems?.map((item, index) => {
@@ -172,24 +196,27 @@ export const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
           })}
         </>
       );
-    });
+    };
 
     return (
       <div
-        className={`${carouselClass} ${className}`}
         ref={ref}
-        style={{ width: `${width}px`, height: `${height}px` }}
+        className={`${carouselClass} ${className}`}
         {...rest}
       >
         <div
-          className={styles['carouselAll']}
-          ref={divRef}
-          onMouseDown={() => isSliding && handleMouseDown}
-          onMouseMove={() => isSliding && handleMouseMove}
-          onMouseUp={() => isSliding && handleMouseUp}
-          style={{ width: `${width}px`, height: `${height}px` }}
+          style={{ width: '100%', height: '100%' }}
+          ref={viewRef}
         >
-          {CarouselItems && <Content CarouselItems={CarouselItems}></Content>}
+          <div
+            className={styles['carousel-all']}
+            ref={containerRef}
+            onMouseDown={(e) => isSliding && handleMouseDown(e)}
+            onMouseMove={(e) => isSliding && handleMouseMove(e)}
+            onMouseUp={(e) => isSliding && handleMouseUp(e)}
+          >
+            {carouselItems.length && <Content CarouselItems={carouselItems}></Content>}
+          </div>
         </div>
       </div>
     );

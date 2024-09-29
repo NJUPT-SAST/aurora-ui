@@ -38,26 +38,30 @@ const defaultProps: CarouselProps = {};
 export const DefaultCarousel: Story = {
   args: {
     ...defaultProps,
+    selectedIndex: 1,
     width: 300,
     height: 300,
-    CarouselItems: [
+    carouselItems: [
       { children: <div style={styles}>1</div> },
       { children: <div style={styles}>2</div> },
       { children: <div style={styles}>3</div> },
       { children: <div style={styles}>4</div> },
       { children: <div style={styles}>5</div> },
     ],
-    onchange: test,
-    defaultSelected: 2,
-    selected: 1,
+    onChange: test,
+    defaultSelectedIndex: 2,
     className: 'test',
+    style:{
+      width:'500px',
+      height:'500px'
+    }
   },
 };
 
 export const ExampleCarousel: Story = {
   args: {
     ...defaultProps,
-    CarouselItems: [
+    carouselItems: [
       { children: <div>1</div> },
       { children: <div>2</div> },
       { children: <div>3</div> },
