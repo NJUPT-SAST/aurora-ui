@@ -52,6 +52,7 @@ export const DefaultSelect: Story = {
         key: 5,
       },
     ],
+    defaultSelectKey: 3,
     className: 'test',
   },
 };

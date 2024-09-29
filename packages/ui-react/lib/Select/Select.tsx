@@ -86,9 +86,7 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
     };
 
     const selectItemStore = useRef(createSelectItemStore(defaultSelectItem ?? selectKey)).current;
-    const keySelectItemStore = useRef(
-      createKeySelectItemStore(defaultSelectItem ?? selectItem),
-    ).current;
+    const keySelectItemStore = useRef(createKeySelectItemStore()).current;
     const [visible, setVisible] = useState<boolean>(false);
     const selectClass = classNames(styles['base'], styles[size], className);
     const closeOptions = () => {
