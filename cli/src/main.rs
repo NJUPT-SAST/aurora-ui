@@ -1,6 +1,6 @@
 use std::io;
 
-use cli::utils::tui::{tui_base::TuiBase, wrapper::Wrapper};
+use cli::utils::tui::{tui_render::TuiRender, wrapper::Wrapper};
 
 fn main() -> io::Result<()> {
     let mut terminal = ratatui::init();

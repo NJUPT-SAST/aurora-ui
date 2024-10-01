@@ -1,4 +1,4 @@
-use crossterm::event::{self, Event, KeyCode, KeyEvent, KeyEventKind};
+use crossterm::event::{KeyCode, KeyEvent};
 use ratatui::{
     layout::Alignment,
     style::Stylize,
@@ -10,7 +10,7 @@ use ratatui::{
     },
 };
 
-use super::tui_base::TuiBase;
+use super::tui_render::TuiRender;
 
 #[derive(Debug, Default)]
 pub struct Wrapper {
@@ -19,14 +19,6 @@ pub struct Wrapper {
 }
 
 impl Wrapper {
-    fn handle_key_event(&mut self, key_event: KeyEvent) {
-        match key_event.code {
-            KeyCode::Char('q') => self.exit(),
-            KeyCode::Left => self.decrement_counter(),
-            KeyCode::Right => self.increment_counter(),
-            _ => {}
-        }
-    }
     fn exit(&mut self) {
         self.exit = true;
     }
@@ -73,7 +65,7 @@ impl Widget for &Wrapper {
     }
 }
 
-impl TuiBase for Wrapper {
+impl TuiRender for Wrapper {
     fn draw(&self, frame: &mut ratatui::Frame) {
         frame.render_widget(self, frame.area());
     }
@@ -86,15 +78,12 @@ impl TuiBase for Wrapper {
         Ok(())
     }
 
-    fn handle_events(&mut self) -> Result<(), std::io::Error> {
-        match event::read()? {
-            // it's important to check that the event is a key press event as
-            // crossterm also emits key release and repeat events on Windows.
-            Event::Key(key_event) if key_event.kind == KeyEventKind::Press => {
-                self.handle_key_event(key_event)
-            }
+    fn handle_key_event(&mut self, key_event: KeyEvent) {
+        match key_event.code {
+            KeyCode::Char('q') => self.exit(),
+            KeyCode::Left => self.decrement_counter(),
+            KeyCode::Right => self.increment_counter(),
             _ => {}
-        };
-        Ok(())
+        }
     }
 }

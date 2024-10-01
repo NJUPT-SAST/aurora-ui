@@ -1,5 +1,5 @@
 {
-  "name": "@sast/ui-universal",
+  "name": "@ui-aurora/universal",
   "private": false,
   "version": "0.0.1",
   "type": "module",
@@ -25,7 +25,7 @@
     "dev": "tsc && vite build --watch",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "docs:dev": "pnpm --filter sast-ui-docs dev",
+    "docs:dev": "pnpm --filter @ui-aurora/docs dev",
     "lint": "eslint lib/*.ts --ext ts,tsx --report-unused-disable-directives --max-warnings 0"
   },
   "dependencies": {

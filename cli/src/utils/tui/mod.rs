@@ -1,2 +1,2 @@
-pub mod tui_base;
+pub mod tui_render;
 pub mod wrapper;
