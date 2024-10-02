@@ -1,16 +1,14 @@
-use crossterm::event::{KeyCode, KeyEvent};
-use ratatui::{
-    layout::Alignment,
+use crossterm::{
+    event::{KeyCode, KeyEvent},
     style::Stylize,
+};
+use ratatui::{
+    style::{Color, Style},
     symbols::border,
-    text::{Line, Text},
-    widgets::{
-        block::{Position, Title},
-        Block, Paragraph, Widget,
-    },
+    widgets::{Block, Paragraph, Widget},
 };
 
-use super::tui_render::TuiRender;
+use super::{render_layout::render_layout, split_area::split_area, tui_render::TuiRender};
 
 #[derive(Debug, Default)]
 pub struct Wrapper {
@@ -34,34 +32,31 @@ impl Wrapper {
 
 impl Widget for &Wrapper {
     fn render(self, area: ratatui::prelude::Rect, buf: &mut ratatui::prelude::Buffer) {
-        let title = Title::from(" aurora ui cli ".bold());
-        let instructions = Title::from(Line::from(vec![
-            " Decrement ".into(),
-            "<Left>".blue().bold(),
-            " Increment ".into(),
-            "<Right>".blue().bold(),
-            " Quit ".into(),
-            "<Q> ".blue().bold(),
-        ]));
+        let (comment, outer, inner) = split_area(area);
+
+        Paragraph::new("Use ↓↑ to move, ← to unselect, → to change status, g/G to go top/bottom.")
+            .style(Style::default().fg(Color::Red))
+            .centered()
+            .render(comment[1], buf);
 
         let block = Block::bordered()
-            .title(title.alignment(Alignment::Center))
-            .title(
-                instructions
-                    .alignment(Alignment::Center)
-                    .position(Position::Bottom),
-            )
+            .title(" Select Components ")
             .border_set(border::THICK);
-
-        let counter_text = Text::from(vec![Line::from(vec![
-            "Value: ".into(),
-            self.counter.to_string().yellow(),
-        ])]);
-
-        Paragraph::new(counter_text)
+        Paragraph::new("")
             .centered()
             .block(block)
-            .render(area, buf);
+            .render(outer[0], buf);
+
+        let block = Block::bordered().title(" Info ").border_set(border::THICK);
+        Paragraph::new("")
+            .centered()
+            .block(block)
+            .render(inner[0], buf);
+        let block = Block::bordered().title(" State ").border_set(border::THICK);
+        Paragraph::new("")
+            .centered()
+            .block(block)
+            .render(inner[1], buf);
     }
 }
 
