@@ -15,7 +15,7 @@ pub trait TuiRender {
 
     fn run(&mut self, terminal: &mut DefaultTerminal) -> Result<(), std::io::Error>;
 
-    fn draw(&self, frame: &mut Frame);
+    fn draw(&mut self, frame: &mut Frame);
 
     fn handle_key_event(&mut self, key_event: KeyEvent);
 }
