@@ -20,12 +20,12 @@ use super::{
 const SELECTED_STYLE: Style = Style::new().bg(SLATE.c800).add_modifier(Modifier::BOLD);
 
 #[derive(Debug, Default)]
-pub struct Wrapper {
+pub struct Tui {
     exit: bool,
     component_list: ComponentList,
 }
 
-impl Wrapper {
+impl Tui {
     pub fn new() -> Self {
         Self {
             exit: false,
@@ -59,7 +59,7 @@ impl Wrapper {
     }
 }
 
-impl Widget for &mut Wrapper {
+impl Widget for &mut Tui {
     fn render(self, area: ratatui::prelude::Rect, buf: &mut ratatui::prelude::Buffer) {
         let (comment, outer, inner) = split_area(area);
 
@@ -84,7 +84,7 @@ impl Widget for &mut Wrapper {
     }
 }
 
-impl TuiRender for Wrapper {
+impl TuiRender for Tui {
     fn draw(&mut self, frame: &mut ratatui::Frame) {
         frame.render_widget(self, frame.area());
     }
