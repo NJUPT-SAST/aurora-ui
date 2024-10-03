@@ -2,17 +2,13 @@ use crossterm::event::{KeyCode, KeyEvent};
 use ratatui::{
     buffer::Buffer,
     layout::Rect,
-    style::{
-        palette::{material::BLACK, tailwind::SLATE},
-        Color, Modifier, Style,
-    },
+    style::{palette::tailwind::SLATE, Color, Modifier, Style},
     symbols::border,
     widgets::{Block, List, ListItem, Paragraph, StatefulWidget, Widget},
-    DefaultTerminal,
 };
 
 use super::{
-    component_list::{ComponentItem, ComponentList},
+    component_list::{ComponentList, Status},
     split_area::split_area,
     tui_render::TuiRender,
 };
@@ -36,6 +32,36 @@ impl Tui {
         self.exit = true;
     }
 
+    fn select_none(&mut self) {
+        self.component_list.state.select(None);
+    }
+
+    fn select_next(&mut self) {
+        self.component_list.state.select_next();
+    }
+
+    fn select_previous(&mut self) {
+        self.component_list.state.select_previous();
+    }
+
+    fn select_first(&mut self) {
+        self.component_list.state.select_first();
+    }
+
+    fn select_last(&mut self) {
+        self.component_list.state.select_last();
+    }
+
+    fn toggle_status(&mut self) {
+        if let Some(i) = self.component_list.state.selected() {
+            self.component_list.components[i].status =
+                match self.component_list.components[i].status {
+                    Status::Select => Status::UnSelect,
+                    Status::UnSelect => Status::Select,
+                };
+        }
+    }
+
     fn render_list(&mut self, area: Rect, buf: &mut Buffer) {
         let block = Block::bordered()
             .title(" Select Components ")
@@ -46,7 +72,7 @@ impl Tui {
             .components
             .iter()
             .enumerate()
-            .map(|(i, component_item)| ListItem::from(component_item))
+            .map(|(_, component_item)| ListItem::from(component_item))
             .collect();
 
         let list = List::new(items)
@@ -63,7 +89,7 @@ impl Widget for &mut Tui {
     fn render(self, area: ratatui::prelude::Rect, buf: &mut ratatui::prelude::Buffer) {
         let (comment, outer, inner) = split_area(area);
 
-        Paragraph::new("Use ↓↑ to move, ← to unselect, → to change status, g/G to go top/bottom.")
+        Paragraph::new("Use 'j/k' to move, 'g/G' to go top/bottom, Space to toggle.")
             .style(Style::default().fg(Color::Red))
             .centered()
             .render(comment[1], buf);
@@ -89,18 +115,21 @@ impl TuiRender for Tui {
         frame.render_widget(self, frame.area());
     }
 
-    fn run(&mut self, terminal: &mut DefaultTerminal) -> Result<(), std::io::Error> {
-        while !self.exit {
-            terminal.draw(|frame| self.draw(frame))?;
-            self.handle_events()?;
-        }
-        Ok(())
-    }
-
     fn handle_key_event(&mut self, key_event: KeyEvent) {
         match key_event.code {
-            KeyCode::Char('q') => self.exit(),
+            KeyCode::Char('q') | KeyCode::Esc => self.exit(),
+            KeyCode::Char('j') | KeyCode::Down => self.select_next(),
+            KeyCode::Char('k') | KeyCode::Up => self.select_previous(),
+            KeyCode::Char('g') | KeyCode::Home => self.select_first(),
+            KeyCode::Char('G') | KeyCode::End => self.select_last(),
+            KeyCode::Char(' ') | KeyCode::Right => {
+                self.toggle_status();
+            }
             _ => {}
         }
+    }
+
+    fn get_exit(&self) -> bool {
+        self.exit
     }
 }

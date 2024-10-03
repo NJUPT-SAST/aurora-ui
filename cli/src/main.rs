@@ -1,8 +1,8 @@
-use std::io;
+use std::io::Result;
 
-use cli::utils::tui::{tui_render::TuiRender, tui::Tui};
+use cli::utils::tui::{tui::Tui, tui_render::TuiRender};
 
-fn main() -> io::Result<()> {
+fn main() -> Result<()> {
     let mut terminal = ratatui::init();
     let app_result = Tui::new().run(&mut terminal);
     ratatui::restore();

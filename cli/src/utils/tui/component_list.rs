@@ -18,7 +18,14 @@ pub struct ComponentList {
 
 impl ComponentList {
     pub fn new() -> Self {
-        ComponentList::from_iter([(Status::Select, "hello", "hello")])
+        ComponentList::from_iter([
+            (Status::UnSelect, "Button", "A button with magic animation"),
+            (
+                Status::Select,
+                "Card",
+                "A card with a shooting star background",
+            ),
+        ])
     }
 }
 
@@ -35,13 +42,13 @@ impl FromIterator<(Status, &'static str, &'static str)> for ComponentList {
 
 #[derive(Debug)]
 pub struct ComponentItem {
-    title: String,
-    info: String,
-    status: Status,
+    pub title: String,
+    pub info: String,
+    pub status: Status,
 }
 
 #[derive(Debug)]
-enum Status {
+pub enum Status {
     Select,
     UnSelect,
 }
