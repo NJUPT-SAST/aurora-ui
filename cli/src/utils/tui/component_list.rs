@@ -21,7 +21,7 @@ impl ComponentList {
         ComponentList::from_iter([
             (Status::UnSelect, "Button", "A button with magic animation"),
             (
-                Status::Select,
+                Status::UnSelect,
                 "Card",
                 "A card with a shooting star background",
             ),
@@ -40,14 +40,14 @@ impl FromIterator<(Status, &'static str, &'static str)> for ComponentList {
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct ComponentItem {
     pub title: String,
     pub info: String,
     pub status: Status,
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone, Copy)]
 pub enum Status {
     Select,
     UnSelect,

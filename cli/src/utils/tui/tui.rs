@@ -1,3 +1,5 @@
+use std::fmt::format;
+
 use crossterm::event::{KeyCode, KeyEvent};
 use ratatui::{
     buffer::Buffer,
@@ -8,7 +10,7 @@ use ratatui::{
 };
 
 use super::{
-    component_list::{ComponentList, Status},
+    component_list::{ComponentItem, ComponentList, Status},
     split_area::split_area,
     tui_render::TuiRender,
 };
@@ -19,6 +21,7 @@ const SELECTED_STYLE: Style = Style::new().bg(SLATE.c800).add_modifier(Modifier:
 pub struct Tui {
     exit: bool,
     component_list: ComponentList,
+    selected_items: Vec<String>,
 }
 
 impl Tui {
@@ -26,6 +29,7 @@ impl Tui {
         Self {
             exit: false,
             component_list: ComponentList::new(),
+            selected_items: Vec::new(),
         }
     }
     fn exit(&mut self) {
@@ -52,8 +56,16 @@ impl Tui {
         if let Some(i) = self.component_list.state.selected() {
             self.component_list.components[i].status =
                 match self.component_list.components[i].status {
-                    Status::Select => Status::UnSelect,
-                    Status::UnSelect => Status::Select,
+                    Status::Select => {
+                        self.selected_items
+                            .retain(|x| x != &self.component_list.components[i].title);
+                        Status::UnSelect
+                    }
+                    Status::UnSelect => {
+                        self.selected_items
+                            .push(self.component_list.components.get(i).unwrap().title.clone());
+                        Status::Select
+                    }
                 };
         }
     }
@@ -94,6 +106,17 @@ impl Tui {
             .wrap(Wrap { trim: false })
             .render(area, buf);
     }
+
+    fn render_status(&self, area: Rect, buf: &mut Buffer) {
+        // let select_state = format!()
+        let state_show = format!("Select components {:?}", &self.selected_items);
+        let block = Block::bordered().title(" State ").border_set(border::THICK);
+
+        Paragraph::new(state_show)
+            .block(block)
+            .wrap(Wrap { trim: false })
+            .render(area, buf);
+    }
 }
 
 impl Widget for &mut Tui {
@@ -105,15 +128,11 @@ impl Widget for &mut Tui {
             .centered()
             .render(comment[1], buf);
 
-        let block = Block::bordered().title(" State ").border_set(border::THICK);
-        Paragraph::new("")
-            .centered()
-            .block(block)
-            .render(inner[1], buf);
-
         self.render_list(outer[0], buf);
 
         self.render_selected_item(inner[0], buf);
+
+        self.render_status(inner[1], buf);
     }
 }
 
