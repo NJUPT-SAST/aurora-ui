@@ -5,8 +5,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "ui-uni:dev": "pnpm --filter @sast/ui-universal dev",
-    "ui-uni:build": "pnpm --filter @sast/ui-universal build",
+    "ui-uni:dev": "pnpm --filter @ui-aurora/universal  dev",
+    "ui-uni:build": "pnpm --filter @ui-aurora/universal build",
     "ui-react:start": "pnpm --filter @ui-aurora/react dev:lib",
     "ui-react:dev": "pnpm --filter @ui-aurora/react dev",
     "ui-react:build": "pnpm --filter @ui-aurora/react build:lib",

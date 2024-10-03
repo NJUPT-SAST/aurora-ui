@@ -1,8 +1,10 @@
-fn main() {
-    // println!("Hello, world!");
-    // let mut terminal = ratatui::init();
-    // terminal.clear()?;
-    // // let app_result = run(terminal);
-    // ratatui::restore();
-    // app_result
+use std::io::Result;
+
+use cli::utils::tui::{tui::Tui, tui_render::TuiRender};
+
+fn main() -> Result<()> {
+    let mut terminal = ratatui::init();
+    let app_result = Tui::new().run(&mut terminal);
+    ratatui::restore();
+    app_result
 }
