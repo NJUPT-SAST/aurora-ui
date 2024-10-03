@@ -4,7 +4,7 @@ use ratatui::{
     layout::Rect,
     style::{palette::tailwind::SLATE, Color, Modifier, Style},
     symbols::border,
-    widgets::{Block, List, ListItem, Paragraph, StatefulWidget, Widget},
+    widgets::{Block, List, ListItem, Paragraph, StatefulWidget, Widget, Wrap},
 };
 
 use super::{
@@ -30,10 +30,6 @@ impl Tui {
     }
     fn exit(&mut self) {
         self.exit = true;
-    }
-
-    fn select_none(&mut self) {
-        self.component_list.state.select(None);
     }
 
     fn select_next(&mut self) {
@@ -83,6 +79,21 @@ impl Tui {
 
         StatefulWidget::render(list, area, buf, &mut self.component_list.state);
     }
+
+    fn render_selected_item(&self, area: Rect, buf: &mut Buffer) {
+        let info = if let Some(select_index) = self.component_list.state.selected() {
+            self.component_list.components[select_index].info.clone()
+        } else {
+            "Nothing selected...".to_string()
+        };
+
+        let block = Block::bordered().title(" Info ").border_set(border::THICK);
+
+        Paragraph::new(info)
+            .block(block)
+            .wrap(Wrap { trim: false })
+            .render(area, buf);
+    }
 }
 
 impl Widget for &mut Tui {
@@ -94,12 +105,6 @@ impl Widget for &mut Tui {
             .centered()
             .render(comment[1], buf);
 
-        let block = Block::bordered().title(" Info ").border_set(border::THICK);
-        Paragraph::new("")
-            .centered()
-            .block(block)
-            .render(inner[0], buf);
-
         let block = Block::bordered().title(" State ").border_set(border::THICK);
         Paragraph::new("")
             .centered()
@@ -107,6 +112,8 @@ impl Widget for &mut Tui {
             .render(inner[1], buf);
 
         self.render_list(outer[0], buf);
+
+        self.render_selected_item(inner[0], buf);
     }
 }
 
