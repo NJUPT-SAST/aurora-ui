@@ -1,0 +1,3 @@
+const { runTui } = require(".");
+
+runTui();
