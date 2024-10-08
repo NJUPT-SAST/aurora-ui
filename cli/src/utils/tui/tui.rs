@@ -1,5 +1,3 @@
-use std::fmt::format;
-
 use crossterm::event::{KeyCode, KeyEvent};
 use ratatui::{
     buffer::Buffer,
@@ -10,7 +8,7 @@ use ratatui::{
 };
 
 use super::{
-    component_list::{ComponentItem, ComponentList, Status},
+    component_list::{ComponentList, Status},
     split_area::split_area,
     tui_render::TuiRender,
 };
@@ -22,6 +20,7 @@ pub struct Tui {
     exit: bool,
     component_list: ComponentList,
     selected_items: Vec<String>,
+    is_selecting: bool,
 }
 
 impl Tui {
@@ -30,6 +29,7 @@ impl Tui {
             exit: false,
             component_list: ComponentList::new(),
             selected_items: Vec::new(),
+            is_selecting: true,
         }
     }
     fn exit(&mut self) {
@@ -37,36 +37,50 @@ impl Tui {
     }
 
     fn select_next(&mut self) {
-        self.component_list.state.select_next();
+        if self.is_selecting {
+            self.component_list.state.select_next();
+        }
     }
 
     fn select_previous(&mut self) {
-        self.component_list.state.select_previous();
+        if self.is_selecting {
+            self.component_list.state.select_previous();
+        }
     }
 
     fn select_first(&mut self) {
-        self.component_list.state.select_first();
+        if self.is_selecting {
+            self.component_list.state.select_first();
+        }
     }
 
     fn select_last(&mut self) {
-        self.component_list.state.select_last();
+        if self.is_selecting {
+            self.component_list.state.select_last();
+        }
+    }
+
+    fn run_add_components(&mut self) {
+        self.is_selecting = false
     }
 
     fn toggle_status(&mut self) {
-        if let Some(i) = self.component_list.state.selected() {
-            self.component_list.components[i].status =
-                match self.component_list.components[i].status {
-                    Status::Select => {
-                        self.selected_items
-                            .retain(|x| x != &self.component_list.components[i].title);
-                        Status::UnSelect
-                    }
-                    Status::UnSelect => {
-                        self.selected_items
-                            .push(self.component_list.components.get(i).unwrap().title.clone());
-                        Status::Select
-                    }
-                };
+        if self.is_selecting {
+            if let Some(i) = self.component_list.state.selected() {
+                self.component_list.components[i].status =
+                    match self.component_list.components[i].status {
+                        Status::Select => {
+                            self.selected_items
+                                .retain(|x: &String| x != &self.component_list.components[i].title);
+                            Status::UnSelect
+                        }
+                        Status::UnSelect => {
+                            self.selected_items
+                                .push(self.component_list.components.get(i).unwrap().title.clone());
+                            Status::Select
+                        }
+                    };
+            }
         }
     }
 
@@ -123,10 +137,12 @@ impl Widget for &mut Tui {
     fn render(self, area: ratatui::prelude::Rect, buf: &mut ratatui::prelude::Buffer) {
         let (comment, outer, inner) = split_area(area);
 
-        Paragraph::new("Use 'j/k' to move, 'g/G' to go top/bottom, Space to toggle.")
-            .style(Style::default().fg(Color::Red))
-            .centered()
-            .render(comment[1], buf);
+        Paragraph::new(
+            "Use 'j/k' to move, 'g/G' to go top/bottom, Space to toggle, 'q' to exit, Enter to run",
+        )
+        .style(Style::default().fg(Color::Red))
+        .centered()
+        .render(comment[1], buf);
 
         self.render_list(outer[0], buf);
 
@@ -150,6 +166,9 @@ impl TuiRender for Tui {
             KeyCode::Char('G') | KeyCode::End => self.select_last(),
             KeyCode::Char(' ') | KeyCode::Right => {
                 self.toggle_status();
+            }
+            KeyCode::Enter => {
+                self.run_add_components();
             }
             _ => {}
         }
