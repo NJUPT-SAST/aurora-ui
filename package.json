@@ -1,5 +1,5 @@
 {
-  "name": "sast-ui",
+  "name": "ui-aurora",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -11,7 +11,7 @@
     "ui-react:dev": "pnpm --filter @ui-aurora/react dev",
     "ui-react:build": "pnpm --filter @ui-aurora/react build:lib",
     "ui-react:build-story": "pnpm --filter @ui-aurora/react build",
-    "docs:dev": "pnpm --filter @sast/ui-docs dev",
+    "docs:dev": "pnpm --filter @ui-aurora/docs dev",
     "commit": "git add . && pnpm lint-staged -p false && pnpm cz",
     "prepare": "husky"
   },
