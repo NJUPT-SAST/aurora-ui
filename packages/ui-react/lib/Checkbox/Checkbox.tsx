@@ -35,6 +35,10 @@ export interface CheckboxProps extends React.HtmlHTMLAttributes<HTMLDivElement> 
    * type
    */
   type?: 'primary' | 'warning' | 'danger' | 'info' | 'ghost';
+  /**
+   * defaultChecked
+   */
+  defaultChecked?: boolean;
 }
 
 export const Checkbox = React.forwardRef<HTMLDivElement, CheckboxProps>(
@@ -48,6 +52,7 @@ export const Checkbox = React.forwardRef<HTMLDivElement, CheckboxProps>(
       labelClass,
       onChecked = function () {},
       type = 'primary',
+      defaultChecked,
       ...rest
     },
     ref,
@@ -55,15 +60,11 @@ export const Checkbox = React.forwardRef<HTMLDivElement, CheckboxProps>(
     const checkboxClass = classNames(
       `${styles['base']} ${styles[disabled ? 'disabled' : '']} ${className} ${styles[type]}`,
     );
-    const [isChecked, setIsChecked] = useState<boolean>(false);
-
-    useEffect(() => {
-      checked && setIsChecked(checked);
-    }, [checked]);
+    const [isChecked, setIsChecked] = useState<boolean>(defaultChecked ?? false);
 
     const handleChecked = () => {
-      const newIsChecked = !isChecked;
-      setIsChecked(newIsChecked);
+      const newIsChecked = !(checked ?? isChecked);
+      !checked && setIsChecked(newIsChecked);
       newIsChecked && value && onChecked('add', value || label);
       !newIsChecked && value && onChecked('delete', value || label);
     };
@@ -78,9 +79,9 @@ export const Checkbox = React.forwardRef<HTMLDivElement, CheckboxProps>(
         <button
           id="checkbox"
           disabled={disabled}
-          className={`${styles['checkbox-button']} ${styles[isChecked ? 'checked' : '']}`}
+          className={`${styles['checkbox-button']} ${styles[(checked ?? isChecked) ? 'checked' : '']}`}
         >
-          {isChecked && (
+          {(checked ?? isChecked) && (
             <Check
               size={16}
               className={styles['check-icon']}

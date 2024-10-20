@@ -23,22 +23,28 @@ export interface CheckboxGroupProps extends Omit<HtmlHTMLAttributes<HTMLDivEleme
    * defaultValue, the defaultValue of the checkbox Group
    */
   defaultValue?: string[];
+  /**
+   * value, the value of the checkbox
+   */
+  value?: string[];
 }
 
 export const CheckboxGroup = React.forwardRef<HTMLDivElement, CheckboxGroupProps>(
-  ({ options, onChange, direction, defaultValue, ...rest }, ref) => {
+  ({ options, onChange, direction, defaultValue, value, ...rest }, ref) => {
     const [selectedValue, setSelectedValue] = useState<string[]>(defaultValue ?? []);
 
     const changeSelect = useCallback(
-      (type: 'add' | 'delete', value: string) => {
+      (type: 'add' | 'delete', selectValue: string) => {
         if (type === 'add') {
-          const newSelected = [...selectedValue, value];
-          setSelectedValue(newSelected);
+          const newSelected = [...(value !== undefined ? value : selectedValue), selectValue];
+          value === undefined && setSelectedValue(newSelected);
           onChange && onChange(newSelected);
         }
         if (type === 'delete') {
-          const newSelected = selectedValue.filter((element) => element !== value);
-          setSelectedValue(newSelected);
+          const newSelected = (value !== undefined ? value : selectedValue).filter(
+            (element) => element !== selectValue,
+          );
+          value === undefined && setSelectedValue(newSelected);
           onChange && onChange(newSelected);
         }
       },
@@ -54,7 +60,7 @@ export const CheckboxGroup = React.forwardRef<HTMLDivElement, CheckboxGroupProps
         >
           <Content
             options={options}
-            selectValue={selectedValue}
+            selectValue={value !== undefined ? value : selectedValue}
             changeSelect={changeSelect}
           />
         </div>
