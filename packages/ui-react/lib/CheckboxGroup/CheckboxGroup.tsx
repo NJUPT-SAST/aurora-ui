@@ -35,20 +35,21 @@ export const CheckboxGroup = React.forwardRef<HTMLDivElement, CheckboxGroupProps
 
     const changeSelect = useCallback(
       (type: 'add' | 'delete', selectValue: string) => {
+        const currentValues = value !== undefined ? value : selectedValue;
+
         if (type === 'add') {
-          const newSelected = [...(value !== undefined ? value : selectedValue), selectValue];
+          const newSelected = [...currentValues, selectValue];
           value === undefined && setSelectedValue(newSelected);
           onChange && onChange(newSelected);
         }
+
         if (type === 'delete') {
-          const newSelected = (value !== undefined ? value : selectedValue).filter(
-            (element) => element !== selectValue,
-          );
+          const newSelected = currentValues.filter((element) => element !== selectValue);
           value === undefined && setSelectedValue(newSelected);
           onChange && onChange(newSelected);
         }
       },
-      [selectedValue],
+      [value, selectedValue, onChange], // 更新依赖项
     );
 
     return (
