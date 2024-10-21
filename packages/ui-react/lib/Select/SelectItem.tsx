@@ -26,7 +26,7 @@ export const SelectItem = React.forwardRef<HTMLDivElement, SelectItemProps>(
       <div
         className={`${styles['select-item']} ${rest.className} ${keySelectItem?.key === option.key ? styles['key-select'] : ''}`}
         ref={ref}
-        onClick={() => {
+        onMouseDown={() => {
           updateSelectItem(option);
           changeValue(option.label);
         }}

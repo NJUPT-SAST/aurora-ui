@@ -90,9 +90,7 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
     const [visible, setVisible] = useState<boolean>(false);
     const selectClass = classNames(styles['base'], styles[size], className);
     const closeOptions = () => {
-      setTimeout(() => {
-        setVisible(false);
-      }, 100);
+      setVisible(false);
     };
     return (
       <SelectItemContext.Provider value={selectItemStore}>
@@ -107,10 +105,10 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
               disabled={disabled}
               placeholder={placeHolder}
               size={size}
+              onBlur={closeOptions}
               optionsList={optionsList}
               onClick={() => setVisible(true)}
               onKeyDown={() => setVisible(true)}
-              onBlur={closeOptions}
               closeOptions={() => setVisible(false)}
               onChange={onChange}
               selectKey={selectKey}
