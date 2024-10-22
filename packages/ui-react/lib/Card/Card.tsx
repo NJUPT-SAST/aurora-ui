@@ -75,9 +75,9 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
             alt="card-hero-image"
           />
         )}
-        <CardHeader>{header}</CardHeader>
-        <CardContent>{content}</CardContent>
-        <CardFooter>{footer}</CardFooter>
+        {header && <CardHeader>{header}</CardHeader>}
+        {content && <CardContent>{content}</CardContent>}
+        {footer && <CardFooter>{footer}</CardFooter>}
       </div>
     );
   },
