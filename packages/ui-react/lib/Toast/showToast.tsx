@@ -46,6 +46,7 @@ const moreTimeClose = (div: HTMLDivElement) => {
       if (toastContainer?.contains(div)) {
         toastContainer?.removeChild(div);
         toasts = toasts.filter((toast) => toast !== div);
+        checkToastContainer(); // Check if toasts are empty
       }
     }, 400);
   }, 5000);
@@ -55,9 +56,10 @@ const moreThreeClose = () => {
   if (toasts.length > 3) {
     toasts.shift();
     setTimeout(() => {
-      while (toastContainer && toastContainer?.childNodes.length > 3 && toastContainer.firstChild) {
+      while (toastContainer && toastContainer.childNodes.length > 3 && toastContainer.firstChild) {
         toastContainer.removeChild(toastContainer.firstChild);
       }
+      checkToastContainer(); // Check if toasts are empty
     }, 300);
   }
 };
@@ -65,6 +67,7 @@ const moreThreeClose = () => {
 const closeToast = (div: HTMLDivElement) => {
   setTimeout(() => {
     div.remove();
+    checkToastContainer(); // Check if toasts are empty
   }, 300);
   toasts = toasts.filter((toast) => toast !== div);
   addListener(div);
@@ -102,4 +105,11 @@ const addListener = (div: HTMLDivElement) => {
 
   div.addEventListener('mouseenter', handleMouseEnter);
   div.addEventListener('mouseleave', handleMouseLeave);
+};
+
+const checkToastContainer = () => {
+  if (toasts.length === 0 && toastContainer) {
+    document.body.removeChild(toastContainer);
+    toastContainer = null; // Reset toastContainer
+  }
 };
