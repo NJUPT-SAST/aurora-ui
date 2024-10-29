@@ -36,6 +36,7 @@ $danger-back-color: rgba(252, 239, 236, 1);
   display: flex;
   flex-direction: column;
   gap: 5px;
+  z-index: 9999;
 
   &.small {
     width: 300px;
