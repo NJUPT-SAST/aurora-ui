@@ -33,7 +33,7 @@ export interface PaginationProps
   disabled?: boolean;
 }
 
-export const PaginiationStoreContext = createContext<
+export const PaginationStoreContext = createContext<
   { onChange?: (value: number) => void; activePage?: number } | undefined
 >(undefined);
 
@@ -224,7 +224,7 @@ export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
         className={`${PaginationClass} ${className}`}
         {...rest}
       >
-        <PaginiationStoreContext.Provider value={{ onChange, activePage }}>
+        <PaginationStoreContext.Provider value={{ onChange, activePage }}>
           <PaginationItem
             type="delete"
             disabled={currentPage === 1 || disabled}
@@ -242,7 +242,7 @@ export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
           >
             <ChevronsRight size={16} />
           </PaginationItem>
-        </PaginiationStoreContext.Provider>
+        </PaginationStoreContext.Provider>
       </div>
     );
   },

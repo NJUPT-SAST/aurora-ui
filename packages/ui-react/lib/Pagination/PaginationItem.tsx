@@ -1,5 +1,5 @@
 import React, { memo, useCallback, useContext, useEffect, type ReactNode } from 'react';
-import { Button, PaginiationStoreContext } from '..';
+import { Button, PaginationStoreContext } from '..';
 import styles from './Pagination.module.scss';
 import { useCurrentPageStore } from './useCurrentPageStore';
 
@@ -28,7 +28,7 @@ export const PaginationItemImpl = ({
       state.changeCurrentPage,
     ]);
 
-  const paginationStoreContext = useContext(PaginiationStoreContext);
+  const paginationStoreContext = useContext(PaginationStoreContext);
 
   const handleClick = useCallback((type: 'select' | 'add' | 'delete' | 'none', index?: number) => {
     const activePage = paginationStoreContext?.activePage!;
