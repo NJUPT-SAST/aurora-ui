@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState, type HtmlHTMLAttributes } from 'react';
+import React, { useCallback, useState, type HtmlHTMLAttributes } from 'react';
 import { type CheckboxProps } from '..';
 import { Content } from './Content';
 

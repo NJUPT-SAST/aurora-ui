@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styles from './Sheet.module.scss';
 import { Button } from '..';
 import { X } from 'lucide-react';

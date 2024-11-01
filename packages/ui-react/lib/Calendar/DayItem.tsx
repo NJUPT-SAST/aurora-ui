@@ -11,7 +11,8 @@ interface DayItemProps {
   selectMonth: number;
 }
 
-const DayItem = memo(function otherMonthItem({
+const DayItem = memo(function DayItem({
+  // Change the function name here
   index,
   isOtherMonth,
   selectDate,

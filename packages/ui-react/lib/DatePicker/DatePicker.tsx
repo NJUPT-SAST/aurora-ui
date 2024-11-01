@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Button, Calendar } from '..';
 import styles from './DatePicker.module.scss';
 import { CalendarDays } from 'lucide-react';

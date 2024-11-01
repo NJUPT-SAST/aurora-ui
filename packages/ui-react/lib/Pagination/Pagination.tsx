@@ -1,4 +1,4 @@
-import React, { createContext, memo, useEffect, useState, type ReactNode } from 'react';
+import React, { createContext, useEffect, useState, type ReactNode } from 'react';
 import styles from './Pagination.module.scss';
 import classNames from 'classnames';
 import { PaginationItem } from './PaginationItem';

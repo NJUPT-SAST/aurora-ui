@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useContext, useEffect, type ReactNode } from 'react';
+import React, { memo, useCallback, useContext, type ReactNode } from 'react';
 import { Button, PaginationStoreContext } from '..';
 import styles from './Pagination.module.scss';
 import { useCurrentPageStore } from './useCurrentPageStore';
@@ -31,7 +31,7 @@ export const PaginationItemImpl = ({
   const paginationStoreContext = useContext(PaginationStoreContext);
 
   const handleClick = useCallback((type: 'select' | 'add' | 'delete' | 'none', index?: number) => {
-    const activePage = paginationStoreContext?.activePage!;
+    const activePage = paginationStoreContext?.activePage ?? 0;
 
     if (type === 'select' && index !== undefined) {
       !activePage && changeCurrentPage(index + 1);
@@ -50,7 +50,7 @@ export const PaginationItemImpl = ({
   return (
     <Button
       className={`${styles['pagination-item']} ${className}`}
-      // @ts-ignore
+      // @ts-expect-error this string must be contained
       color={`${index !== undefined && (paginationStoreContext!.activePage ?? currentPage) === index + 1 ? 'primary' : 'border'}`}
       onClick={() => handleClick(type, index)}
       disabled={disabled}

@@ -81,10 +81,6 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
       selectItem: optionsList.find((item) => item.key === defaultSelectKey),
     };
 
-    const selectItem: SelectItemProps = {
-      selectItem: optionsList.find((item) => item.key === selectKey),
-    };
-
     const selectItemStore = useRef(createSelectItemStore(defaultSelectItem ?? selectKey)).current;
     const keySelectItemStore = useRef(createKeySelectItemStore()).current;
     const [visible, setVisible] = useState<boolean>(false);

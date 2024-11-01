@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useState, type CSSProperties } from 'react';
+import React, { useLayoutEffect, useState, type CSSProperties } from 'react';
 import styles from './Sheet.module.scss';
 // import SheetTrigger from './SheetTrigger';
 import { SheetHeader } from './SheetHeader';

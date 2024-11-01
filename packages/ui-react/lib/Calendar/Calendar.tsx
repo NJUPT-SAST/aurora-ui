@@ -90,6 +90,8 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
       return weekdaysFlex;
     });
 
+    Weekdays.displayName = 'Weekdays';
+
     const calendarClass = classNames(`${styles['base']} ${styles[`shadow-${shadow}`]}`);
 
     const changeMonth = useCallback(

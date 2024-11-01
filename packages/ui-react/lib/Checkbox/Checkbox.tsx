@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styles from './Checkbox.module.scss';
 import classNames from 'classnames';
 import { Check } from 'lucide-react';

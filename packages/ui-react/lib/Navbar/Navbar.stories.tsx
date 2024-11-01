@@ -5,7 +5,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 import { Navbar, type NavbarProps } from './Navbar';
 import logoSvg from '../assets/Logo.svg';
-import { Home, LayoutList, Award } from 'lucide-react';
+import { Home, LayoutList } from 'lucide-react';
 
 const test = (value: string) => {
   console.log(value);

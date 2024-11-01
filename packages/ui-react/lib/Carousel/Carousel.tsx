@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useMemo, useRef, useState, type HtmlHTMLAttributes } from 'react';
+import React, { useEffect, useRef, useState, type HtmlHTMLAttributes } from 'react';
 import { type CarouselItemProps, CarouselItem } from '..';
 import classNames from 'classnames';
 import styles from './Carousel.module.scss';
