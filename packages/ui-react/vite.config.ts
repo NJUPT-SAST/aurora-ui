@@ -24,6 +24,19 @@ export default defineConfig({
     rollupOptions: {
       // Exclude peer dependencies from the bundle to reduce bundle size
       external: ['react/jsx-runtime', ...Object.keys(peerDependencies)],
+      output: {
+        // Enable code splitting for lib contents
+        manualChunks(id) {
+          if (id.includes('lib/')) {
+            // You can customize the logic here based on your folder structure
+            const parts = id.split('lib/')[1].split('/');
+            return parts[0]; // For example, group by the first level of subdirectory
+          }
+          if (id.includes('node_modules')) {
+            return id.split('node_modules/')[1].split('/')[0]; // Create a chunk for each module in node_modules
+          }
+        },
+      },
     },
   },
   css: {
