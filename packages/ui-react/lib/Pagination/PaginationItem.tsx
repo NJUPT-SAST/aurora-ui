@@ -30,22 +30,25 @@ export const PaginationItemImpl = ({
 
   const paginationStoreContext = useContext(PaginationStoreContext);
 
-  const handleClick = useCallback((type: 'select' | 'add' | 'delete' | 'none', index?: number) => {
-    const activePage = paginationStoreContext?.activePage ?? 0;
+  const handleClick = useCallback(
+    (type: 'select' | 'add' | 'delete' | 'none', index?: number) => {
+      const activePage = paginationStoreContext?.activePage ?? 0;
 
-    if (type === 'select' && index !== undefined) {
-      !activePage && changeCurrentPage(index + 1);
-      paginationStoreContext && paginationStoreContext.onChange?.(index + 1);
-    } else if (type === 'add') {
-      !activePage && increaseCurrentPage();
-      paginationStoreContext &&
-        paginationStoreContext.onChange?.(activePage ? activePage + 1 : currentPage + 1);
-    } else if (type === 'delete') {
-      !activePage && decreaseCurrentPage();
-      paginationStoreContext &&
-        paginationStoreContext.onChange?.(activePage ? activePage + 1 : currentPage - 1);
-    }
-  }, []);
+      if (type === 'select' && index !== undefined) {
+        !activePage && changeCurrentPage(index + 1);
+        paginationStoreContext && paginationStoreContext.onChange?.(index + 1);
+      } else if (type === 'add') {
+        !activePage && increaseCurrentPage();
+        paginationStoreContext &&
+          paginationStoreContext.onChange?.(activePage ? activePage + 1 : currentPage + 1);
+      } else if (type === 'delete') {
+        !activePage && decreaseCurrentPage();
+        paginationStoreContext &&
+          paginationStoreContext.onChange?.(activePage ? activePage + 1 : currentPage - 1);
+      }
+    },
+    [currentPage],
+  );
 
   return (
     <Button

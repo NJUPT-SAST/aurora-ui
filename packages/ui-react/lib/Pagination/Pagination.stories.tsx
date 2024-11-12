@@ -39,5 +39,6 @@ export const DefaultPagination: Story = {
 export const ExamplePagination: Story = {
   args: {
     ...defaultProps,
+    total: 431,
   },
 };
